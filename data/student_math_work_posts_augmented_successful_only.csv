@@ -1,0 +1,2439 @@
+course_id,year,thread_id,thread_no,title,question,category,subcategory,subsubcategory,created_at,is_answered,answer,answer_user_id,answer_created,answer_vote_count,work_score,indicators,week_number,exercise_number,problem_statement,problem_solution,new_problem,new_solution
+43,2022,4899,279,ex 1,"The translation of : 
+
+""Let ∼ be the relation on R × R defined by (a, b) ∼ (c, d) if and only if a + d = b + c"" is:
+
+$$\sim=\left\{\left(a,b\right)\epsilon\ R\cdot R,\ \left(c,d\right)\epsilon\ R\cdot R\ /\ a+d=b+c\right\}?$$
+
+If it is, will the set of the relation look like this : { ((1,2),(3,4)) , ((1,1),(2,2)), ...} ? 
+
+(values are juste examples, I haven't done the exercise yet.)",Exercises,Week5 : Relations - Sequences,,2022-10-21T04:47:00.442904+11:00,TRUE,"Yes, keep in mind its not necessarily integers though, ((1,3; 4,4),(2,3; 5,4)) is also i. The relation",92875,2022-10-21T05:16:28.09221+11:00,2,2,Mathematical definition,5,1,"Let ∼be the relation on R × R defined by (a, b) ∼(c, d) if and only if a + d = b + c.
+1. Prove that it is an equivalence relation.
+Define the function f : R × R →R by f(a, b) = a −b. Then, for any two pairs p, q ∈R × R, we
+have p ∼q if and only if f(p) = f(q). It is then easy to see that the relation is reflexive (because
+f(p) = f(p)), symmetric (because f(p) = f(q) implies f(q) = f(p)), and transitive (because
+f(p) = f(q) and f(q) = f(r) implies f(p) = f(r)).","2. Prove that the set of equivalence classes of ∼is uncountable.
+Let Q be the partition of R×R induced by the relation ∼(i.e., Q is the set of equivalence classes).
+We define a function F : Q →R as follows: for any equivalence class C ∈Q, choose p ∈C and let
+F(C) = f(p). This function is well defined because if q ∈C is an other element of the class then
+f(q) = f(p). In other words,
+F : Q −→R : C 7−→f(p) for any p ∈C.
+It is surjective: for any x ∈R, let C be the class of (x, 0), then F(C) = f(x, 0) = x. It is injective:
+if F(C) = F(D) for C, D ∈Q, then for any pairs p ∈C and q ∈D we have f(p) = f(q). Then
+p ∼q, and therefore p and q must be in the same equivalence class, hence C = D. So F is a
+bijection. Since R is uncountable, Q is also uncountable.",,
+43,2022,12342,630,Ex8,"Hi, im trying to do that exercice but im not sure about my reasoning.
+
+
+
+I must calculare nb of connections in a groupe of 10 computers + nb of the 5 remaining computer. Then i have 10! + 5! but its wrong. Im quite lost about how should i do that. I tried to draw injectives fonctions but im not sure that it ll work.",Exercises,Week 10 : Counting,,2022-12-04T20:13:33.590388+11:00,TRUE,"You know that if theres a printer connected to only 5 computers for example, then there exists a group of 10 computers that aren't connected to it at all and therefore have to work with the remaining 9 which is not possible. You therefore know there's at least 6 per printer, so 60.
+
+You also know that if you take connect 10 computers with 10 printers, and connect the remaining 5 with every printer, then you can find a solution for any group of computers. The reasoning is that if you have any of the 10 single connection computers, you can just have them use their assigned printer, while if you have any of the other 5, they can fill in anywhere anyways.",92875,2022-12-04T23:34:38.989074+11:00,1,6,English: my + work; English: I + action,10,8,"Find the least number of cables required to connect 15 computers to 10 printers to guarantee
+that any group of 10 computers can always directly access 10 different printers simultaneously:
+✓60
+⃝150
+⃝10
+⃝None of the above
+5
+","Suppose that we label the computers C1, C2, ..., C15 and the printers P1, P2, ..., P10. Suppose further
+that we connect Ck to Pk for k = 1, 2, . . . , 10 and each of the remaining 5 computers to all 10 printers.
+This requires a total of 60 cables. Clearly any set of 10 or less computers can simultaneously access
+different printers. This is because if computer Cj such that 1 ≤j ≤10 is included then it can access
+printer Pj, and for each included Ck with k ≥11, there must be a corresponding computer Cj such that
+1 ≤j ≤10 that is not included so Ck can access Pj.
+Now, suppose there are fewer than 60 cables connecting the computers to the printers. Then, at least
+one printer would be connected to at most ⌊59/10⌋= 5 computers. (If all printers were connected to at
+least 6 computers, there would be at least 6 × 10 = 60 cables.) This means that the remaining 9 printers
+are not enough to allow the other 10 computers to simultaneously access different printers. Hence, at
+least 60 direct connections are needed.
+6", In an IT firm each software developer can be in touch(connected) with multiple clients however can only assist one client at a time. Find the least number of client-software developer connections between 27 clients and 18 software developers to guarantee that any group of 18 clients can always be assisted by the 18 different software developers simultaneously.,"Problem Solution:
+This requires a total of at least 180 connections.
+C1 - C9 : all 18 printers
+C_(9+i): connected only to the Software Developer i
+
+Now if there are fewer than 180 connections, then at least one one software developer would be connected to at most 9 clients, so we can choose 18 clients that are not connected to him so he won t be able to assist any of them, meaning the remaining 17 software developers are not enough to assist these clients simultaneously."
+43,2022,4886,273,Set 5 Exercise 3,I do not understand what the exercise is asking for and how we are supposed to solve it.,Exercises,Week5 : Relations - Sequences,,2022-10-21T03:35:12.954542+11:00,TRUE,"First of all, may I suggest for the next question you ask to join a picture of the exercise, or the assignment in its entirety? It would save the person that answers some time to search for themselves, thanks in advance :)
+
+Next, about your question, what is asked for you to do is ""Show that (S x T, ⪯) is a poset"".
+
+The rest of the exercise description is to describe exactly what are S x T and ⪯
+
+In order to show this, you need to think about what a poset is, and what are the required properties in order to call a set and a relation together a poset. Here is the definition (source, page 52) :
+
+You need to prove that (S x T, ⪯) has those required properties, so it can be considered a poset.
+
+In general, think about assignments that go ""Show that [a] is [b]"" as ""Show that [a] that has the required properties to be called [b]""
+
+Hope it helps !",899590,2022-10-21T06:52:58.682177+11:00,0,2,Mathematical assumption,5,3,"Suppose that (S, ⪯1) and (T, ⪯2) are posets. Show that (S×T, ⪯) is a poset where (s, t) ⪯(u, v)
+if and only if s ⪯1 u and t ⪯2 v.
+A relation R on a set A is a partial ordering if the relation R is reflexive, antisymmetric, and transi-
+tive. (S, R) is then called a poset.
+PROOF (S × T, ⪯) is a poset if and only if the relation R = {((s, t), (u, v))|(s, t) ⪯(u, v)} is a par-
+tial ordering.
+(S, ⪯1) and (T, ⪯2) are posets, thus the relations R1 = {(s, u)|s ⪯1 u} and R2 = {(t, v)|t ⪯1 v} are
+both reflexive, antisymmetric and transitive.
+Reflexive
+Let (s, t) ∈S × T, where s ∈S and t ∈T.
+Since R1 = {(s, u)|s ⪯1 u} and R2 = {(t, v)|t ⪯1 v} are both reflexive:
+s ⪯1 s
+t ⪯2 t
+(s, t) ⪯(u, v) if and only if s ⪯1 u and t ⪯2 v
+(s, t) ⪯(s, t)
+which implies ((s, t), (s, t)) ∈R and thus R is reflexive.
+Antisymmetric
+Let ((s, t), (u, v)) ∈R and ((u, v), (s, t)) ∈R
+(s, t) ⪯(u, v)
+(u, v) ⪯(s, t)
+2
+(s, t) ⪯(u, v) if and only if s ⪯1 u and t ⪯2 v
+s ⪯1 u
+u ⪯1 s
+t ⪯2 v
+v ⪯2 t
+Since R1 = {(s, u)|s ⪯1 u} and R2 = {(t, v)|t ⪯2 v} are both antisymmetric:
+s = u, t = v
+which implies:
+(s, t) = (u, v)
+Thus R is antisymmetric.
+Transitive
+Let ((s, t), (u, v)) ∈R and ((u, v), (w, x)) ∈R
+(s, t) ⪯(u, v)
+(u, v) ⪯(w, x)
+(s, t) ⪯(u, v) if and only if s ⪯1 u and t ⪯2 v
+s ⪯1 u
+u ⪯1 w
+t ⪯2 v
+v ⪯2 x
+Since R1 = {(s, u)|s ⪯1 u} and R2 = {(t, v)|t ⪯2 v} are both transitive:
+s ⪯1 w
+t ⪯2 x
+which implies:
+(s, t) ⪯(w, x)
+Thus R is transitive.
+Conclusion: R is reflexive, antisymmetric and transitive. Then R is a partial ordering and (S × T, R) is
+a poset.",,,
+43,2022,10896,540,Set 10 exercise 7.1,"Hi,
+
+In this exercise, I did :
+
+choose a kind: C(13,1)
+take two cards out of that kind: C(4,2)
+choose another kind: C(12,1)
+take one card: C(4,1)
+choose another kind: C(11,1)
+take one card: C(4,1)
+choose another kind: C(10,1)
+take one card: C(4,1)
+
+And multiplied everything together, which is fairly near to the solution. 
+
+The solution takes C(12,3) instead of C(10,1) C(11,1) C(12,1), which I understand why, but I'd like to know why my solution isn't valid.",Exercises,Week 10 : Counting,,2022-11-26T02:04:19.210694+11:00,TRUE,"(Edit: I misread the number of the exercice, now it's the right answer)
+
+The problem is that you actually make a permutation instead of a combination. What you did is C(13,1)•C(12,1)•C(11,1)•C(10,1)•C(4,2)•C(4,1)³ = 13•12•11•10•C(4,2)•C(4,1)³ = P(13,4)•C(4,2)•C(4,1)³. 
+
+The order of the cards in a hand does not matters
+
+You must be really carefull beacause C(n,1)=P(n,1)=n ∀n∈ℕ. Even if you are working with the combination notation, you may in fact be doing a permutation!",198643,2022-11-26T08:41:57.214296+11:00,2,3,English: my + work,10,7,"How many distinct five-card poker hands contain:
+We show two ways to answer each of the questions
+1. One pair (poker hand containing two cards of the same kind and three cards of three other kinds)
+","(a) We can choose the kind of the pair in our hand in 13 =
+13
+1
+
+ways. Once we have the kind,
+we can choose the suits of the two cards in our pair in
+4
+2
+
+ways. Now we have to choose the
+kinds of the remaining 3 cards (three different kinds, each different than the pair kind). This
+can be done in
+12
+3
+
+ways. For each of the 3 chosen kinds there are 4 suits, so we can choose
+the suits in 43 =
+4
+1
+3 ways. Finally, the total number of one-pair hands is:
+13
+1
+4
+2
+12
+3
+4
+1
+3",,
+43,2022,9377,440,Ex 8 week 9,"Hi,
+
+How do you solve the first question without using using the explicit formulas? (I assume that's how it's supposed to be done)
+
+Thanks.",Exercises,Week9 : Recursion,,2022-11-16T02:33:49.996379+11:00,TRUE,"Hello !
+
+Whenever you have to prove a certain property on something that is defined by a recurrence relation, it should always come to mind to try proving it by induction. You can of course use the fact that fn = fn-2 + fn-1.
+
+Was that your question ? If not, please let me know.",491530,2022-11-16T04:23:01.905526+11:00,1,2,Mathematical assumption,9,8,"The Lucas numbers satisfy the recurrence relation
+Ln = Ln−1 + Ln−2
+and the initial conditions L0 = 2 and L1 = 1.
+Show that Ln = fn−1 + fn+1 for n = 2, 3, ..., where fn is the nth Fibonacci number.
+Let P(n) be “Ln = fn−1 + fn+1”
+Basis step: n = 2 and n = 3
+L2 = L1 + L0 = 1 + 2 = 3
+f1 + f3 = 1 + (f2 + f1) = 1 + (1 + 1) = 1 + 2 = 3
+L3 = L2 + L1 = 3 + 1 = 4
+f2 + f4 = (f0 + f1) + (f2 + f3) = (0 + 1) + (1 + 2) = 4
+Thus P(2) and P(3) are true.
+Inductive step: Let us assume that ∀k ≥3 : P(2), P(3), ..., P(k −1) and P(k) are True.
+Lk−1 = fk−2 + fk
+Lk = fk−1 + fk+1
+We need to prove that P(k + 1) is true:
+Lk+1 = Lk + Lk−1","= fk−1 + fk+1 + fk−2 + fk
+= (fk−1 + fk−2) + (fk+1 + fk)
+= fk + fk+2
+Thus P(k + 1) is true.
+Conclusion: By the principle of strong induction, P(n) is true for all positive integers n with n ≥2.",,
+43,2022,11866,594,Week 11 Exercise 6,"Hi,
+
+I have no idea what I'm supposed to do to solve this.
+
+Thanks.",Exercises,Week 10 : Counting,,2022-12-01T22:04:49.289847+11:00,TRUE,"We find the number of onto functions from A to B (with |A| = m >= |B| = n) by calculating the total number of functions A -> B and subtracting the ones that are not onto.
+
+There are 
+
+$$n^m$$
+
+possibilites for functions A -> B that can or cannot be onto (each value in the domain maps to any value in the codomain).
+
+A function A -> B that is not onto can be created by simply not reaching all values in the codomain. So the function would have to reach any number < n of values in the codomain. That's where the sum comes from: you restrict the codomain to a set with k elements, with k < n. For each k, you have C(n, k) possibilities to actually pick the values in the function's range.
+
+The resulting functions (with the restricted codomain) have to be onto (so you don't count anything twice), so the number of ways to pick them is simply S(m, k). 
+
+Putting everything together, we get that the number of functions that are onto from A to B is equal to
+
+$$S\left(m,\ n\right)\ =\ n^m\ -\ \sum_{k\ =\ 1}^{n\ -\ 1}C\left(n,\ k\right)S\left(m,\ k\right)$$",738658,2022-12-02T01:10:54.184204+11:00,1,2,Mathematical assumption,10,6,"1. The number of distinct triples (x1, x2, x3) of non-negative integers x1, x2, x3 such that x1+x2+x3 =
+8 equals
+⃝495.
+⃝330.
+⃝165.
+✓45.
+2
+There are C(n + k −1, k) =
+n+k−1
+k
+
+ways to select a combination of k objects with replacement
+from n objects, so there are C(n + k −1, k) ways to select n non-negative integers x1, x2, . . ., xn
+such that Pn
+i=1 xi = k. The number of distinct triples (x1, x2, x3) of non-negative integers x1, x2,
+x3 such that x1 + x2 + x3 = 8 therefore equals C(3 + 8 −1, 8) = C(10, 8) = 45.","2. The number of distinct triples (x1, x2, x3) of non-negative integers x1, x2, x3 such that x1+x2+x3 ≤
+8 equals
+⃝495.
+⃝330.
+✓165.
+⃝55.
+The number of distinct triples (x1, x2, x3) of non-negative integers x1, x2, x3 such that x1+x2+x3 ≤
+8 equals the sum of the number of triples such that x1 + x2 + x3 = k where k goes from 0 to 8.
+Using the solution of the previous exercise, this equals P8
+k=0 C(3 + k −1, k) = 1 + 3 + 6 + 10 + 15 +
+21 + 28 + 36 + 45 = 165.
+It is less cumbersome to introduce a slack variable x4 and to observe that the number of distinct
+triples (x1, x2, x3) of non-negative integers x1, x2, x3 such that x1 + x2 + x3 ≤8 is the same as
+the number of distinct four-tuples (x1, x2, x3, x4) of non-negative integers x1, x2, x3, x4 such that
+x1 + x2 + x3 + x4 = 8: the latter number equals C(4 + 8 −1, 8) = C(11, 8) = 165.
+3. The number of distinct quadruples (x1, x2, x3, x4) of non-negative integers x1, x2, x3, x4 such that
+x1 + x2 + x3 + x4 < 8 equals
+⃝495.
+✓330.
+⃝165.
+⃝55.
+Since we’re dealing with integers, having x1 +x2 +x3 +x4 < 8 is equivalent to x1 +x2 +x3 +x4 ≤7.
+Now we just have to compute the number of distinct non-negative quadruples whose sum is ≤7,
+which we do using the method from the previous exercise. The number of solutions is C(5+7−1, 7) =
+C(11, 7) = 330.
+4. The number of distinct quadruples (x1, x2, x3, x4) of non-negative integers x1, x2, x3, x4 such that
+xi ≥i and x1 + x2 + x3 + x4 ≤18 equals
+✓495.
+⃝330.
+⃝165.
+⃝55.
+We start by introducing new variables yi = xi−i. The question in case is now equivalent to searching
+number of distinct non-negative quadruples (y1, y2, y3, y4) such that y1+1+y2+2+y3+3+y4+4 ≤18
+since xi = yi+i. This boils down to finding non negative solutions of y1+y2+y3+y4 ≤8, and using
+the same reasoning as in",,
+43,2022,1332,37,Week 1 Ex 3 - part 3 & 5,"I solved part 3 using part 5, and I solved part 5 using part 3.
+
+I was just wondering if there is a better way to solve either part 3. or part 5. or both?
+
+Because my solutions feel somehow wrong and pretty redundant.
+
+Thank you",Exercises,Week1 : Propositional Logic,,2022-09-25T00:35:23.897313+10:00,TRUE,"Hello!
+
+Indeed I think the best way to solve part 5 is to go through the rules you know + use part 3 which is pretty useful in this case.
+
+However, for part 3 I'm not sure how part 5 is useful. The best thing to do would be to reason the following way:
+
+prove that
+
+Left side = true => Right side = true
+
+Right side = true => Left side = true
+
+
+
+which leads to left side <=> right side
+
+
+
+let me know if you have any doubts :)",846392,2022-09-25T00:49:33.198696+10:00,0,6,English: my + work; English: I + action,1,3,"4
+2
+2
+Session Exercises",,,
+43,2022,14278,682,week 11 ex 5,"Hello,
+
+Can someone please explain why we put n+1+n-1 (in the final combination), aren't we supposed to be choosing from n+1 elements?",Exercises,Week 11 : Advanced Counting,,2022-12-14T08:04:15.743785+11:00,TRUE,"Hi,
+
+It is again a stick-and-stars problem. Where you have n item (the value of your sum) which are your ""stars"" and n+1 variables, so n separator (sticks). From your total element : n + n = 2n, you need to choose n of them to be your stars (or n of them to be your sticks, it's the same). So you have (2n choose n) ways.",370408,2022-12-14T09:11:21.714402+11:00,0,2,Mathematical assumption,11,5,"The number of distinct n-tuples (x0, x1, x2, . . . , xn−1) of integers x0, x1, x2, . . ., xn−1 such
+that xi ≥i for 0 ≤i < n and Pn−1
+i=0 xi ≤n(n+1)
+2
+equals","✓
+2n
+n
+
+.
+⃝
+2n+1
+n
+
+.
+⃝
+2n−1
+n
+
+.
+⃝
+2n−1
+n−1
+
+.
+3
+With yi = xi −i for 0 ≤i < n, we must count the number of distinct n-tuples (y0, y1, y2, . . . , yn−1) of
+integers y0, y1, y2, . . ., yn−1 such that yi ≥0 for 0 ≤i < n and
+n−1
+X
+i=0
+yi
+=
+n−1
+X
+i=0
+(xi −i)
+=
+n−1
+X
+i=0
+xi −
+n−1
+X
+i=0
+i
+=
+n−1
+X
+i=0
+xi −n(n −1)
+2
+≤
+n(n + 1)
+2
+−n(n −1)
+2
+=
+n.
+The number of non-negative integer solutions (y0, y1, y2, . . . , yn−1) to the inequality Pn−1
+i=0 yi ≤n is the
+same as the number of non-negative integer solutions (y0, y1, y2, . . . , yn−1, yn) to the equality Pn
+i=0 yi = n
+(note that introduction of the slack variable yn makes it possible to put the “slack”, i.e., the non-negative
+integer value n −Pn−1
+i=0 yi, in the variable yn).
+To find the number of non-negative integer (n + 1)-tuples (y0, y1, y2, . . . , yn−1, yn) such that Pn
+i=0 yi =
+n: assume that we have n + 1 distinct types of cookies (with, as usual, an infinite supply of each type
+of cookie), that the variables y0, y1, y2, . . . , yn−1, yn count how often the i-th cookie (for 0 ≤i ≤n) is
+selected, and that we have to select (a combination of) n cookies, i.e. we have a set of n + 1 items, and
+we choose n items with replacement out of that set. This can be done in
+n+1+n−1
+n
+
+=
+2n
+n
+
+ways.
+It follows that the first answer is correct.",,
+43,2022,11445,570,exercise 4.1 week 10,"Hi, 
+
+For exercice 4.1 week 10, I decided to use lecture 10b and the question with the waiting line containing 5 women and 8 men. First of all I put the men (so x1 x2 x3 .... xn) which gives me n factorial possibilities. Secondly, I observed that there were therefore n+1 positions available to fill (before x1, all the options between x1 and xn, and then after xn) which gives me n+1 factorial possibilities. This means that I have P(n,n)*P(n+1,n) overall possibilities, could I get some clarification on why this is wrong?
+
+Thank you for your answer!",Exercises,Week 10 : Counting,,2022-11-29T08:38:43.379189+11:00,TRUE,"Hi, I like your reasoning even though it is wrong:-) Here's why:
+
+You started by considering the men which yields P(n, n) = n! possible permutations.
+
+Then you ""correctly"" pointed out that the women can distribute themselves on the n+1 remaining spots. We can try to visualize this with the example n=3:
+
+_x_x_x_ 
+
+x:=men, _:= possible spot to fill with a woman, y:= women
+
+Since the n women have n+1 places, there's always one spot going to be left free. However, the exercise doesn't allow for the gap to be anywhere else than in the beginning or in the end since otherwise this would break the alternating rhythm between men and women.
+
+yx_xyxy = yxxyxy (not allowed)
+
+P(n+1, n) means that you choose n from the n+1 spots and for every choice of n spots you consider all its permutations. This includes the cases where the n spots chosen DO NOT include some non-border spots.
+
+To get to the right solution you can do the following: There are two types of patterns allowed:
+
+xyxyxy....
+
+or 
+
+yxyxyx....
+
+For both we have (n!)^2 permutations = 2(n!)^2",566222,2022-12-01T04:14:55.305921+11:00,1,2,Mathematical conclusion; Sequential reasoning,10,4,"1. A group contains n men and n women. How many ways are there to arrange these people in a row
+if the men and women alternate?
+Denote the row of alternating men and women by x1, x2, . . . , x2n and assume that x1 is a man.
+Then x1, x3, x5, . . . , x2n−1 consists of just men and x2, x4, x6, . . . , x2n of just women. We have
+n! possibilities to arrange each of these two subsequences.
+Since we can combine any of these
+subsequences for the men together with any subsequence for the women, we get n! · n! possible
+arrangements for the row x1, x2, . . . , x2n, if x1 is a man.
+We can now do the same under the assumption that x1 is a woman. We again get (n!)2 possible
+arrangements. Overall, since we allow x1 to be either a man or a woman, we get (n!)2+(n!)2 = 2(n!)2
+possible arrangements.","2. Suppose that a department contains 10 men and 15 women. How many ways are there to form a
+committee with six members if it must have the same number of men and women?
+If the committee of six members needs to have the same number of men and women, it must
+have three men and three women. There are
+10
+3
+
+= 10·9·8
+3·2
+= 120 ways to choose three men and
+15
+3
+
+= 15·14·13
+3·2
+= 35 · 13 = 455 ways to choose three women in the department. Thus we get overall
+10
+3
+15
+3
+
+= 120 · 455 = 54 600
+possibilities to form the committee.",,
+43,2022,7582,403,serie 7 ex5,Isnt something supposed to be here? Or this sign shouldnt be here? If not what does this expression mean?,Exercises,Week6 : Countability - Algorithms,,2022-11-06T02:37:57.062367+11:00,TRUE,"Hello!
+
+Yes, it's a small typo. It is meant to be $C = (|a_n| + |a_{n-1}| + \cdots + |a_1| + |a_0|)$.
+
+I hope this helps.",588675,2022-11-06T03:44:40.196692+11:00,1,2,Mathematical assumption,6,5,"Let F be the set of real numbers with decimal representation consisting of all fours (and
+possibly a single decimal point). Examples of numbers contained in F are 4, 44, 4444444, 44.4, 4.444444,
+444.44444, . . . etc.
+Let G be the set of real numbers with decimal representation consisting of all fours or sixes (and
+possibly a single decimal point). Examples of numbers contained in G are 4, 6, 44, 66, 46, 64, 4464464,
+46.46, 6.644464, 646.64646464, 446.6666666, . . . etc.
+✓The set F is countable and the set G is not countable.
+⃝The sets F and G are both countable.
+⃝The set G is countable and the set F is not countable.
+⃝The sets F and G are both not countable.","Strategy for F: we are going to show that F is countable by showing it is the union of two countable sets.
+Let us denote F∞the set of real numbers with infinitely long decimal representation consisting of all
+fours. Let us denote F<∞, the set of real numbers with finitely long decimal representation consisting of
+all fours. We have F<∞∪F∞= F (the decimal representation is either finite or infinite), therefore, if
+can show that F∞and F<∞are both countable, we will be able to conclude that F is countable.
+F∞is countable: Let us denote by ∞4 a sequence of infinitely many fours. For example, 4.4444... = 4.∞4.
+We can list every element of F∞in a sequence indexed by the positive integers by counting the number
+of fours before the decimal point : a1 = 4.∞4, a2 = 44.∞4, a3 = 444.∞4....
+Therefore F∞is countable.
+F<∞is countable: We are going to follow a similar strategy as in the previous exercise with B2: we are
+going to build an injective function f from F<∞to Z×Z that is going to count the number of fours before
+5
+the decimal point and the number of fours after the decimal point. For example f(4) = (1, 0), f(4.4) =
+(1, 1), f(44.4) = (2, 1). To show that f is injective, we assume that f(a) = f(b) which implies that a and
+b have the same number of 4 before and after their decimal point which implies that they are equal. f is
+injective, therefore |F<∞| ≤|N × N| and because N × N is countable, we have F<∞countable.
+Strategy for G: we are going to show that a subset of G is uncountable. Then, by the theorem that
+states that if A is uncountable and A ⊂B, then B is uncountable, we will be able to conclude that G is
+uncountable.
+Let us consider G∗the subset of G consisting of be the set of real numbers between 4 and 7 with
+infinitely long decimal representation consisting of all fours or sixes. For example 4.464644664644... ∈G∗
+and 6.66666666... ∈G∗but 44 /∈G∗. We are going to use Cantor Diagonal Argument to show that G∗is
+uncountable:
+Let us assume that G∗is countable.
+Therefore, we can list the elements of G∗in a sequence {an} indexed by the positive integers as follows:
+a1 = d11, d12d13...
+a2 = d21, d22d23...
+a3 = d31, d32d33...
+.
+.
+.
+an = dn1, dn2dn3...
+.
+.
+.
+If we define the real number r = d1, d2d3... such that di =
+(
+4
+if dii = 6
+6
+if dii = 4, we have r ̸= ai ∀i ∈Z+.
+r is an element of G∗but it is not listed in {an}.
+By contradiction, G∗is not countable, therefore it is uncountable.
+And because we have G∗⊂G, we can conclude that G is uncountable.
+It follows that the first answer must be ticked.",,
+43,2022,18566,880,Week 13 ex 1c,"Hello!
+
+When doing this exercice I thought we could choose the first type for the first pair then the second type for the second pair and then the remaining dice. Thus having this result which is different from the one propsed in the solution.
+
+Could someone please tell me what I am doing wrong?
+
+$$\binom{6}{1} * \binom{5}{1} * \binom{4}{1}$$",Exercises,Week 13 : Probabilities,,2023-01-09T22:53:50.496381+11:00,TRUE,"You get 120 to instead of 60 because you acted as if the pairs were distinguishable.
+Choosing 2 pairs is C(6,2). C(6,1)*C(5,1) is how you can choose 2 ordered types. Hence you should use their formula or divide by 2!",92875,2023-01-09T23:08:27.315309+11:00,1,2,Mathematical conclusion; Sequential reasoning,13,1,"Derive the probability distribution of all the possible outcomes for the following random events:
+1. The maximum of a roll of two regular dice.
+Let D1 and D2 denote the result of the first and (resp.) second roll of the two dice. Let us draw
+the entire table of outcomes with the maximum in each cell:
+1
+2
+3
+4
+5
+6
+1
+1
+2
+3
+4
+5
+6
+2
+2
+2
+3
+4
+5
+6
+3
+3
+3
+3
+4
+5
+6
+4
+4
+4
+4
+4
+5
+6
+5
+5
+5
+5
+5
+5
+6
+6
+6
+6
+6
+6
+6
+6
+Hence, by counting the occurrences in the table, we have:
+p(max(D1, D2) = 1) = 1/36,
+p(max(D1, D2) = 2) = 3/36,
+p(max(D1, D2) = 3) = 5/36,
+p(max(D1, D2) = 4) = 7/36,
+p(max(D1, D2) = 5) = 9/36,
+p(max(D1, D2) = 6) = 11/36.
+or, equivalently,
+p(max(D1, D2) = d) = (2d −1)/36.","2. The result of a roll of three indistinguishable dice is a triple, pair or all distinct
+Let us draw the list of possible outcomes and group them into classes:
+all distinct
+(1,2,3)
+(1,2,4)
+(1,2,5)
+(1,2,6)
+(1,3,4)
+(1,3,5)
+(1,3,6)
+(1,4,5)
+(1,4,6)
+(1,5,6)
+(2,3,4)
+(2,3,5)
+(2,3,6)
+(2,4,5)
+(2,4,6)
+(2,5,6)
+(3,4,5)
+(3,4,6)
+(3,5,6)
+(4,5,6)
+one pair
+(1,1,2)
+(1,1,3)
+(1,1,4)
+(1,1,5)
+(1,1,6)
+(2,2,1)
+(2,2,3)
+(2,2,4)
+(2,2,5)
+(2,2,6)
+(3,3,1)
+(3,3,2)
+(3,3,4)
+(3,3,5)
+(3,3,6)
+(4,4,1)
+(4,4,2)
+(4,4,3)
+(4,4,5)
+(4,4,6)
+(5,5,1)
+(5,5,2)
+(5,5,3)
+(5,5,4)
+(5,5,6)
+(6,6,1)
+(6,6,2)
+(6,6,3)
+(6,6,4)
+(6,6,5)
+triples
+(1,1,1)
+(2,2,2)
+(3,3,3)
+(4,4,4)
+(5,5,5)
+(6,6,6)
+There are hence 56 possible outcomes, which indeed corresponds to the number of combinations
+with replacement (i.e.,
+6+3−1
+3
+
+). The number of occurrences for each class is computed the same
+way as with poker hands:
+1
+(a) There are
+6
+3
+
+= 20 different outcomes with all distinct dice. However, the same all-distinct
+roll can be obtained in 3! = 6 possible ways.
+(b) There are
+6
+1
+5
+1
+
+= 30 different outcomes with one pair (first choose the pair number, then
+choose the remaining number). Again, the same pair can be obtained in 3!/2! = 3 possible
+ways (no distinction for two dice of the pair).
+(c) There are
+6
+1
+
+= 6 different triples (only choose the triple number). This time, there is only
+3!/3! = 1 way to get each of them (the three dice need to correspond to each other).
+As there are 63 = 216 rolls in total, the probabilities for each class are the following:
+p(all distinct)
+=
+6 · 20
+216 ,
+p(one pair)
+=
+3 · 30
+216 ,
+p(triple)
+=
+6
+216.
+3. The result of a roll of five indistinguishable dice is a five of a kind, four of a kind, full house, tree
+of a king, two pairs, one pair or all distinct
+As seen in the previous exercise, we can expect
+6+5−1
+5
+
+= 252 indistinguishable outcomes which
+can be classed in different classes:
+(a) All distinct: there are
+6
+5
+
+= 6 different outcomes with all-distinct dice. The same all-distinct
+roll can be obtained in 5! = 120 possible ways. Note: this count includes straight rolls.
+(b) One pair: there are
+6
+1
+5
+3
+
+= 60 different outcomes with one pair (first choose the pair number,
+then choose the remaining three dice). The same roll with one pair can be obtained in 5!/2! =
+60 different ways (no distinction for the two dice of the pair).
+(c) Two pairs: there are
+6
+2
+4
+1
+
+= 60 different outcomes with two pairs (choose the two pair
+numbers, then choose the remaining die). The same roll with two pairs can be obtained in
+5!/(2! · 2!) = 30 different ways (no distinction for the two dice of both the two pairs).
+(d) Three of a kind: there are
+6
+1
+5
+2
+
+= 60 different outcomes with three of a kinds (first choose
+the number that will appear three times, then choose the remaining two dice). The same
+three-of-a-kind roll can be obtained in 5!/3! = 20 different ways (no distinction for the three
+dice of the three of a kind).
+(e) Full house: there are
+6
+1
+5
+1
+
+= 30 different outcomes for full-house (first choose the number for
+the three repeating die, then choose the number for the remaining pair). The same full-house
+roll can be obtained in 5!/(2!·3!) = 10 different ways (no distinction for the pair and the three
+of a kind).
+(f) Four of a kind: there are
+6
+1
+5
+1
+
+= 30 different outcomes with four of a kind (first choose the
+number for the four repeating die, then choose the die among the remaining numbers). The
+same four-of-a-kind roll can be obtained in 5!/4! = 5 different ways (no distinction for the four
+dice).
+(g) Five of a kind: there are
+6
+1
+
+= 6 different outcomes with five of a kinds. This time, there is
+only 5!/5! = 1 way to obtain each of the five of a kind.
+As there are 65 = 7776 rolls in total, the probabilities for each class are the following:
+2
+p(all distinct)
+=
+6 · 120
+7776 ,
+p(one pair)
+=
+60 · 60
+7776 ,
+p(two pairs)
+=
+60 · 30
+7776 ,
+p(three of a kind)
+=
+60 · 20
+7776 ,
+p(full house)
+=
+30 · 10
+7776 ,
+p(four of a kind)
+=
+30 · 5
+7776 ,
+p(five of a kind)
+=
+6
+7776.",,
+1544,2024,132559,148,Exercise 2,"Hi, 
+
+I am not sure about step 3 to 4, is the proof valid ? I considered (A inter B) as a single set and applied the distributive law.",Homeworks,W4,,2024-10-03T19:20:35.324521+10:00,TRUE,"Hi ! 
+
+I believe that your result is correct, but you missed some easier simplifications:
+
+
+
+here, you can simply remove your brackets as there are only intersections.
+
+you then obtain:
+
+$$\left(A\cap B\cap\overline{A}\right)\cup\left(A\cap B\cap\overline{C}\right)$$
+
+you can simplify the left member as it's always false
+
+so you end up with
+
+$$\left(A\cap B\cap\overline{C}\right)$$
+
+wich is your 9th line.
+
+Indeed, you developped your left member from 4 to 5, to go back to it at line 9
+
+Hope this helps !
+
+If you have any question, feel free ask !",184274,2024-10-04T00:31:21.049554+10:00,1,2,Step-by-step work,4,2,"Let f : {x | x ∈R, 0 < x < 1} →R,
+x 7→
+
+
+
+
+
+
+
+2 −1
+x
+if
+0 < x < 1/2
+1
+1 −x −2
+if
+1/2 ≤x < 1.
+⃝f is not injective and not surjective.
+⃝f is injective but not surjective.
+⃝f is surjective but not injective.
+⃝f is bijective.
+Proving injectivity: ∀x1, x2 f(x1) = f(x2) →x1 = x2.
+Assume f(x1) = f(x2) and consider every possible combination of x1, x2.
+• 0 < x1, x2 < 1/2.
+2 −
+1
+x1 = 2 −
+1
+x2 obviously implies x1 = x2.
+1
+• 0 < x1 < 1/2 and 1/2 ≤x2 < 1 (or 1/2 ≤x1 < 1 and 0 < x2 < 1/2).
+In this case,
+2 −1
+x1","=
+1
+1 −x2
+−2
+1
+1 −x2
++ 1
+x1
+=
+4.
+However, since 0 < x1 < 1/2 and 1/2 ≤x2 < 1, we have
+
+
+
+
+
+
+
+1
+x1
+>
+2
+1
+1 −x2
+≥
+2.
+Hence,
+1
+x1 +
+1
+1−x2 > 4, so f(x1) ̸= f(x2) (which still makes the statement true).
+• 1/2 ≤x1, x2 < 1.
+1
+1−x1 −2 =
+1
+1−x2 −2 obviously implies x1 = x2.
+Therefore, f(x) is injective.
+Proving surjectivity: ∀y ∃x f(x) = y.
+Let y ∈R and consider the two following cases.
+• y < 0.
+In this case, for 0 < x < 1/2, we have
+2 −1
+x
+=
+y
+x(2 −y)
+=
+1
+x
+=
+1
+2 −y
+which respects the constraints on x and, hence, validates the statement.
+• y ≥0.
+In this case, for 1/2 ≤x < 1, we have
+1
+1 −x −2
+=
+y
+1 −2(1 −x)
+=
+y(1 −x)
+x(y + 2)
+=
+y + 1
+x
+=
+y + 1
+y + 2
+which respects the constraints on x and, hence, validates the statement.
+Therefore, f(x) is surjective.
+2
+2
+Session Exercises",,
+1544,2024,138007,252,Exercise 6,"Hello,
+
+For Exercise 6, I attempted to write a solution to check if a function is injective. I’ve attached my pseudo-code. It’s not exactly the same as the provided solution, and I’m not entirely sure if it’s correct. Could you please take a look and let me know if there’s anything I should adjust?
+
+Thank you in advance for your time and feedback!",Homeworks,W6,,2024-10-25T20:49:54.57751+11:00,TRUE,"Hello,
+
+Beforehand, note that your solution is very good and very close to the provided one.
+
+Your solution is close to be perfect but there is a little problem. The problem is that for all check that you are going to make, namely for all $f(x_i) = f(x_j)$ comparaison you'll have a printed output. This is because you either print ""not injective"" or ""injective"" for each comparaison. 
+
+Also note that you can say that a function is not injective if you find two variable $x_i, x_j$ for which $f(x_i) = f(x_j)$, but you can't say that the function is injective if you find two variables $x_i, x_j$ for which $f(x_i) \ne f(x_j)$ because you need to verify them all before saying that the function is injective.
+
+And with this, if you would use your program, for an injective function you would have $|A|^2$ (where A is the set of preimage) print with written ""injective"" if it injective and you would have as many print, but some with ""not injective"" if your function were to not be injective. Which is very close to what we want but not exactly what we are searching for. 
+
+Here are some correction of your code that would work :
+
+message = ""Injective""
+for i = 1 to n do :
+    for j = 1 to n do:
+        if f(x_i) != f(x_j) then : 
+            message = ""Not injective""
+            
+print(message)
+
+is_Injective = True
+for i = 1 to n do :
+    for j = 1 to n do :
+        if f(x_i) != f(x_j) then : 
+            print(""Not injective"")
+            is_injective = False
+            
+if is_Injective :
+    print(""Injective"")
+
+Please also note that those are some examples and you can write more than a dozen version of this program, so I would encourage you to rewrite one by yourself !
+
+If you have any other questions fell free to ask :)",272588,2024-10-25T23:26:03.873203+11:00,0,3,English: I + action,6,6,"* We call the algorithm ” improved-bubblesort” and the input is a list of real numbers
+a1, a2, ..., an.
+The variable ”interchange” will keep track if any interchanges were made during each pass/step. i is
+the position of an element in the list (we will start from 2 as the first element does not have a preceding
+term).
+interchange := 0
+i := 1
+For every element in the list, we will determine if the elements are in increasing order. If they are not,
+then we interchange the two elements. If an interchange is made, the the variable ”interchange” should
+be put to 0 (and thus we also need to change the value from 0 in each iteration step).
+6
+Algorithm 1 Improved Bubble Sort
+i := 1
+interchange := 0
+while i < n and interchange = 0 do
+interchange := 1
+for j = 1 to n −i do
+if aj > aj+1 then
+swap aj and aj+1
+interchange := 0
+end if
+end for
+end while",,,
+1544,2024,127702,16,Exercise 9,"Hello, can anyone help me with exercise 9. How can I show that the compound proposition is a tautology, a contingency or a contradiction without using a truth table?  I tried to do it with logical equivalences but I couldn't figure out how to determine which case it is.",Homeworks,W1,,2024-09-12T21:28:58.148573+10:00,TRUE,"Hi, if it's a contingency you can use examples. If it's a tautology or a contradiction you can either reason through it like we've seen in class or use logical equivalences from the cheatsheet to reduce it to T or F.",158909,2024-09-12T21:41:17.819701+10:00,0,3,English: I + action,1,9,"(fran¸cais) Soit p et q deux propositions. Consid´erons les deux propositions compos´ees ci-dessous.
+(English) Let p and q be two propositions. Consider the two compound propositions below.
+((q →p) ∧¬q) →¬p
+((¬q) →(¬p)) ∧p
+
+→q","✓
+ Une seule des propositions compos´ees est une tautologie, l’autre est une contingence.
+One of the compound propositions is a tautology, the other is a contingency.
+⃝
+
+Les deux propositions compos´ees sont des contingences.
+Both compound propositions are contingencies.
+⃝
+ Une seule des propositions compos´ees est une contradiction, l’autre est une contingence.
+One of the compound propositions is a contradiction, the other is a contingency.
+⃝
+
+Une seule des propositions compos´ees est une tautologie, l’autre est une contradiction.
+One of the compound propositions is a tautology, the other is a contradiction.
+5
+p
+q
+q →p
+¬q
+(q →p) ∧¬q
+¬p
+((q →p) ∧¬q) →¬p
+0
+0
+1
+1
+1
+1
+1
+0
+1
+0
+0
+0
+1
+1
+1
+0
+1
+1
+1
+0
+0
+1
+1
+1
+0
+0
+0
+1
+Table 1: Truth table for the first compound proposition.
+If q is False, then q →p is True and (q →p) ∧¬q is True. It follows that ((q →p) ∧¬q) →¬p is
+True if p is False, and that ((q →p) ∧¬q) →¬p is False if p is True. It follows that the first statement
+“((q →p) ∧¬q) →¬p” above is a contingency: it can be either True or False depending on the truth
+values of p and q. Of course, we can also use truth table 1.
+Because (¬q) →(¬p) ≡¬(¬q) ←¬(¬p) ≡q ←p ≡p →q, the second statement “
+((¬q) →
+(¬p)) ∧p
+
+→q” above is equivalent to “
+(p →q) ∧p
+
+→q”. This latter statement is a tautology (and
+also known as “modus ponens”, which is however not required to understand that it is a tautology): it is
+always True irrespective of the truth values of p and q. The same, using truth table 2.
+p
+q
+¬p
+¬q
+(¬q) →(¬p)
+((¬q) →(¬p)) ∧p
+((¬q) →(¬p)) ∧p
+
+→q
+0
+0
+1
+1
+1
+0
+1
+0
+1
+1
+0
+1
+0
+1
+1
+0
+0
+1
+0
+0
+1
+1
+1
+0
+0
+1
+1
+1
+Table 2: Truth table for the second compound proposition.",,
+1544,2024,127664,14,Exercise 3 Week 1,"Hello, could anyone help me with Nr. 2 and 4. I don‘t know which laws I should use. I tried with number 4 some laws but I couldn‘t show the equivalence.",Homeworks,W1,,2024-09-12T19:52:11.339715+10:00,TRUE,"I don't know if it's correct but I first used the XOR 3.1 rule left to get a biconditional, then used the Biconditional rule 2.3 left and the XOR 3.2 right before swapping the elements of the disjunction right (but left works too) using the commutative laws. 
+
+Correct me if I'm wrong",282503,2024-09-12T20:38:50.77176+10:00,1,3,English: I + action,1,3,"4
+2
+2
+Session Exercises",,,
+1544,2024,134845,185,"Exercise 5, question 7","Hi everyone,
+
+I was wondering if anyone could help me with exercise 5, question (7). My answer was different from the provided solution, and I’m not sure if my approach was correct. Could someone take a look and let me know if I went wrong somewhere, or if my answer could also be valid?
+
+Thanks in advance!",Homeworks,W5,,2024-10-12T21:14:20.022972+11:00,TRUE,"Hello,
+
+Your formula is totally valid ! To show this you could try to do a proof by induction (which is likely what you did to find the relation, which is a very clever manner to it). Sincerely congrats this is very well done !
+
+Kindly",272588,2024-10-12T23:19:20.452089+11:00,0,3,English: my + work,5,5,"For each of these sequences find a recurrence relation satisfied by this sequence. (The answers
+are not unique because there are infinitely many different recurrence relations satisfied by any sequence.)","1. a0 = 3 and an = an−1
+2. a0 = 0 and an = an−1 + 2
+3. a0 = 3 and an = an−1 + 2
+4. a0 = 1 and an = 5an−1
+3
+5. a0 = 0 and an = an−1 + 2(n −1) + 1
+6. a0 = 0 and an = an−1 + 2(n −1) + 2
+7. a0 = 1 and an = an−1 + 1 + 2(−1)n
+8. a0 = 1 and an = nan−1",,
+1544,2024,130932,99,Exercise 6 (1.),"Hello!
+
+For the first part of exercise 6, I understand the solution well. However the solution that I came up with was slightly different and I was wondering if it would still be valid.
+
+
+
+$$1.\ \left(s\ or\ x\right)\ \Rightarrow\ \left(h\ and\ r\right)$$
+
+$$2.\ \left(s\ or\ g\right)\ \Rightarrow\ \left(r\right)$$
+
+For the second line I assumed that it was permitted to apply a simplification inside a bracket.
+After that I continued with modus tollens and de Morgan laws, like the solution suggests.
+
+Would this be considered skipping steps or incorrectly applying the inference rules? 
+Please could someone clarify this for me?
+Thanks!",Homeworks,W3,,2024-09-26T20:37:53.593073+10:00,TRUE,"Hello,
+
+This was a good try but unfortunately it doesn't work, here is why.
+
+The simplification that you want to do is the simplification :
+
+$$p\wedge q\longrightarrow p$$
+
+But the problem is that in order to use this you need to be sure that the following is true : 
+
+$$p\wedge q$$
+
+Because to use the Rules of Inference you have to be sure that the statement that you are using is true.
+
+But here, as it is a part of an implication you cannot be pull it out because an implication can be true if f -> f. So your statement may be false.
+
+More precisely in this case we know not r which implies that h and r is false. So we know for sure that it is false and thus cannot be simplify.
+
+Don't hesitate to tell me if something is unclear",272588,2024-09-27T06:28:48.988667+10:00,0,2,Mathematical assumption,3,6,"Show the following, explaining at each step of your proof what rules of inference you used.
+1. Show that the premises
+p
+“If I were smart or good-looking, I would be happy and rich.”
+q
+“I am not rich.”
+lead to the conclusion “I am not smart”.
+2
+Define the following:
+s
+“I am smart.”
+g
+“I am good-looking.”
+h
+“I am happy.”
+r
+“I am rich.”
+Then
+p","≡
+(s ∨g) →(h ∧r)
+q
+≡
+¬r
+Now we can prove ¬s as follows:
+1. (s ∨g) →(h ∧r)
+Premise
+2. ¬r
+Premise
+3. ¬r ∨¬h
+Addition
+3. ¬(h ∧r)
+Equivalence (De Morgan’s law)
+4. ¬(s ∨g)
+Modus tollens, using 1. and 3.
+5. ¬s ∧¬g
+Equivalence (De Morgan’s law)
+6. ¬s
+Simplification, using 5.
+2. Show that the premises
+∀x(P(x) ∨Q(x))
+∀x(¬Q(x) ∨S(x))
+∀x(R(x) →¬S(x))
+∃x¬P(x)
+lead to the conclusion ∃x¬R(x).
+We can prove the statement as follows:
+1. ∀x(P(x) ∨Q(x))
+Premise
+2. ∀x(¬Q(x) ∨S(x))
+Premise
+3. ∀x(P(x) ∨S(x))
+Resolution, using 1. and 2.
+4. ∀x(R(x) →¬S(x))
+Premise
+5. ∀x(¬R(x) ∨¬S(x))
+Equivalence, using 4.
+6. ∀x(P(x) ∨¬R(x))
+Resolution, using 3. and 5.
+7. ∃x¬P(x)
+Premise
+8. ∃x¬R(x)
+Disjunctive syllogism, using 6. and 7.",,
+702,2023,88143,1201,Exercise 5 week 11,"Hi, I'm working for the exam and I tried to solve this exercise in a different way than during the semester and I used the same method of the example Picking fruits in the course and I don't understand where my mistake, can someone help ?",Labs,Week 11: Advanced Counting,,2024-01-25T07:44:20.020558+11:00,TRUE,"Hi, hoping it's not too late, you used stars and bars on an inequality which is not its purpose. You should first transform the inequality into an equality like so, x0 + ... + xn-1 + a = n with ""a"" a positive integer (that completes the sum to give n every single time), and now using stars and bars, you have n+1 stars and n bars which gives you : n choose 2n distinct tuples.",36873,2024-01-26T04:48:12.179026+11:00,0,2,English: I + action,11,5,"The number of distinct n-tuples (x0, x1, x2, . . . , xn−1) of integers x0, x1, x2, . . ., xn−1 such
+that xi ≥i for 0 ≤i < n and Pn−1
+i=0 xi ≤n(n+1)
+2
+equals","✓
+2n
+n
+
+.
+⃝
+2n+1
+n
+
+.
+⃝
+2n−1
+n
+
+.
+⃝
+2n−1
+n−1
+
+.
+3
+With yi = xi −i for 0 ≤i < n, we must count the number of distinct n-tuples (y0, y1, y2, . . . , yn−1) of
+integers y0, y1, y2, . . ., yn−1 such that yi ≥0 for 0 ≤i < n and
+n−1
+X
+i=0
+yi
+=
+n−1
+X
+i=0
+(xi −i)
+=
+n−1
+X
+i=0
+xi −
+n−1
+X
+i=0
+i
+=
+n−1
+X
+i=0
+xi −n(n −1)
+2
+≤
+n(n + 1)
+2
+−n(n −1)
+2
+=
+n.
+The number of non-negative integer solutions (y0, y1, y2, . . . , yn−1) to the inequality Pn−1
+i=0 yi ≤n is the
+same as the number of non-negative integer solutions (y0, y1, y2, . . . , yn−1, yn) to the equality Pn
+i=0 yi = n
+(note that introduction of the slack variable yn makes it possible to put the “slack”, i.e., the non-negative
+integer value n −Pn−1
+i=0 yi, in the variable yn).
+To find the number of non-negative integer (n + 1)-tuples (y0, y1, y2, . . . , yn−1, yn) such that Pn
+i=0 yi =
+n: assume that we have n + 1 distinct types of cookies (with, as usual, an infinite supply of each type
+of cookie), that the variables y0, y1, y2, . . . , yn−1, yn count how often the i-th cookie (for 0 ≤i ≤n) is
+selected, and that we have to select (a combination of) n cookies, i.e. we have a set of n + 1 items, and
+we choose n items with replacement out of that set. This can be done in
+n+1+n−1
+n
+
+=
+2n
+n
+
+ways.
+It follows that the first answer is correct.",,
+702,2023,72770,748,Exercise 2,"Good afternoon,
+
+I attempted an alternative approach to solving the problem, using the inclusion-exclusion principle. However, I am unable to identify the error in my reasoning :
+
+Thanks in advance !",Labs,Week 12: Probabilities,,2023-12-08T22:13:36.162887+11:00,TRUE,"Unfortunately, its not that easy to count the number of bitstrings with 3 consecutive 0s or 1s. Since you're looking at strings of size 8, a variety of these strings will be counted multiple times. For example 00011000 has three consecutive zeros twice, so is counted twice, 00000111 has 3 consecutive zeros 3 times etc...",92875,2023-12-08T23:04:42.963577+11:00,0,6,English: my + work; English: I + action,12,2,"How many bit strings of length eight contain either three consecutive 0s or four consecutive 1s?
+Denote by An the set of bit strings of length n that contain three consecutive 0s. We will try to find a
+recurrence relation for computing |An|. Consider the first bit of a bit string X from the set An - if the
+first bit is ’1’ then the remaining part of X is some bit string from the set An−1. If the first bit is ’0’ then
+the remaining part can be from An−1, but it doesn’t have to (e.g. it can start with ’00’ and not contain
+three consecutive, 00xxx...x). So let’s consider the first two bits of X: if they are ’01’ then the remaining
+part of X is some bit string from An−2. If it is ’00’ then again, the remaining part can be from An−2 but
+it doesn’t have to. So in this case we consider the third bit as well. If the first three bits are ’001’ then
+the remaining part of X is some bit string from An−3. If the first three bits are ’000’ then the remaining
+part of X can be any bit string of length n −3. To summarize, for X ∈An:
+• If the first bit of X is ’1’, the rest of X can be any bit string from An−1
+• If the first two bits of X are ’01’, the rest of X can be any bit string from An−2
+• If the first three bits of X are ’001’, the rest of X can be any bit string from An−3
+• If the first three bits of X are ’000’, the rest of X can be any bit string of length n −3
+1
+So, we have that |An| = |An−1| + |An−2| + |An−3| + 2n−3 for n ≥4. The initial conditions are obviously
+A1 = A2 = 0 and A3 = 1. From this recurrence relation we compute |A8| = 107.","A similar analysis for bit strings of length n which contain 4 consecutive 1s, gives the recurrence
+relation |Bn| = |Bn−1| + |Bn−2| + |Bn−3| + |Bn−4| + 2n−4 and we compute |B8| = 48.
+We have computed the number of bit strings of length 8 which contain three consecutive zeros (|A8|)
+and the number of bit strings of length 8 which contain four consecutive ones (|B8|). In order to compute
+the number of bit strings of length 8 which contain either three consecutive 0s or four consecutive 1s we
+need to apply the inclusion-exclusion principle. So, we need to find out the cardinality of the set A8 ∩B8.
+Those are exactly the bit strings which contain three consecutive 0s and four consecutive 1s at the same
+time: ’00001111’ , ’11110000’, ’11111000’, ’00011111’, ’00011110’, ’10001111’, ’01111000’, ’11110001’.
+So, the final answer is |A8| + |B8| −8 = 147.",,
+702,2023,72792,749,week 12 - exercise 2,"If I assume that the set A contains all bit strings containing 3 consecutive 0s. Do I have to count in A also the things that contains 2 times 3 consecutive 0s, for example : 00011000 ? 
+
+The strings that contains more that 3 consecutive 0s : 00001100, is also in A ? 
+
+For example the string that contains only 0s how can I deal with it ?",Labs,Week 12: Probabilities,,2023-12-08T23:19:18.307314+11:00,TRUE,"Yes if they have 3 consecutive zeros in multiple places, or more than 3 consecutive zeros, you still have to count them. The string 00000000 does have 3 consecutive zeros",92875,2023-12-08T23:31:03.171517+11:00,0,2,Mathematical assumption,12,2,"How many bit strings of length eight contain either three consecutive 0s or four consecutive 1s?
+Denote by An the set of bit strings of length n that contain three consecutive 0s. We will try to find a
+recurrence relation for computing |An|. Consider the first bit of a bit string X from the set An - if the
+first bit is ’1’ then the remaining part of X is some bit string from the set An−1. If the first bit is ’0’ then
+the remaining part can be from An−1, but it doesn’t have to (e.g. it can start with ’00’ and not contain
+three consecutive, 00xxx...x). So let’s consider the first two bits of X: if they are ’01’ then the remaining
+part of X is some bit string from An−2. If it is ’00’ then again, the remaining part can be from An−2 but
+it doesn’t have to. So in this case we consider the third bit as well. If the first three bits are ’001’ then
+the remaining part of X is some bit string from An−3. If the first three bits are ’000’ then the remaining
+part of X can be any bit string of length n −3. To summarize, for X ∈An:
+• If the first bit of X is ’1’, the rest of X can be any bit string from An−1
+• If the first two bits of X are ’01’, the rest of X can be any bit string from An−2
+• If the first three bits of X are ’001’, the rest of X can be any bit string from An−3
+• If the first three bits of X are ’000’, the rest of X can be any bit string of length n −3
+1
+So, we have that |An| = |An−1| + |An−2| + |An−3| + 2n−3 for n ≥4. The initial conditions are obviously
+A1 = A2 = 0 and A3 = 1. From this recurrence relation we compute |A8| = 107.","A similar analysis for bit strings of length n which contain 4 consecutive 1s, gives the recurrence
+relation |Bn| = |Bn−1| + |Bn−2| + |Bn−3| + |Bn−4| + 2n−4 and we compute |B8| = 48.
+We have computed the number of bit strings of length 8 which contain three consecutive zeros (|A8|)
+and the number of bit strings of length 8 which contain four consecutive ones (|B8|). In order to compute
+the number of bit strings of length 8 which contain either three consecutive 0s or four consecutive 1s we
+need to apply the inclusion-exclusion principle. So, we need to find out the cardinality of the set A8 ∩B8.
+Those are exactly the bit strings which contain three consecutive 0s and four consecutive 1s at the same
+time: ’00001111’ , ’11110000’, ’11111000’, ’00011111’, ’00011110’, ’10001111’, ’01111000’, ’11110001’.
+So, the final answer is |A8| + |B8| −8 = 147.",,
+702,2023,64347,442,Week 8 Ex 7 Alternative answer,"Good evening,
+
+
+I was wondering about an alternative answer to prove by contradiction that
+
+$$k^{\log_l\left(m\right)}is\ not\ O(ℓ^{\log_k\left(m\right)})$$
+
+We could suppose that the proposition is true and that 
+
+$$k^{\log_l\left(m\right)}\le Cl^{\log_k\left(m\right)};\ C>0$$
+
+$$k^{\frac{\log_k\left(m\right)}{\log_k\left(m\right)}}\le Ck^{\log_k\left(l^{\log_k\left(m\right)}\right)}\ \Longleftrightarrow\ k^{\frac{1}{\log_k\left(l\right)}}\le C^{\frac{1}{\log_k\left(m\right)}}k^{\log_k\left(l\right)}$$
+
+$$k^{\frac{1}{\log_k\left(l\right)}}\le1k^{\log_k\left(l\right)}\ because\ \lim_{w\longrightarrow\infty}\left(1/(\log_k(m)\right)\ =\ 1$$
+
+$$\frac{1}{\log_k\left(l\right)}\le\log_k\left(l\right)$$
+
+$$1\le\log_k\left(l\right)^2\ \Longleftrightarrow\ 1\le\log_k\left(l\right)\ because\ \log_k\left(l\right)>0$$
+
+however, we also have that
+
+$$k>l\ge2\ \Longrightarrow\log\left(k\right)>\log\left(l\right)\ \Longleftrightarrow\ 1>\frac{\log\left(l\right)}{\log\left(k\right)}=\log_k\left(l\right)$$
+
+therefore we have the contradiction logk(l) > logk(l)
+
+Is this proof correct ? Your answer could really help me understand proofs and complexity. Thank you.",Labs,Week 8: Induction & Recursion,,2023-11-12T07:33:17.921029+11:00,TRUE,While this isn't the simplest way to solve this excercise. It appears to be correct (except for a couple typos),92875,2023-11-13T22:13:13.339016+11:00,0,3,Mathematical assumption; Mathematical conclusion,8,7,"* Use strong or mathematical induction to show the following statement:
+Any postage of at least 8 cents can be formed using just 3 cents and 5 cents stamps.
+We use strong induction to show the statement.
+Statement: P(n): ∀n ≥8 we can write n as a sum of 3s and 5s.
+Basis step: We can form 8 = 3 + 5, 9 = 3 + 3 + 3 and 10 = 5 + 5 cents with just 3 and 5 cents stamps.
+Hence P(8), P(9) and P(10) are true.
+Induction step (P(k −2) ∧P(k −1) ∧P(k)) →P(k + 1):
+As strong induction hypothesis we assume
+that for an arbitrary k ≥10, P(l) is true for all l ∈{k −2, k −1, k}. We want to prove P(k + 1),
+i.e., to form k + 1 cents for k ≥10. We know by the induction hypothesis that we can form the
+amount of k −2 cents with 3 and 5 cents stamps (note that k −2 ≥8 so the argument is valid in
+the boundary case). Thus, we can add a 3 cents stamp to form k + 1. Hence P(k + 1) holds.
+Conclusion: Since P(8), P(9) and P(10) are true and P(k + 1) is true given that P(l) holds for all
+l ∈{k −2, k −1, k} for an arbitrary k ≥10, by the strong induction principle we conclude that
+P(n) is true for all n ≥8.",,,
+702,2023,71263,668,Exercise 8 question 4,"Hello,
+
+Can you explain to me where is the error in my reasoning ?
+
+(x5 is a slack value)
+
+Thank you.",Labs,Week 10: Intro to Counting,,2023-12-04T03:01:33.23898+11:00,TRUE,"You added a condition on the slack variable, it is not specified that x5 is greater than 5, so you eliminated a lot of possible answers.",735531,2023-12-04T04:01:56.709724+11:00,0,3,English: my + work,10,8,"Find the least number of cables required to connect 15 computers to 10 printers to guarantee
+that any group of 10 computers can always directly access 10 different printers simultaneously:
+✓60
+⃝150
+⃝10
+⃝None of the above
+5
+Suppose that we label the computers C1, C2, ..., C15 and the printers P1, P2, ..., P10. Suppose further
+that we connect Ck to Pk for k = 1, 2, . . . , 10 and each of the remaining 5 computers to all 10 printers.
+This requires a total of 60 cables. Clearly any set of 10 or less computers can simultaneously access
+different printers. This is because if computer Cj such that 1 ≤j ≤10 is included then it can access
+printer Pj, and for each included Ck with k ≥11, there must be a corresponding computer Cj such that
+1 ≤j ≤10 that is not included so Ck can access Pj.
+Now, suppose there are fewer than 60 cables connecting the computers to the printers. Then, at least
+one printer would be connected to at most ⌊59/10⌋= 5 computers. (If all printers were connected to at
+least 6 computers, there would be at least 6 × 10 = 60 cables.) This means that the remaining 9 printers
+are not enough to allow the other 10 computers to simultaneously access different printers. Hence, at
+least 60 direct connections are needed.
+6",,,
+702,2023,51246,29,S1 Ex 4 b) and c),"Hi !
+
+I had a question. For this exercices i didn't use the ""exclusion"" method and i tried to find a compound proposition that worked: 
+
+b) true if and only if one of the variables is true 
+
+(p /xor/ q) /xor/ u 
+
+c) true if at least 2 variables are true :
+
+(p^q) V (p^u) V (q^u) 
+
+I wanted to know if these answers can be true too since they are not in the solutions.
+
+Thank you !",Labs,Week 1: Propositional Logic,,2023-09-22T23:01:57.528618+10:00,TRUE,"The first one is incorrect as if they are all true then p$\oplus$q would be false and therefore the whole expression
+
+would be true. Your answer to c) is correct, although you could search for a more concise solution ;)",92875,2023-09-22T23:21:11.209585+10:00,0,3,English: I + action,1,4,"* Find a compound proposition with three variables p, q, u that is","1. True if and only if p is true, q is false, and u is false;
+p ∧¬q ∧¬u.
+2. True if and only if exactly one of the variables is true;
+(p ∧¬q ∧¬u) ∨(¬p ∧q ∧¬u) ∨(¬p ∧¬q ∧u).
+3. True if and only if at least two of the variables are true.
+(p ∧q ∧¬u) ∨(p ∧¬q ∧u) ∨(¬p ∧q ∧u) ∨(p ∧q ∧u).",,
+702,2023,77782,822,Week 13 ex 7,"Hello,
+ 
+I don't understand why in the exercise, when we want to have two pairs we assume that there are 6 choose 2 ways of doing so, but then when we want to have a full house (one pair and three of a kind) we have 6 choose 1 ways to choose the number for the first pair then 5 choose 1 for the triplet. In this situation we chose 1 number for the first pair, and we had 6 choices, and then chose 1 number out of 5 for the triplet, so 5 choices. But why would that not work for the two pairs? Why is it incorrect to choose a first number for the first pair ( 6C1 ) and then choose a second number for the second pair ( 5C1 ) then choose a last number for the last dice which leaves us with 4 choices?",Labs,Week 11: Advanced Counting,,2023-12-21T03:35:24.324926+11:00,TRUE,"Never mind, I think I realized what my mistake is. The difference between the two situations is the need to differentiate between the pair and the triplet, while the two pairs are of ""same nature"" which allows us to consider them in a single combinatorial coefficient. Is my reasoning correct?",799601,2023-12-21T04:27:31.122015+11:00,0,2,Mathematical assumption; Sequential reasoning,11,7,"a. Find a recurrence relation for the number of ways to climb n stairs if the person climbing the stairs
+can take one stair or two stairs at a time.
+Let an be the number of ways to climb n stairs. In order to climb n stairs, a person must either start
+with a step of one stair and then climb n −1 stairs (and this can be done in an1 ways) or else start
+with a step of two stairs and then climb n −2 stairs (and this can be done in an2 ways). From this
+analysis we can immediately write down the recurrence relation, valid for all n ≥2 : an = an−1 +an−2
+b. What are the initial conditions?
+The initial conditions are a0 = 1 and a1 = 1, since there is one way to climb no stairs (do nothing)
+and clearly only one way to climb one stair.
+4
+c. In how many ways can this person climb a flight of eight stairs?
+Each term in our sequence {an} is the sum of the previous two terms, so the sequence begins a0 =
+1, a1 = 1, a2 = 2, a3 = 3, a4 = 5, a5 = 8, a6 = 13, a7 = 21, a8 = 34. Thus a person can climb a flight of
+8 stairs in 34 ways under the restrictions in this problem.",,,
+702,2023,69487,611,"ex8, week 10","Hi,
+
+Here, after we find y1+y2+y3+y4+y5=<9, I tried to add a slack variable y6 and solve the question with: y1+y2+y3+y4+y5+y6=9 as we did in 2nd question of this exercise. But I find C(14,9) which is 2002. Why doesn't it work here?
+
+Thanks!",Labs,Week 10: Intro to Counting,,2023-11-29T00:58:41.064348+11:00,TRUE,What is y5 here?,92875,2023-11-29T01:56:29.538567+11:00,0,3,English: I + action,10,8,"Find the least number of cables required to connect 15 computers to 10 printers to guarantee
+that any group of 10 computers can always directly access 10 different printers simultaneously:
+✓60
+⃝150
+⃝10
+⃝None of the above
+5
+Suppose that we label the computers C1, C2, ..., C15 and the printers P1, P2, ..., P10. Suppose further
+that we connect Ck to Pk for k = 1, 2, . . . , 10 and each of the remaining 5 computers to all 10 printers.
+This requires a total of 60 cables. Clearly any set of 10 or less computers can simultaneously access
+different printers. This is because if computer Cj such that 1 ≤j ≤10 is included then it can access
+printer Pj, and for each included Ck with k ≥11, there must be a corresponding computer Cj such that
+1 ≤j ≤10 that is not included so Ck can access Pj.
+Now, suppose there are fewer than 60 cables connecting the computers to the printers. Then, at least
+one printer would be connected to at most ⌊59/10⌋= 5 computers. (If all printers were connected to at
+least 6 computers, there would be at least 6 × 10 = 60 cables.) This means that the remaining 9 printers
+are not enough to allow the other 10 computers to simultaneously access different printers. Hence, at
+least 60 direct connections are needed.
+6",,,
+702,2023,54887,171,Ex 8.3,"Hey,
+
+In exercice 8, question 3, we're supposed to use a nonconstructive proof to prove that there exist irrationals x and y such that one of them is sqrt(3) and that pow(x, y) is rational. According to the lecture, we need to make an assumption which has to lead to a contradiction (I put that part of the lecture below). So why isn't there any assumption in the demonstration of the solution (which I put below) ? 
+
+
+
+Can someone help me get this ?
+
+
+
+
+
+VS",Labs,Week 3: Proofs,,2023-10-09T03:18:39.6564+11:00,TRUE,"Hello,
+An answer was already posted here: https://edstem.org/eu/courses/702/discussion/54887
+I will mark your post as a duplicate
+
+Be sure to check if the question was already asked next time ;)",210900,2023-10-09T07:15:16.793449+11:00,0,2,Mathematical assumption,3,8,"†
+1. Use a similar line of reasoning as used in class to prove that
+√
+3 is irrational;
+By contradiction, suppose
+√
+3 is rational, i.e., there are two positive integers a and b such that
+√
+3 = a/b. We further suppose that a and b don’t have any factors in common, in case they do, we
+can divide them out. Then by squaring both sides and rearranging we obtain 3b2 = a2. Note that
+if b is even, then so is a2, and this means that a is also even, so 2 divides both a and b. This is a
+contradiction because a and b have no factors in common. On the other hand if b is odd then so is
+3
+b2 which implies that a2 is also odd. Hence a and b can be written as 2x+1 and 2y +1 respectively
+where x and y are integer values. Substituting them in the equation leads to
+3(2y + 1)2 = (2x + 1)2
+6y2 + 6y + 1 = 2x2 + 2x
+Notice that the left hand side of the equation is always odd while the right hand side is always even.
+Hence this equality is a contradiction. We conclude that there are no positive integers a and b such
+that
+√
+3 = a/b and therefore that
+√
+3 is irrational.","2. Prove that log2(9) is irrational;
+By contradiction, suppose that log2(9) is rational, i.e., there are two integers a and b such that
+log2(9) = a/b with a, b > 0. Then, 9 = 2log2(9) = 2a/b, so 9b = 2a. Since 9b is odd and 2a is even,
+there is a contradiction.
+3. While avoiding the use of logarithms or of the fact that
+√
+2 is irrational, but following the noncon-
+structive existence proof given in class, show that there exist irrational numbers x and y such that
+xy is rational and that at least one of the variables is
+√
+3;
+Let x =
+√
+3 and y = 2
+√
+3 , then either xy =
+√
+3
+2
+√
+3 is rational and we have found an example or it
+is irrational. In that case, we can take x =
+√
+3
+2
+√
+3 and y =
+√
+3 as our irrational numbers resulting
+in xy =
+√
+3
+2
+√
+3
+√
+3 = 33 which is clearly rational. Hence, there exist irrational numbers x and y such
+that xy is rational and either x or y is
+√
+3.
+4. Use the same method to find an irrational x such that √x is rational, or show that such an x does
+not exist.
+Suppose that there is such an x. Then we can write √x = a
+b for two integers a and b. By squaring
+on both sides we obtain that x = a2
+b2 . Since a2 and b2 are integers, it follows that a2
+b2 is rational,
+contradicting the fact that x is irrational. We conclude that the square root of any irrational number
+is irrational.",,
+702,2023,65427,457,serie 8 exercise 5,"Hello,
+
+For the formula when n is odd, I found 2^ceiling function(n/2) but I don't know how to show it by induction. Can you explain to me how ?
+
+Thank you.",Labs,Week 8: Induction & Recursion,,2023-11-15T08:37:41.903992+11:00,TRUE,"Hi !
+
+I will give you an hint. Try disjuncting two cases : when $n$ is odd and when $n$ is even.
+You can try now to express your function separately for those two cases, and try to prove it by induction.
+
+Good luck!
+
+Best, 
+
+Maxime",786259,2023-11-15T08:56:54.028702+11:00,0,2,Mathematical method,8,5,"* Consider the following two statements:
+
+f is o(f)
+
+and
+
+f is o(g) implies f is O(g)
+
+.
+✓Only the second is true.
+⃝They are both false.
+⃝Only the first is true.
+⃝They are both true.
+The statement “f if o(f)” would imply that for any function f it is the case that limx→∞
+|f(x)|
+|f(x)| = 0.
+That is cleary incorrect: for instance for the function f(x) = 1 it is the case that limx→∞
+|f(x)|
+|f(x)| = 1
+1 = 1.
+Thus the first statement is not correct.
+The statement “f is o(g)” implies that limx→∞
+|f(x)|
+|g(x)| = 0, and thus that for any ϵ > 0 there exists an
+x0 such that |f(x)|
+|g(x)| < ϵ for all x > x0, implying that |f(x)| < ϵ|g(x)| for all x > x0, which in turn implies
+that f is O(g). Thus the second statement is correct.",,,
+702,2023,68326,571,Exercise 3 WEEK 10,"Hello, could someone please explain to me what are we expected to do exactly for this question. Are we supposed to convert the numbers in base 10 first and then substract or are we supposed to use binary conversion? Thanks in advance!",Labs,Week 10: Intro to Counting,,2023-11-25T03:11:15.235293+11:00,TRUE,"you are supposed to substract them using operations on bits.
+
+For example addition between binary numbers can be done by taking the xor between bits, and giving a carry to the next bit if you have at least 2 1s.
+
+You can find a way to do substraction in a similar way",92875,2023-11-25T03:21:16.794615+11:00,0,3,Mathematical assumption; Sequential reasoning,10,3,"1. How many functions are there from A = {0, 1, 2, 3} to B = {0, 1, 2}?
+Each element in A can be sent to any of the three elements in B. Applying the product rule, there
+are |B||A| = 34 = 81 functions from A to B.","2. How many injective functions are there from A = {0, 1, 2, 3} to B = {0, 1, 2, 3, 4, 5, 6}?
+The element 0 can be send to any element of B (7 possibilities), the element 1 can be sent to any
+of the remaining elements of B (7 −1 = 6 possibilities), the element 2 can be sent to any of the
+remaining elements of B (7 −2 = 5 possibilities), and finally the element 3 can be sent to any of
+the last 4 remaining elements of B. Applying the product rule, the number of injective functions
+from A to B is 7 · 6 · 5 · 4 = 840.
+1
+1
+Session Exercises",,
+702,2023,78539,857,ex 6 ii) serie 13,"Hello, i don't get how we find te 3!, 3!/2! and 3!/3!. Like I understand what they represent but where does those numbers/formulas come from? I tried searching on slides or cheat sheets but i dont get this...
+
+thanks in advance",Labs,Week 13: Advanced Probabilities,,2023-12-25T04:27:39.019286+11:00,TRUE,"The 3 factorial is just the permutations of 3 elements. 3!/2! is permutations of 3 elements with 2 same elements. You've seen this formula looking at the number of ways to form words with letters.
+Same thing for 3!/3!
+
+To understand why this formula works:
+To order n elements, there are n ways for the first, n-1 choices left for the second etc... giving n!.
+When some elements are identical, r elements for example, you counting them as different means you count a given permutation r! times too much (the number of swaps you could do within the r elements, which shouldn't be counted as different) hence n!/r!",92875,2023-12-25T04:53:16.729856+11:00,1,3,English: I + action,13,6,"* Let X be a random variable on a sample space S such that X(s) ≥0 for all s ∈S. Show that
+p(X(s) ≥a) ≤E(X)/a for every positive real number a. This inequality is called Markov’s inequality.
+We start from expected value’s formula and divide both sides by a:
+E(x) = P
+r∈X(s) p(X(s) = r) · r
+⇔
+E(x)/a = P
+r∈X(s) p(X(s) = r) · r/a
+The sum is over all possible values of r, therefore it is greater than the sum over the values of r greater
+than a:
+X
+r∈X(s)
+p(X(s) = r) · r/a ≥
+X
+r∈X(s)∧r≥a
+p(X(s) = r) · r/a ≥
+X
+r∈X(s)∧r≥a
+p(X(s) = r) = p(X(s) ≥a)
+The last inequality is true because r ≥a.
+Therefore, we do have p(X(s) ≥a) ≤E(X)/a",,,
+702,2023,77346,813,Exercise 14 - week 13,"For the question 3, I tried to compute it with X a random variable, who take the number of tires installed in its original position. p ( X = 1 ) = 1/4, p (X = 2 ) = 1/12 and p ( X = 3 ) = p ( X = 4 ) = 1/24 
+
+I got E ( X ) = 1/4 +  2*(1/12) + 7*(24) = 17/24 
+
+I don't understand why my reasoning is false ?",Labs,Week 13: Advanced Probabilities,,2023-12-20T00:45:28.102959+11:00,TRUE,"the reasoning is correct, but the probabilities are not. $P(X=n)=\frac{\binom{4}{n}*!(4-n)}{4!}$
+
+Indeed, there are 4! possible arrangements, and the number of arrangements with n tires in their original position can be found by counting the combinations of n correct tires, so C(4,n) and multiplying by the derangements of the remaining 4-n tires, as they must be in the wrong place.
+
+A way you could've realised your probabilities were wrong is that you can never have exactly 3 tires in their original position, so P(X=3) must be 0",92875,2023-12-20T04:17:13.136062+11:00,0,5,English: my + work; English: I + action,13,14,"You throw a die until you get a 6. What is the average number of throws conditioned on the
+event that all throws (before the first 6) gave even numbers?
+Let X be a random variable defined as
+X = # of throws until the first six
+and let Y be the event defined as
+Y = all throws until the first six are even.
+13
+The goal is to compute E[X|Y ] = P∞
+i=1 i·P[X = i|Y ]. We will do this ones step at a time - firstly let’s
+compute P[X = i|Y ], i.e. the probability of getting a 6 for the first time on the i’th throw, conditioned
+on the event that all previous throws were even. We will use Bayes’ formula:
+P[X = i|Y ] = P[Y |X = i]P[X = i]
+P[Y ]
+.
+Now let’s compute the three terms of the product separately.
+· P[X = i] =
+ 5
+6
+i−1 1
+6 as the first i −1 throws must be different from 6, and the i’th throw is a 6
+· P[Y |X = i] =
+ 2
+5
+i−1 as the first i−1 throws must be even, but we condition on them being different
+from 6, so they can have 2 out of 5 possible values (2 and 4 out of 1,2,3,4,5)
+· P[Y ] = P∞
+j=1 P[Y |X = j]P[X = j]. Here we use conditioning on the first time we get a 6, ranging
+from the first throw (j=1) to ∞. Plugging in the corresponding values computed above, we obtain
+P[Y ] = P∞
+j=1
+ 2
+5
+j−1  5
+6
+j−1 1
+6 = 1
+6
+P∞
+j=1
+ 2
+6
+j−1 = 1
+6
+P∞
+j=0
+ 1
+3
+j = 1
+6
+1
+1−1/3 = 1","4.
+We plug everything in to obtain
+P[X = i|Y ] =
+ 2
+5
+i−1  5
+6
+i−1 1
+6
+1
+4
+= 2
+3
+1
+3
+i−1
+Finally we can compute the expected value formula from its definition
+E[X|Y ] =
+∞
+X
+i=1
+i · P[X = i|Y ] =
+∞
+X
+i=1
+i · 2
+3
+1
+3
+i−1
+= 2
+3
+∞
+X
+i=0
+(i + 1) ·
+1
+3
+i
+= 2
+3 · 9
+4 = 3
+2,
+where P∞
+i=0(i + 1) ·
+ 1
+3
+i = P∞
+i=0 i ·
+ 1
+3
+i + P∞
+i=0
+ 1
+3
+i =
+1/3
+(1−1/3)2 +
+1
+1−1/3 = 3
+4 + 3
+2 = 9
+4.
+Another, easier way, to compute E[X|Y ] is the following: consider two disjoint cases - obtaining a 6
+on the first throw, and not obtaining a 6 on the first throw, both conditioned on Y . Then if we get a 6
+on the first throw - the number of throws is exactly 1, but if we don’t get a 6, but we get a 2 or a 4 in
+stead, we have done 1 throw, and we start the game again - i.e. we add 1 to the number of throws and
+throw again. We formalise this by conditioning X|Y on the events X = 1|Y and X ̸= 1|Y in order to
+obtain
+E[X|Y ] = E[(X|Y )|(X = 1|Y )]P[X = 1|Y ] + E[(X|Y )|(X ̸= 1|Y )]P[X ̸= 1|Y ]
+We have E[(X|Y )|(X = 1|Y )] = 1 since this is the expected number of throws until the first 6, given
+that the first throw is 6 (conditioned on Y ), and E[(X|Y )|(X ̸= 1|Y )] = (1 + E[X|Y ]) since this is the
+expected number of throws until the first 6 given that the first throw is not a 6, conditioned on Y , as the
+first throw is even, and all the throws after that one are independent from the previous one. Putting this
+together we get
+E[X|Y ] = 1 · P[X = 1|Y ] + (1 + E[X|Y ]) · P[X ̸= 1|Y ].
+The value of P[X = 1|Y ] = 2
+3 was computed above, so P[X ̸= 1|Y ] = 1
+3 and by plugging it in we get
+E[X|Y ] = 2
+3 + 1
+3 · (1 + E[X|Y ])
+E[X|Y ] = 2
+3 + 1
+3 + 1
+3E[X|Y ])
+2
+3E[X|Y ] = 2
+3 + 1
+3 = 1
+E[X|Y ] = 3
+2
+14",,
+702,2023,81379,987,Week 8 - ex 9,"Hello, while doing the exercises all over again, I found another way of doing this exercise (in this case the first part of the exercise), and was wondering if it is correct or not. The exercise is as follows :
+
+My approach was to say the following :
+
+Since $i=C(i,1)$, one can also see that $i^2=2\cdot C(i,2) + C(i,1)$, $i^3=3!\cdot C(i,3) + C(3,2)\cdot i^2 + 2i$, and if we keep expanding this way, using Big-Oh notation, we find that : $i^k=k!\cdot C(i,k)+C(k,2)\cdot i^{k-1} + p(i)$ where $p(i)$ is a polynomial of order $O(i^{k-2})$.
+
+Since the sum $\sum_{i=0}^{n}{a_i\cdot i^d}$ can be reduced to $\sum_{i=0}^{n}{i^d}$ as constants do not matter in Big-Oh notation (we could take the max and the min as in the posted solution but I skip this step to make this post shorter).
+
+In the following lines of computations, I deliberately discard the term $i=0$ because it only contributes to a constant, and we will see that the answer stays the same.
+
+Replacing $k$ by $d$, the sum can be expanded to $d!\cdot\sum_{i=1}^{n}{C(i,d)}+C(d,2)\cdot\sum_{i=1}^{n}{i^{d-1}}+\sum_{i=1}^{n}{p(i)}$. One can see that the term of degree $d-2$ in $p(i)$ contributes a polynomial of degree $d-1$ to $\sum_{i=1}^{n}{p(i)}$. Thus, $\sum_{i=1}^{n}{p(i)}\in O(n^{d-1})$.
+
+It is also true that $C(d,2)\cdot\sum_{i=1}^{n}{i^{d-1}}=C(d,2)\cdot\frac{1}{d}\cdot n^{d} + O(n^{d-1})$, and finally, the summation identity gives us : $d!\sum_{i=1}^{n}{C(i,d)}=d!\cdot C(n+1,d+1)$.
+
+Putting all of this together, we get that :
+
+$\sum_{i=1}^{n}{i^d}=d!\cdot C(n+1,d+1)+\frac{d-1}{2}\cdot n^d + O(n^{d-1})$
+
+As $C(n+1,d+1)=\frac{n+1}{d+1}\cdot C(n,d)$ and using the definition of $C(n,d)$, we can manipulate the expression to get something of the form :
+
+$\sum_{i=1}^{n}{i^d}=d!\frac{n+1}{d+1}C(n,d)+\frac{d-1}{2}n^d+O(n^{d-1})$
+
+$=d!\frac{1}{d+1}(n+1)\frac{1}{d!}[n^d-C(d,2)n^{d-1}]+\frac{d-1}{2}n^d+O(n^{d-1})$
+
+$=\frac{1}{d+1}n^{d+1}+[\frac{1}{d+1}(1-C(d,2))+\frac{d-1}{2}]n^d+O(n^{d-1})$
+
+$=\frac{1}{d+1}n^{d+1}+O(n^d)$
+
+which is clearly $\theta(n^{d+1})$.
+
+Going back to the beginning, we can now safely say that :
+
+$\sum_{i=0}^{n}{a_i\cdot i^d} \in \theta(n^{d+1})$.",Labs,Week 8: Induction & Recursion,,2024-01-05T03:26:54.619219+11:00,TRUE,It looks correct,92875,2024-01-07T04:54:18.265256+11:00,1,4,English: my + work; Mathematical conclusion,8,9,"Prove that n! > 2n for n ≥4.
+4
+Statement: P(n): n! > 2n for n ≥4.
+Basis step: We start with the first possible value of n which is n = 4: 4! = 24 > 16 = 24, the statement
+P(4) is true.
+Induction step P(k) →P(k + 1): We assume, as the induction hypothesis, that the statement is true for
+an arbitrary k ≥4. Then
+(k + 1)! = k!(k + 1)
+> 2k(k + 1) (by the induction hypothesis)
+> 2k × 2 (because k ≥4 hence k + 1 > 2)","= 2k+1.
+Thus P(k + 1) is true.
+Conclusion: Since P(4) is true and P(k + 1) is true given that P(k) holds for an arbitrary k ≥4, by the
+principle of induction, P(n) is true for all n ≥4.",,
+702,2023,59467,279,Week 6 ex 8,"Hello,
+
+In the exercise 8
+
+i don't really know how to do it because i tried to inject some n and the results we can take the function f1 i take n=2 so a=2 we can say ok so a=n but
+
+ if we take n=4, we have a=3, 
+
+if n=6,a=4 ,
+
+if n=8,a=5
+
+so i don't know how to conclude with bigger number we see it's seems to be better to take n/2 but with smaller number it's better to take n so is there a way to do it that i didn't understand?",Labs,"Week 6: Countability, Algorithms",,2023-10-27T20:55:21.754906+11:00,TRUE,"The last line of the program is a = x
+
+It means that the {a} we are looking for corresponds to the last value that x takes.
+
+So try actually to see when does your loop end and to which x does that correspond to.",885808,2023-10-27T22:13:18.28891+11:00,0,3,English: I + action,6,8,"The only thing that we need to show, is that given a function f and a finite list of input values
+a1, a2, ..., an (the domain), all the respective output values of the function (i.e. f(a1), f(a2), ..., f(an)) are
+unique or not. In other word, for any distinct i and j where 1 ≤i ≤n and 1 ≤j ≤n, we should have
+f(ai) ̸= f(aj) to have a one-to-one function.
+The following algorithm tries to check if all input pairs have distinct outputs to determine if the function
+is one-to-one or not.
+Truth = True
+for i = 1 to n
+for j = 1 to n
+if (ai ̸= aj and f(ai) = f(aj))
+Truth = False
+return Truth
+7",,,
+702,2023,73087,757,"Week 12 ex2, Building the recurrence relation.","Hello, 
+
+I don't really understand how we built the first steps of our reasoning in order to reach the recurrence relation, and how we chose the different cases of the first $n$ bits of the sequence for which we will write a formula for its ""rest""
+For instance, why wouldn't we write it also for the first 4 bits of X or something else... 
+I tried to repeat the reasoning applied so I can find a similar formula for the $Bn$ sequence but I can't find the ""cases disjunction"" I should use",Labs,Week 12: Probabilities,,2023-12-09T22:39:16.314667+11:00,TRUE,"Hi, the main idea behind this method is to distinguish some cases in order to completely express our original problem of size N in terms of the same problem(s) but of smaller size n < N.
+
+For this problem we're interested in counting the number of strings of length N that contain three consecutive 0's. We call this condition C.
+
+We can represent such a string by:
+
+$$b_nb_{n-2}...b_1$$
+
+For N=4 for example the possible strings that satisfy our condition are:
+
+0000, 0001, 1000 => we should count 3
+
+
+Now let's start figuring out a recurrence relation.
+
+1) let's consider the left-most bit. Since it is a bit it can only be 1 or 0. So we can distinguish the two cases.
+
+$$1b_{n-1}b_{n-2}...b_1$$
+
+For which we denote the count of the total number of strings that satisfy C by  
+
+$$A_{1b_{n-1}b_{n-2}...b_1}$$
+
+And:
+
+$$0b_{n-1}b_{n-2}...b_1$$
+
+For which we denote: 
+
+$$A_{0b_{n-1}b_{n-2}...b_1}$$
+
+Since those two cases are truly distinct the total for which we're looking for can be expressed as 
+
+$$A_N\ =\ A_{1b_{n-1}b_{n-2}...b_1}\ +\ A_{0b_{n-1}b_{n-2}...b_1}$$
+
+Let's start with:
+
+$$A_{1b_{n-1}b_{n-2}...b_1}$$
+
+If I tell you how many strings of length N-1 satisfy our condition C, adding a 1 to the left of a string of length N_1 will not generate new possibilities i.e. any string that we've counted among the strings of length N-1 we will also count if we add a 1 to the left and any string that we've not counted will still not be counted by adding the 1. Hence, in that case we can completely express our problem in terms of the solution of a smaller problem (of length N-1).
+
+$$A_{1b_{n-1}b_{n-2}...b_1}\ =\ A_{N-1}$$
+
+On the other hand, in the case of  0, this is not true. If I give you a string of length N-1 that does not satisfy C but is of the form 0011111...then adding a zero to the left will actually generate some strings that we should count => 00011111...So for the cases of strings that have 0 at their left-most position, we need to distinguish more cases.
+
+So in the case of 0 we repeat the same strategy. We distinguish two cases:
+
+ 
+
+$$01b_{n-2}b_{n-3}...b_1$$
+
+and
+
+$$00b_{n-2}b_{n-3}...b_1$$
+
+which similar to the case before lets us express:
+
+$$A_{0b_{n-1}b_{n-2}...b_1}\ =\ A_{01b_{n-2}b_{n-3}...b_1}+A_{00b_{n-2}b_{n-3}...b_1}$$
+
+If it is a 1 (i.e. the string starts with 01) then we're in a similar situation as before. If I give you the solution for strings of length N-2 then adding 01 to the left will not change that number. However, if we have 00 we have the same problem as before and we repeat the process one last time.
+
+
+
+$$A_{00b_{n-2}b_{n-3}...b_1}\ =\ A_{001b_{n-3}b_{n-4}...b_1}\ +\ A_{000b_{n-3}b_{n-4}...b_1}$$
+
+Here the recursion stops because 
+
+$$A_{001b_{n-3}b_{n-4}...b_1}\ =\ A_{N-3}$$
+
+and 
+
+$$A_{000b_{n-3}b_{n-4}...b_1}$$
+
+will count all the strings that start with 000 hence no matter the values for the remaining bits, they all satisfy the condition C.
+
+Finally you add everything together.
+
+Hope, that helped.",566222,2023-12-13T18:45:18.936148+11:00,2,3,English: I + action,12,2,"How many bit strings of length eight contain either three consecutive 0s or four consecutive 1s?
+Denote by An the set of bit strings of length n that contain three consecutive 0s. We will try to find a
+recurrence relation for computing |An|. Consider the first bit of a bit string X from the set An - if the
+first bit is ’1’ then the remaining part of X is some bit string from the set An−1. If the first bit is ’0’ then
+the remaining part can be from An−1, but it doesn’t have to (e.g. it can start with ’00’ and not contain
+three consecutive, 00xxx...x). So let’s consider the first two bits of X: if they are ’01’ then the remaining
+part of X is some bit string from An−2. If it is ’00’ then again, the remaining part can be from An−2 but
+it doesn’t have to. So in this case we consider the third bit as well. If the first three bits are ’001’ then
+the remaining part of X is some bit string from An−3. If the first three bits are ’000’ then the remaining
+part of X can be any bit string of length n −3. To summarize, for X ∈An:
+• If the first bit of X is ’1’, the rest of X can be any bit string from An−1
+• If the first two bits of X are ’01’, the rest of X can be any bit string from An−2
+• If the first three bits of X are ’001’, the rest of X can be any bit string from An−3
+• If the first three bits of X are ’000’, the rest of X can be any bit string of length n −3
+1
+So, we have that |An| = |An−1| + |An−2| + |An−3| + 2n−3 for n ≥4. The initial conditions are obviously
+A1 = A2 = 0 and A3 = 1. From this recurrence relation we compute |A8| = 107.","A similar analysis for bit strings of length n which contain 4 consecutive 1s, gives the recurrence
+relation |Bn| = |Bn−1| + |Bn−2| + |Bn−3| + |Bn−4| + 2n−4 and we compute |B8| = 48.
+We have computed the number of bit strings of length 8 which contain three consecutive zeros (|A8|)
+and the number of bit strings of length 8 which contain four consecutive ones (|B8|). In order to compute
+the number of bit strings of length 8 which contain either three consecutive 0s or four consecutive 1s we
+need to apply the inclusion-exclusion principle. So, we need to find out the cardinality of the set A8 ∩B8.
+Those are exactly the bit strings which contain three consecutive 0s and four consecutive 1s at the same
+time: ’00001111’ , ’11110000’, ’11111000’, ’00011111’, ’00011110’, ’10001111’, ’01111000’, ’11110001’.
+So, the final answer is |A8| + |B8| −8 = 147.",,
+702,2023,71233,667,week 11 exercise 3.3,"Hello
+
+I am failing to understand why my method of solving this exercise does not work. My approach was as follows:
+
+We need to choose one masters student out of 5, = C(5, 1), and then three more students, out of the remaining 10 students, = C(10, 3). Then we multiply by the 12 possibilities for the hats, giving a total of 
+
+$$\left(\begin{matrix}5\\1\end{matrix}\right)\cdot\left(\begin{matrix}10\\3\end{matrix}\right)\cdot12\ =5\cdot\frac{10!}{3!\cdot7!}\cdot12=5\cdot\frac{10\cdot9\cdot8}{3\cdot2}\cdot12$$
+
+$$=5\cdot5\cdot3\cdot8\cdot2\cdot3\cdot2\ =7200$$
+
+Thanks in advance",Labs,Week 11: Advanced Counting,,2023-12-04T01:46:14.164755+11:00,TRUE,"you are counting some combinations multiple times. Groups with 2 masters m1 and m2 would be counted both when m1 is the selected master, and when m2 is the initial selected master, therefore counted twice.",92875,2023-12-04T01:50:34.500062+11:00,0,3,English: my + work,11,3,"You need to form a team of 4 volunteers from a group of 6 bachelor students and 5 master students. The team must have at least one master student. The team will be given 4 hats: 2 red, one blue, and one green. How many different team compositions and hats assignments are possible? For each team we have 4 hats, two of which are identical so we need to use permutations with indistinguishable objects: 4! / 2! . We need to have at least one master student in each team, therefore we have C(5,1)* C(6,3) possible teams with exactly one master student and 3 bachelor students. Following the same reasoning, we have C(5,2) * C(6,2) possible teams with exactly 2 master students and 2 bachelor","=
+1
+1−5x
+↔
+G(x)(1 −5x)
+=
+1
+↔
+G(x)
+=
+1 + 5xG(x).
+Hence, if we write G(x) = P∞
+i=0 aixi we get
+∞
+X
+i=0
+aixi = 1 + 5x
+∞
+X
+i=0
+aixi
+↔
+∞
+X
+i=0
+aixi = 1 +
+∞
+X
+i=0
+5aixi+1
+↔
+∞
+X
+i=0
+aixi = 1 +
+∞
+X
+j=1
+5aj−1xj.
+Thus we can see that a0 = 1 and an = 5an−1 for all n ≥1. Hence, a closed formula for the sequence
+is an = 5n.
+c. x2/(1 −x)2
+We know that
+1
+(1 −x)2 =
+∞
+X
+i=0
+(i + 1)xi
+(as seen several times and as follows e.g. from the derivative of P∞
+i=0 xi), hence we get
+x2
+(1 −x)2 = x2
+∞
+X
+i=0
+(i + 1)xi =
+∞
+X
+i=0
+(i + 1)xi+2 =
+∞
+X
+j=2
+(j −1)xj.
+Thus the sequence is given by a0 = a1 = 0 and an = n −1 for n ≥2.
+2
+2
+Session Exercises",,
+702,2023,58577,268,Week 6 ex1.2,"Hello, could you explain how p and q being in the same equivalence class implies them as equal values to each other and so C = D ? How am I supposed to understand this since we only know the relation between them is an equivalence one. And a second question, how do we know R is uncountable? Is this R the ""r"" of ""r""eel numbers or of the ""r""elation ? Thanks",Labs,"Week 6: Countability, Algorithms",,2023-10-24T19:58:32.398868+11:00,TRUE,"Hello,
+
+first, yes here R represents the ""r"" of the ""r""eal numbers.
+
+Secondly it is not saying p = q (that they are equal values to each other) but that they are in the same equivalence class because that is how we defined the equivalence class C : all the pairs that when summed give a certain value. it could be for exemple all the sets of real numbers whose sum give 10.
+
+And so because f(p) = f(q), i.e. they give the same sum, C and D must be the same equivalence class of the sum f(p) (or f(q)).",930542,2023-10-24T21:21:51.106465+11:00,0,2,Mathematical assumption,6,1,"Which of the following statements is incorrect?
+⃝The Cartesian product of finitely many countable sets is countable.
+✓Any subset of infinite cardinality of an uncountable set is uncountable.
+⃝N ∪{x | x ∈R, 0 < x < 1} is uncountable.
+⃝The intersection of two uncountable sets can be countably infinite.
+The Cartesian product of finitely many countable sets is countable.
+It is correct. It is a property we saw in the lecture.
+Any subset of infinite cardinality of an uncountable set is uncountable.
+It is incorrect. Let us show it with a counter example: Z+ ⊂R.
+Because R is uncountable and Z+ is a countable subset of R, the second statement is incorrect.
+N ∪{x | x ∈R, 0 < x < 1} is uncountable.
+It is correct. We are going to use the theorem that states that if A is uncountable and A ⊂B, then B is
+uncountable.
+If we set A = {x | x ∈R, 0 < x < 1} (the set of real numbers between 0 and 1) and B = {N ∪{x | x ∈R, 0 < x < 1}}.
+Then we have A uncountable and A ⊂B. Therefore B is uncountable.
+The intersection of two uncountable sets can be countably infinite.
+It is correct. Since we only need to show that the intersection of two uncountable sets can be countably
+infinite, we just need to find an example that works.
+If we take A = {N ∪{x | x ∈R, 0 < x < 1}} and B = {N ∪{x | x ∈R, 3 < x < 4}}, we do have A and","B both uncountable.
+Their intersection A ∩B = N is countable.
+Therefore the statement is true.",,
+702,2023,77947,830,Week 13 exercise 7,"Hello,
+
+there's something I don't understand in exercise 7. 
+For example, if I want to calculate the probability of a three of a kind, at first I thought it was logical to calculate it like this:
+
+C(13, 1) * C(4, 3) * C(12, 1) * C(4, 1) * C(11, 1) * C(4, 1)
+
+But that's not right, because I have to replace : 
+C(12, 1) * C(4, 1) * C(11, 1) * C(4, 1) 
+with this: 
+C(12, 2) * (C(4, 2)^2). 
+I understood why, because by doing what I did at the beginning (multiplying the r-combinations together), I add an order between the penultimate card and the last one.
+
+But what I didn't understand was that by multiplying this part : 
+C(13, 1) * C(4, 3) 
+with this one: 
+C(12, 2) * (C(4, 2)^2) 
+I order the first three cards with the last two. For me, I'm counting twice too many combinations, because first I count the three of a kind, then the other two cards, and then I count the other two cards, then the three of a kind. I can't find the error in my reasoning. Can anyone find out why my reasoning is wrong?",Labs,Week 13: Advanced Probabilities,,2023-12-21T18:43:56.167383+11:00,TRUE,"You're not ordering them. Ordering them would suggest you multiply by the number of ways you can arrange the triple and the two others, which is 2*C(5,3).
+Here its not like choosing the two cards, because then you'd count results twice, since (2,5) and (5,2) are equal for example.
+Here you can't choose your single cards using the triples method or vice versa",92875,2023-12-23T19:31:55.181161+11:00,0,3,English: my + work; Sequential reasoning,13,7,"(c) Three of a kind: probability of poker hand containing three cards of the same kind and two cards of two other kinds
+
+Similarly as with one pair, let us start with the three of a kind. We need to choose a single kind for these three cards and three different suits: $\binom{13}{1} \binom{4}{3}$.
+
+Then, we choose two different kinds for the remaining two cards as well as one suit for each of them: $\binom{12}{2} \binom{4}{1}^2$.
+
+Combining the two, we obtain:
+
+$p(\text{Three of a kind}) = \frac{\binom{13}{1} \binom{4}{3} \binom{12}{2} \binom{4}{1}^2}{2,\!598,\!960} \approx 0.021128.$","=
+X
+x,y
+(x)P(X = x, Y = y) +
+X
+x,y
+(y)P(X = x, Y = y)
+=
+X
+x
+x
+X
+y
+P(X = x, Y = y) +
+X
+y
+y
+X
+x
+P(X = x, Y = y)
+=
+X
+x
+xP(X = x) +
+X
+y
+yP(Y = y)
+= E[X] + E[Y ]
+2. Prove that if X and Y are statistically independent, then X and Y are also uncorrelated (i.e.,
+E[XY ] = E[X]E[Y ]).
+E[XY ] =
+X
+x,y
+xyP(xy)
+=
+X
+x,y
+xyP(x)P(y), by statistical independence
+=
+X
+x
+xP(x)
+X
+y
+yP(y)
+= E[X]E[Y ]
+Find an example in which X and Y are statistically dependent yet uncorrelated.
+An example of two random variables that are statistically dependent and uncorrelated: let X and
+Y take values in {−1, 0, 1} such that
+P(X = 1, Y = 0) = P(X = 0, Y = 1) = P(X = −1, Y = 0) = P(X = 0, Y = −1) = 1/4.
+9
+and the probability is equal to 0 for every other pair of values of X and Y :
+P(X = −1, Y = −1) = P(X = −1, Y = 1) = P(X = 0, Y = 0) = P(X = 1, Y = −1)
+= P(X = 1, Y = 1) = 0
+Using the formula E[XY ] = P
+x,y xyP(xy), we find that E[XY ] = 0.
+By noticing that P(X) = P
+(X ∩Y ) ∪(X ∩Y )
+
+= P(X∩Y )+P(X∩Y )+P
+
+
+(X ∩Y ) ∩(X ∩Y )
+|
+{z
+}
+∅
+
+
+,
+we can compute the probabilities and expected values of X and Y .
+By doing so we find that
+E(X) = E(Y ) = 0. Therefore X and Y are uncorrelated.
+Moreover, if we take the special case P(X = 0, Y = −1) = 1/4, P(X = 0) = 1/2 and P(Y = −1) =
+1/4, we can conclude that X and Y are not independent.
+An example of correlated and dependent variables is if instead:
+P(X = 1, Y = 1) = P(X = −1, Y = −1) = 1/2.
+You can use the same reasoning as above to compute the expected values and probabilities.",,
+702,2023,70474,641,Exercise 3 week 11,"Hello,
+
+In the first question of the third exercise:
+
+We suppose that first there is 3 distinct letters and then 2 distincts digits or they can be mixed ? (for example 2letters then 2 digits and then 1 letter)",Labs,Week 11: Advanced Counting,,2023-12-01T23:06:17.484259+11:00,TRUE,"Hello, we don't mix the letters and digits here, it's letters then digits :)",210900,2023-12-01T23:11:00.164216+11:00,2,3,Mathematical assumption; Sequential reasoning,11,3,"For each of these generating functions, provide a closed formula for the sequence it determines.
+a. (x3 + 1)3
+We compute (x3+1)3 = x9+3x6+3x3+1. Hence the sequence is given by a0 = a9 = 1, a3 = a6 = 3
+and an = 0 for all other n.
+b. 1/(1 −5x)
+We know that
+1
+1 −5x =
+∞
+X
+i=0
+5ixi,
+hence we can right away deduce that the sequence is given by an = 5n.
+Alternatively, we can get the closed formula as follows:
+G(x)","=
+1
+1−5x
+↔
+G(x)(1 −5x)
+=
+1
+↔
+G(x)
+=
+1 + 5xG(x).
+Hence, if we write G(x) = P∞
+i=0 aixi we get
+∞
+X
+i=0
+aixi = 1 + 5x
+∞
+X
+i=0
+aixi
+↔
+∞
+X
+i=0
+aixi = 1 +
+∞
+X
+i=0
+5aixi+1
+↔
+∞
+X
+i=0
+aixi = 1 +
+∞
+X
+j=1
+5aj−1xj.
+Thus we can see that a0 = 1 and an = 5an−1 for all n ≥1. Hence, a closed formula for the sequence
+is an = 5n.
+c. x2/(1 −x)2
+We know that
+1
+(1 −x)2 =
+∞
+X
+i=0
+(i + 1)xi
+(as seen several times and as follows e.g. from the derivative of P∞
+i=0 xi), hence we get
+x2
+(1 −x)2 = x2
+∞
+X
+i=0
+(i + 1)xi =
+∞
+X
+i=0
+(i + 1)xi+2 =
+∞
+X
+j=2
+(j −1)xj.
+Thus the sequence is given by a0 = a1 = 0 and an = n −1 for n ≥2.
+2
+2
+Session Exercises",,
+702,2023,53984,127,Exercise 4 week 3,"Hello,
+
+In the first part, I'm not sure with my reasoning:
+
+If it's a rule of inference then: ((p → (q → r)) ∧ (q → (p → r))) → ((p ∨ q) → r) is a tautology
+
+so we start changing a bit:
+
+ ((¬p ∨  (q → r)) ∧ (¬q ∨ (p → r))) → ((p ∨ q) → r)   | Conditional Statements equivalences
+
+ ((q → r) ∧ (p → r)) → ((p ∨ q) → r)                          | Addition law (here I'm not sure the name)
+
+((p ∨ q) → r) → ((p ∨ q) → r)                                     | Conditional Statements equivalences
+
+this is a tautology so this rule of inference is valid.
+
+
+
+Thanks for the help!",Labs,Week 3: Proofs,,2023-10-05T08:04:39.670507+11:00,TRUE,"if p=T, q=F r=F then the expression is (((T → (F → F)) ∧ (F → (T → F))) → ((T ∨ F) → F)=(((T →T) ∧ (F → F)) → (T → F))=((T ∧ T) → F)=(T → F)=F.
+
+Therefore the expression is not a tautology.
+
+Your mistake appears to be in your second step, i'm not sure what ""addition law"" you are applying, but (¬p ∨ (q → r)) ∧ (¬q ∨ (p → r)) and (q → r) ∧ (p → r) are not equal.",92875,2023-10-05T10:20:55.999375+11:00,0,3,English: my + work,3,4,"1. Determine the validity of the following rule of inference:
+p →(q →r)
+q →(p →r)
+∴
+(p ∨q) →r
+As seen in class, a rule of inference is valid if it is a tautology. Consider the case when p is true and
+q and r are false. Then p →(q →r) ∧q →(p →r) is true and (p ∨q) →r is false, since true→false
+is false, we have found a case for which ((p →(q →r)) ∧(q →(p →r))) →((p ∨q) →r) is false,
+hence it is not a tautology and the rule of inference is not valid.","2. Which expressions below are equivalent to ¬(∀x∃y P(x, y)). Explain.
+✓∃x∀y ¬P(x, y);
+⃝∃x∃y ¬P(x, y).
+We find the result step by step by expressing the negation on each element:
+¬(∀x∃y P(x, y)) ↔∃x¬(∃y P(x, y)) ↔∃x∀y¬P(x, y).",,
+702,2023,88003,1176,"Big O proof week 8, ex7","Hello, please can you tell me if my proof is correct or not, thank you :)",Labs,Week 8: Induction & Recursion,,2024-01-24T22:48:58.068736+11:00,FALSE,,,,,3,English: my + work,8,7,"* Use strong or mathematical induction to show the following statement:
+Any postage of at least 8 cents can be formed using just 3 cents and 5 cents stamps.
+We use strong induction to show the statement.
+Statement: P(n): ∀n ≥8 we can write n as a sum of 3s and 5s.
+Basis step: We can form 8 = 3 + 5, 9 = 3 + 3 + 3 and 10 = 5 + 5 cents with just 3 and 5 cents stamps.
+Hence P(8), P(9) and P(10) are true.
+Induction step (P(k −2) ∧P(k −1) ∧P(k)) →P(k + 1):
+As strong induction hypothesis we assume
+that for an arbitrary k ≥10, P(l) is true for all l ∈{k −2, k −1, k}. We want to prove P(k + 1),
+i.e., to form k + 1 cents for k ≥10. We know by the induction hypothesis that we can form the
+amount of k −2 cents with 3 and 5 cents stamps (note that k −2 ≥8 so the argument is valid in
+the boundary case). Thus, we can add a 3 cents stamp to form k + 1. Hence P(k + 1) holds.
+Conclusion: Since P(8), P(9) and P(10) are true and P(k + 1) is true given that P(l) holds for all
+l ∈{k −2, k −1, k} for an arbitrary k ≥10, by the strong induction principle we conclude that
+P(n) is true for all n ≥8.",,,
+702,2023,54799,163,Week 3 exercise 6.2,"Hello,
+
+I don't understand why by using my approach I find at the end  ∀x NOZ R(c). Can you explain to where did a make a mistake ?
+
+Thank you.",Labs,Week 3: Proofs,,2023-10-08T22:27:56.175959+11:00,TRUE,Hi ! You just accidently swap the premise 3 for your 10th line. You need to write R(x) --> NOT S(x) and not S(x) --> not R(x),812240,2023-10-08T22:41:27.317114+11:00,1,2,English: my + work,3,6,"Show the following, explaining at each step of your proof what rules of inference you used.
+1. Show that the premises
+p
+“If I were smart or good-looking, I would be happy and rich.”
+q
+“I am not rich.”
+lead to the conclusion “I am not smart”.
+2
+Define the following:
+s
+“I am smart.”
+g
+“I am good-looking.”
+h
+“I am happy.”
+r
+“I am rich.”
+Then
+p","≡
+(s ∨g) →(h ∧r)
+q
+≡
+¬r
+Now we can prove ¬s as follows:
+1. (s ∨g) →(h ∧r)
+Premise
+2. ¬r
+Premise
+3. ¬r ∨¬h
+Addition
+3. ¬(h ∧r)
+Equivalence (De Morgan’s law)
+4. ¬(s ∨g)
+Modus tollens, using 1. and 3.
+5. ¬s ∧¬g
+Equivalence (De Morgan’s law)
+6. ¬s
+Simplification, using 5.
+2. Show that the premises
+∀x(P(x) ∨Q(x))
+∀x(¬Q(x) ∨S(x))
+∀x(R(x) →¬S(x))
+∃x¬P(x)
+lead to the conclusion ∃x¬R(x).
+We can prove the statement as follows:
+1. ∀x(P(x) ∨Q(x))
+Premise
+2. ∀x(¬Q(x) ∨S(x))
+Premise
+3. ∀x(P(x) ∨S(x))
+Resolution, using 1. and 2.
+4. ∀x(R(x) →¬S(x))
+Premise
+5. ∀x(¬R(x) ∨¬S(x))
+Equivalence, using 4.
+6. ∀x(P(x) ∨¬R(x))
+Resolution, using 3. and 5.
+7. ∃x¬P(x)
+Premise
+8. ∃x¬R(x)
+Disjunctive syllogism, using 6. and 7.",,
+702,2023,54915,173,WEEK 3 EX 6.2),"Hi ! 
+
+I looked at the solutions but i have a question.
+
+This is how i resolved the exercise, i feel like what i did from l.5 ->l .6 is weird, but it seems logical that if i ""prove"" that [ for all x Q(x) ] is true then i can assume that [ there exists an x Q(x) ] is true too, in order to use the Disjunctive syllogism
+
+I wanted to ask if i have the right to do that or if it's not ok.
+
+Thank you for your time !",Labs,Week 3: Proofs,,2023-10-09T05:17:26.303497+11:00,TRUE,"Hi,
+
+I think that what you have done from line 4 -> line 5 is wrong. 
+Disjunctive syllogism with lines 1 and 4, would imply that « There exists an x for which Q(x) holds » not « For all x, Q(x) holds ».
+
+The intuition behind this reasoning is :
+If for all x, you have either P(x) or Q(x) or both that holds (line 1), and that there is an x for which P(x) does not hold (line 4), then there is an x that « compensates » this x which makes P(x) not hold, that makes Q(x) hold.
+It does not mean necessarily that Q(x) holds for EVERY x, only that it holds at minima on those that does not work for P(x). (It could, but not necessarily).
+
+Best,
+
+Maxime",786259,2023-10-09T05:31:00.91439+11:00,0,2,Mathematical assumption,3,6,"Show the following, explaining at each step of your proof what rules of inference you used.
+1. Show that the premises
+p
+“If I were smart or good-looking, I would be happy and rich.”
+q
+“I am not rich.”
+lead to the conclusion “I am not smart”.
+2
+Define the following:
+s
+“I am smart.”
+g
+“I am good-looking.”
+h
+“I am happy.”
+r
+“I am rich.”
+Then
+p","≡
+(s ∨g) →(h ∧r)
+q
+≡
+¬r
+Now we can prove ¬s as follows:
+1. (s ∨g) →(h ∧r)
+Premise
+2. ¬r
+Premise
+3. ¬r ∨¬h
+Addition
+3. ¬(h ∧r)
+Equivalence (De Morgan’s law)
+4. ¬(s ∨g)
+Modus tollens, using 1. and 3.
+5. ¬s ∧¬g
+Equivalence (De Morgan’s law)
+6. ¬s
+Simplification, using 5.
+2. Show that the premises
+∀x(P(x) ∨Q(x))
+∀x(¬Q(x) ∨S(x))
+∀x(R(x) →¬S(x))
+∃x¬P(x)
+lead to the conclusion ∃x¬R(x).
+We can prove the statement as follows:
+1. ∀x(P(x) ∨Q(x))
+Premise
+2. ∀x(¬Q(x) ∨S(x))
+Premise
+3. ∀x(P(x) ∨S(x))
+Resolution, using 1. and 2.
+4. ∀x(R(x) →¬S(x))
+Premise
+5. ∀x(¬R(x) ∨¬S(x))
+Equivalence, using 4.
+6. ∀x(P(x) ∨¬R(x))
+Resolution, using 3. and 5.
+7. ∃x¬P(x)
+Premise
+8. ∃x¬R(x)
+Disjunctive syllogism, using 6. and 7.",,
