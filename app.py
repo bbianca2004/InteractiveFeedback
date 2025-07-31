@@ -20,7 +20,7 @@ from feedback_app.prompts import (
 
 
 # Path to your dataset
-CSV_PATH = r'C:\repos\summer_project\filtered_augmented_posts\data\student_math_work_posts_augmented_successful_only.csv'
+CSV_PATH = r'data/student_math_work_posts_augmented_successful_only.csv'
 df = pd.read_csv(CSV_PATH)
 
 # -------- Streamlit Config --------
