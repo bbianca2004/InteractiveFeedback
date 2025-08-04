@@ -64,7 +64,7 @@ The correct answer is:
 The student's answer was:
 {student_response}
 
-Please give objective, genuine, and meaningful feedback. 
-It matters that the answer is correct, but also that the student provided ample justification for it.
+Please give objective, genuine, and concise feedback in at most 250 words.
+It matters that the answer is correct, but also that the student provided concise but complete justification for it.
 Your feedback should also reflect what the student has missed to justify in their solution.
 """

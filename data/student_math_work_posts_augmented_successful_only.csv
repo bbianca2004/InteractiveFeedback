@@ -29,12 +29,7 @@ bijection. Since R is uncountable, Q is also uncountable.",,
 I must calculare nb of connections in a groupe of 10 computers + nb of the 5 remaining computer. Then i have 10! + 5! but its wrong. Im quite lost about how should i do that. I tried to draw injectives fonctions but im not sure that it ll work.",Exercises,Week 10 : Counting,,2022-12-04T20:13:33.590388+11:00,TRUE,"You know that if theres a printer connected to only 5 computers for example, then there exists a group of 10 computers that aren't connected to it at all and therefore have to work with the remaining 9 which is not possible. You therefore know there's at least 6 per printer, so 60.
 
 You also know that if you take connect 10 computers with 10 printers, and connect the remaining 5 with every printer, then you can find a solution for any group of computers. The reasoning is that if you have any of the 10 single connection computers, you can just have them use their assigned printer, while if you have any of the other 5, they can fill in anywhere anyways.",92875,2022-12-04T23:34:38.989074+11:00,1,6,English: my + work; English: I + action,10,8,"Find the least number of cables required to connect 15 computers to 10 printers to guarantee
-that any group of 10 computers can always directly access 10 different printers simultaneously:
-✓60
-⃝150
-⃝10
-⃝None of the above
-5
+that any group of 10 computers can always directly access 10 different printers simultaneously
 ","Suppose that we label the computers C1, C2, ..., C15 and the printers P1, P2, ..., P10. Suppose further
 that we connect Ck to Pk for k = 1, 2, . . . , 10 and each of the remaining 5 computers to all 10 printers.
 This requires a total of 60 cables. Clearly any set of 10 or less computers can simultaneously access

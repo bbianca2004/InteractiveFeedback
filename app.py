@@ -46,25 +46,14 @@ with st.sidebar:
     if st.button("🔁 Load Row"):
         row = df.iloc[row_index]
         st.session_state.problem = row["problem_statement"]
-        st.session_state.student_attempt = row["question"]
+        #st.session_state.student_attempt = row["question"]
         st.session_state.correct_solution = row.get("solution", "")
         st.session_state.similar_problem = row.get("new_problem", "")
         st.session_state.similar_solution = row.get("new_sol", "")
 
-        print("Problem statement: ")
-
-        st.session_state.messages = start_session(
-            st.session_state.problem,
-            st.session_state.student_attempt,
-            st.session_state.correct_solution,
-            TUTOR_SYSTEM_PROMPT,
-            INITIAL_FEEDBACK_TEMPLATE
-        )
-        #need to come back to this i feel like i am missing smth!!
-
-        st.session_state.mode = "initial_feedback"  # new mode before full tutoring
+        st.session_state.mode = "awaiting_first_attempt"
+        st.session_state.messages = []
         st.session_state.student_reply = ""
-        st.session_state.show_rubric = False
         st.rerun()
 
 
@@ -126,6 +115,27 @@ chat_styles = """
 
 st.markdown(chat_styles, unsafe_allow_html=True)
 st.markdown('<div class="chat-container">', unsafe_allow_html=True)
+
+if st.session_state.get("mode") == "awaiting_first_attempt":
+    st.subheader("✍️ Submit Your First Attempt")
+    st.markdown(f"**Problem:** {st.session_state.problem}")
+
+    first_attempt = st.text_area("Your one-shot solution:", key="first_attempt")
+
+    if st.button("🚀 Submit Initial Attempt") and first_attempt.strip():
+        st.session_state.student_attempt = first_attempt.strip()
+
+        # Now start the session using the user's typed answer
+        st.session_state.messages = start_session(
+            st.session_state.problem,
+            st.session_state.student_attempt,
+            st.session_state.correct_solution,
+            TUTOR_SYSTEM_PROMPT,
+            INITIAL_FEEDBACK_TEMPLATE
+        )
+
+        st.session_state.mode = "initial_feedback"
+        st.rerun()
 
 for msg in st.session_state.messages[1:]:
     role = msg["role"]
