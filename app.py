@@ -8,7 +8,8 @@ from feedback_app.interactiveAgent import (
     continue_session,
     evaluate_followup,
     save_session_log,
-    save_followup_log
+    save_followup_log,
+    save_session_to_google_sheet
 )
 from feedback_app.prompts import (
     TUTOR_SYSTEM_PROMPT,
@@ -125,6 +126,19 @@ if st.session_state.get("mode") == "awaiting_first_attempt":
     if st.button("🚀 Submit Initial Attempt") and first_attempt.strip():
         st.session_state.student_attempt = first_attempt.strip()
 
+        st.session_state.session_log_data = {
+            "problem": st.session_state.problem,
+            "student_attempt": st.session_state.student_attempt,
+            "correct_solution": st.session_state.correct_solution,
+            "messages": [],
+            "similar_problem": st.session_state.similar_problem,
+            "similar_solution": st.session_state.similar_solution,
+            "followup_response": "",
+            "followup_feedback": "",
+            "rubrics": {},
+            "timestamp": str(datetime.now())
+        }
+
         # Now start the session using the user's typed answer
         st.session_state.messages = start_session(
             st.session_state.problem,
@@ -133,6 +147,8 @@ if st.session_state.get("mode") == "awaiting_first_attempt":
             TUTOR_SYSTEM_PROMPT,
             INITIAL_FEEDBACK_TEMPLATE
         )
+
+        st.session_state.session_log_data["messages"] = st.session_state.messages
 
         st.session_state.mode = "initial_feedback"
         st.rerun()
@@ -159,6 +175,8 @@ def send_and_clear():
             "content": user_msg
         })
 
+        st.session_state.session_log_data["messages"] = st.session_state.messages
+
         if st.session_state.mode == "initial_feedback":
             # GPT replies as tutor clarifying initial feedback
             response = openai.chat.completions.create(
@@ -176,7 +194,9 @@ def send_and_clear():
                     st.session_state.correct_solution,
                     TUTOR_SYSTEM_PROMPT
                 )
+                st.session_state.session_log_data["messages"] = st.session_state.messages
                 st.session_state.mode = "main"
+                
 
         else:  # normal tutoring session mode
             gpt_reply = continue_session(st.session_state.messages)
@@ -184,6 +204,8 @@ def send_and_clear():
                 "role": "assistant",
                 "content": gpt_reply
             })
+            st.session_state.session_log_data["messages"] = st.session_state.messages
+
 
         st.session_state.student_reply = ""
         st.rerun()
@@ -216,12 +238,17 @@ if st.session_state.get("mode") == "followup":
     one_shot = st.text_area("✍️ Your one-shot solution:")
 
     if st.button("📝 Submit Answer") and one_shot.strip() != "":
-        st.session_state.feedback = evaluate_followup(
+        feedback = evaluate_followup(
             st.session_state.similar_problem,
             one_shot,
             st.session_state.similar_solution,
             EVALUATION_PROMPT_TEMPLATE
         )
+        st.session_state.feedback = feedback
+        st.session_state.session_log_data["followup_response"] = one_shot
+        st.session_state.session_log_data["followup_feedback"] = feedback
+        st.session_state.session_log_data["timestamp"] = str(datetime.now())
+        
         save_followup_log(
             st.session_state.similar_problem,
             one_shot,
@@ -259,6 +286,8 @@ if st.session_state.get("mode") == "followup":
                 "Misleading": st.session_state.rubric_mislead
             }
 
+            st.session_state.session_log_data["rubrics"] = rubric_scores
+
             def save_rubric_feedback(problem, rubric_scores):
                 with open("rubric_feedback_log.json", "a") as f:
                     json.dump({
@@ -269,5 +298,7 @@ if st.session_state.get("mode") == "followup":
                     f.write("\n")
 
             save_rubric_feedback(st.session_state.similar_problem, rubric_scores)
+            save_session_to_google_sheet(st.session_state.session_log_data)
+
             st.success("✅ Thanks for your feedback!")
             st.session_state.show_rubric = False

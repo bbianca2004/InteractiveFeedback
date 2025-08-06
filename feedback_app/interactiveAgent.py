@@ -1,8 +1,12 @@
 import openai
 import os
 from datetime import datetime
+import gspread
+from google.oauth2.service_account import Credentials
+import json
 
 # Load API key from environment
+SPREADSHEET_ID = "1LudHYryIASXAWYaqpsNhjt1HXJQ_2S52D9b_XjtJ2W0"
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # ----------- MAIN SESSION FUNCTIONS -----------
@@ -127,3 +131,27 @@ def save_followup_log(problem, student_response, correct_solution, feedback):
         f.write(f"GPT Feedback:\n{feedback}\n")
 
     print(f"Follow-up log saved to {filename}")
+
+def save_session_to_google_sheet(log_data):
+    # Connect to your Google Sheet
+    scopes = ["https://www.googleapis.com/auth/spreadsheets"]
+    creds = Credentials.from_service_account_file("woven-voice-468006-d0-e109e6eb9a75.json", scopes=scopes)
+    client = gspread.authorize(creds)
+
+    sheet = client.open_by_key(SPREADSHEET_ID).sheet1  # or specific worksheet
+
+    # Prepare row as list
+    row = [
+        log_data["timestamp"],
+        log_data["problem"],
+        log_data["student_attempt"],
+        log_data["correct_solution"],
+        json.dumps(log_data["messages"], indent=2),
+        log_data["similar_problem"],
+        log_data["similar_solution"],
+        log_data["followup_response"],
+        log_data["followup_feedback"],
+        json.dumps(log_data.get("rubrics", {}))
+    ]
+
+    sheet.append_row(row)
