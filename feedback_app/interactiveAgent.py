@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 import gspread
 from google.oauth2.service_account import Credentials
+import streamlit as st
 import json
 
 # Load API key from environment
@@ -135,7 +136,8 @@ def save_followup_log(problem, student_response, correct_solution, feedback):
 def save_session_to_google_sheet(log_data):
     # Connect to your Google Sheet
     scopes = ["https://www.googleapis.com/auth/spreadsheets"]
-    creds = Credentials.from_service_account_file("woven-voice-468006-d0-e109e6eb9a75.json", scopes=scopes)
+    creds_dict = st.secrets["gcp_service_account"]
+    creds = Credentials.from_service_account_info(dict(creds_dict), scopes=[...])
     client = gspread.authorize(creds)
 
     sheet = client.open_by_key(SPREADSHEET_ID).sheet1  # or specific worksheet
