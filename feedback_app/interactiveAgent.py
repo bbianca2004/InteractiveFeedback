@@ -135,7 +135,7 @@ def save_followup_log(problem, student_response, correct_solution, feedback):
 
 def save_session_to_google_sheet(log_data):
     # Connect to your Google Sheet
-    scopes = ["https://www.googleapis.com/auth/spreadsheets"]
+    scopes = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
     creds_dict = st.secrets["gcp_service_account"]
     creds = Credentials.from_service_account_info(dict(creds_dict), scopes=scopes)
     client = gspread.authorize(creds)
