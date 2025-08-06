@@ -137,7 +137,7 @@ def save_session_to_google_sheet(log_data):
     # Connect to your Google Sheet
     scopes = ["https://www.googleapis.com/auth/spreadsheets"]
     creds_dict = st.secrets["gcp_service_account"]
-    creds = Credentials.from_service_account_info(dict(creds_dict), scopes=[...])
+    creds = Credentials.from_service_account_info(dict(creds_dict), scopes=scopes)
     client = gspread.authorize(creds)
 
     sheet = client.open_by_key(SPREADSHEET_ID).sheet1  # or specific worksheet
