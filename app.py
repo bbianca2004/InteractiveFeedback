@@ -17,8 +17,16 @@ from feedback_app.prompts import (
     EVALUATION_PROMPT_TEMPLATE
 )
 
+from feedback_app.instructions import (
+    DIALOGUE_INSTRUCTIONS,
+    FOLLOWUP_INSTRUCTIONS,
+    RUBRIC_INSTRUCTIONS
+)
 
 
+if not st.session_state.get("consent_given"):
+    st.warning("⚠️ Please complete the consent form before starting.")
+    st.stop()
 
 # Path to your dataset
 CSV_PATH = r'data/student_math_work_posts_augmented_successful_only.csv'
@@ -71,6 +79,8 @@ if "messages" not in st.session_state:
 # -------- Chat Display --------
 st.subheader("Chat with Tutor")
 
+st.markdown(f'<div class="instruction-box">{DIALOGUE_INSTRUCTIONS}</div>', unsafe_allow_html=True)
+
 chat_styles = """
 <style>
 .chat-container {
@@ -111,6 +121,20 @@ chat_styles = """
     text-align: left;
     font-size: 20px;
 }
+
+.instruction-box {
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #4CAF50; /* A pleasant green */
+    background-color: rgba(76, 175, 80, 0.1); /* Subtle green tint */
+    padding: 12px;
+    border-left: 5px solid #4CAF50;
+    border-radius: 6px;
+}
+
 </style>
 """
 
@@ -122,7 +146,8 @@ if st.session_state.get("mode") == "awaiting_first_attempt":
     st.markdown(f"**Problem:** {st.session_state.problem}")
 
     first_attempt = st.text_area("Your one-shot solution:", key="first_attempt")
-
+    st.session_state["attempt_submitted"] = True 
+    
     if st.button("🚀 Submit Initial Attempt") and first_attempt.strip():
         st.session_state.student_attempt = first_attempt.strip()
 
@@ -220,19 +245,21 @@ if st.session_state.get("mode") in ["initial_feedback", "main"]:
 
 
 # -------- Finish Phase --------
-if st.button("✅ Finish Tutoring / Go to Follow-up"):
-    st.session_state.mode = "followup"
-    save_session_log(
-        st.session_state.problem,
-        st.session_state.student_attempt,
-        st.session_state.correct_solution,
-        st.session_state.messages
-    )
-    st.rerun()
+if st.session_state.get("attempt_submitted"):
+    if st.button("✅ Finish Tutoring / Go to Follow-up"):
+        st.session_state.mode = "followup"
+        save_session_log(
+            st.session_state.problem,
+            st.session_state.student_attempt,
+            st.session_state.correct_solution,
+            st.session_state.messages
+        )
+        st.rerun()
 
 # -------- Follow-Up --------
 if st.session_state.get("mode") == "followup":
     st.subheader("🧪 Try a Similar Problem")
+    st.markdown(f'<div class="instruction-box">{FOLLOWUP_INSTRUCTIONS}</div>', unsafe_allow_html=True)
     st.markdown(f"**New Problem**: {st.session_state.similar_problem}")
 
     one_shot = st.text_area("✍️ Your one-shot solution:")
@@ -269,21 +296,23 @@ if st.session_state.get("mode") == "followup":
     # Rubric evaluation
     if st.session_state.get("show_rubric"):
         st.markdown("## 🧪 Evaluate the Tutoring Experience")
+        st.markdown(f'<div class="instruction-box">{RUBRIC_INSTRUCTIONS}</div>', unsafe_allow_html=True)
 
         st.markdown("Rate each from 1 (worst) to 5 (best):")
 
-        st.radio("Revealed solution too early", [1, 2, 3, 4, 5], key="rubric_early", horizontal=True)
-        st.radio("Misunderstood my ideas", [1, 2, 3, 4, 5], key="rubric_misunderstood", horizontal=True)
-        st.radio("Gave constructive hints", [1, 2, 3, 4, 5], key="rubric_hints", horizontal=True)
-        st.radio("Misled me", [1, 2, 3, 4, 5], key="rubric_mislead", horizontal=True)
-
+        st.radio("Diagnostic - the tutor correctly pointed out where and what the errors were in my judgement whenever i shared my own thoughts", [1, 2, 3, 4, 5], key="rubric_diagnostic", horizontal=True)
+        st.radio("Correctness - the tutor does not make incorrect statements and is relevant to the current question and my answer", [1, 2, 3, 4, 5], key="rubric_correctness", horizontal=True)
+        st.radio("Not Revealing - the tutor did not directly reveal the correct answer to me", [1, 2, 3, 4, 5], key="rubric_not_rev", horizontal=True)
+        st.radio("Applicable - the tutor gave me sound suggestions/hints that, when followed, have guided me to the correct solution", [1, 2, 3, 4, 5], key="rubric_applicable", horizontal=True)
+        st.radio("Positive - the feedback is positive and has an encouraging tone", [1, 2, 3, 4, 5], key="rubric_positive", horizontal=True)
 
         if st.button("Submit Evaluation"):
             rubric_scores = {
-                "Revealed too early": st.session_state.rubric_early,
-                "Misunderstood ideas": st.session_state.rubric_misunderstood,
-                "Constructive hints": st.session_state.rubric_hints,
-                "Misleading": st.session_state.rubric_mislead
+                "Diagnostic": st.session_state.rubric_diagnostic,
+                "Correctness": st.session_state.rubric_correctness,
+                "Not Revealing": st.session_state.rubric_not_rev,
+                "Applicable": st.session_state.rubric_applicable,
+                "Positive": st.session_state.rubric_positive,
             }
 
             st.session_state.session_log_data["rubrics"] = rubric_scores
