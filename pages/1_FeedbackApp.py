@@ -347,6 +347,19 @@ if st.session_state.get("mode") == "followup":
                 st.rerun()
         else:
             st.markdown("🎉 **All tasks completed! Great job!**")
+            def flatten_session_log(log):
+                flat = {
+                    "student_id": log["student_id"],
+                }
+                for i, task in enumerate(log["tasks"]):
+                    prefix = f"task_{i+1}_"
+                    flat[prefix + "problem"] = task["problem"]
+                    flat[prefix + "attempt"] = task["student_attempt"]
+                    flat[prefix + "rubrics"] = json.dumps(task.get("rubrics", {}))
+                    flat[prefix + "followup_problem"] = task["similar_problem"]
+                    flat[prefix + "followup_response"] = task["followup_response"]
+                    flat[prefix + "followup_feedback"] = task["followup_feedback"]
+                return flat
             final_data = flatten_session_log(st.session_state.session_log_data)
             save_session_to_google_sheet(final_data)
 
