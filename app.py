@@ -13,6 +13,6 @@ st.markdown(hide_sidebar, unsafe_allow_html=True)
 
 # Redirect to consent or main app
 if not st.session_state.get("consent_given"):
-    st.switch_page("pages/0_Consent.py")
+    st.switch_page("0. Consent")
 else:
-    st.switch_page("pages/1_FeedbackApp.py")
+    st.switch_page("1. FeedbackApp")

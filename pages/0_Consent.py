@@ -31,7 +31,7 @@ st.markdown("""
     - Try a follow-up problem.
     - Rate your experience.
 
-    The entire study takes around **25–30 minutes**.
+    The entire study takes around **25-30 minutes**.
 
     ---
 
@@ -65,7 +65,7 @@ consent = st.radio("Do you consent to participate?", ["Yes", "No"], index=None)
 if consent == "Yes":
     st.session_state["consent_given"] = True
     st.success("✅ Consent recorded. Redirecting...")
-    st.switch_page("pages/1_FeedbackApp.py")
+    st.switch_page("1. FeedbackApp")
 elif consent == "No":
     st.warning("You must consent to proceed.")
     st.stop()
