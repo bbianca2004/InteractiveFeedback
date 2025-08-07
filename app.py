@@ -18,10 +18,10 @@ if not st.session_state.get("consent_given"):
     st.warning("⚠️ You must first complete the consent form before beginning the study.")
 
     if st.button("Go to Consent Form"):
-        st.switch_page("0_Consent")
+        st.switch_page("pages/0_Consent.py")
 
 else:
     st.success("✅ Consent completed. You may begin the study.")
 
     if st.button("Start Tutoring"):
-        st.switch_page("1_FeedbackApp")
+        st.switch_page("pages/1_FeedbackApp.py")

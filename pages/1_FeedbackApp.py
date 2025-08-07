@@ -37,7 +37,7 @@ st.markdown("""
 
 if not st.session_state.get("consent_given"):
     st.warning("Consent required. Redirecting...")
-    st.switch_page("0_Consent")
+    st.switch_page("pages/0_Consent")
 
 # Path to your dataset
 CSV_PATH = r'data/student_math_work_posts_augmented_successful_only.csv'

@@ -65,7 +65,7 @@ consent = st.radio("Do you consent to participate?", ["Yes", "No"], index=None)
 if consent == "Yes":
     st.session_state["consent_given"] = True
     st.success("✅ Consent recorded. Redirecting...")
-    st.switch_page("1_FeedbackApp")
+    st.switch_page("pages/1_FeedbackApp.py")
 elif consent == "No":
     st.warning("You must consent to proceed.")
     st.stop()
