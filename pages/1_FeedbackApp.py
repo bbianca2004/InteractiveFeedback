@@ -45,6 +45,17 @@ df = pd.read_csv(CSV_PATH)
 
 # -------- Streamlit Config --------
 st.set_page_config(page_title="Tutoring Agent", layout="wide")
+# Set up task progression (Easy → Medium → Hard)
+TASKS = [
+    {"label": "Problem 1: Easy", "index": 5},
+    {"label": "Problem 2: Medium", "index": 35},
+    {"label": "Problem 3: Hard", "index": 3},
+]
+
+# Start at task 0 if not already started
+if "task_index" not in st.session_state:
+    st.session_state.task_index = 0
+
 st.markdown("""
     <style>
         html, body, [class*="css"]  {
@@ -58,38 +69,25 @@ st.markdown("""
 
 st.title("💡 AI Tutoring System")
 
-# -------- Sidebar --------
-with st.sidebar:
-    st.header("🎯 Choose a Task")
+# -------- Task Progression --------
+if st.session_state.task_index < len(TASKS):
+    current_task = TASKS[st.session_state.task_index]
+    selected_index = current_task["index"]
+    row = df.iloc[selected_index - 2]
 
-    # Define fixed row indices for tasks
-    TASKS = {
-        "Problem 1: Easy": 5,
-        "Problem 2: Medium": 35,
-        "Problem 3: Hard": 3
-    }
-
-    task_choice = st.radio("Select a task", list(TASKS.keys()))
-
-    if st.button("🔁 Load Selected Task"):
-        selected_index = TASKS[task_choice]
-        row = df.iloc[selected_index - 2] 
-
-        # Store all relevant data in session state
+    # Only load if not already loaded
+    if "problem" not in st.session_state or st.session_state.mode == "done":
         st.session_state.problem = row["problem_statement"]
         st.session_state.correct_solution = row.get("problem_solution", "")
         st.session_state.similar_problem = row.get("new_problem", "")
         st.session_state.similar_solution = row.get("new_solution", "")
-
-        # Reset mode and messages
+        st.session_state.session_log_data = {}
         st.session_state.mode = "awaiting_first_attempt"
         st.session_state.messages = []
         st.session_state.student_reply = ""
         st.session_state.attempt_submitted = False
         st.session_state.show_feedback = False
         st.session_state.show_rubric = False
-
-        st.rerun()
 
 
 # -------- Guard Clause --------
@@ -272,15 +270,36 @@ if st.session_state.get("mode") in ["initial_feedback", "main"]:
 
 # -------- Finish Phase --------
 if st.session_state.get("attempt_submitted"):
-    if st.button("✅ Finish Tutoring / Go to Follow-up"):
-        st.session_state.mode = "followup"
-        save_session_log(
-            st.session_state.problem,
-            st.session_state.student_attempt,
-            st.session_state.correct_solution,
-            st.session_state.messages
-        )
-        st.rerun()
+    if st.button("✅ Finish Tutoring / Go to Evaluation"):
+        st.session_state.show_rubric = True
+
+    if st.session_state.get("show_rubric"):
+        st.markdown("## 🧪 Evaluate the Tutoring Experience")
+        st.markdown(f'<div class="instruction-box">{RUBRIC_INSTRUCTIONS}</div>', unsafe_allow_html=True)
+
+        st.markdown("Rate each from 1 (worst) to 5 (best):")
+
+        st.radio("Diagnostic - the tutor correctly pointed out where and what the errors were in my judgement whenever i shared my own thoughts", [1, 2, 3, 4, 5], key="rubric_diagnostic", horizontal=True)
+        st.radio("Correctness - the tutor does not make incorrect statements and is relevant to the current question and my answer", [1, 2, 3, 4, 5], key="rubric_correctness", horizontal=True)
+        st.radio("Not Revealing - the tutor did not directly reveal the correct answer to me", [1, 2, 3, 4, 5], key="rubric_not_rev", horizontal=True)
+        st.radio("Applicable - the tutor gave me sound suggestions/hints that, when followed, have guided me to the correct solution", [1, 2, 3, 4, 5], key="rubric_applicable", horizontal=True)
+        st.radio("Positive - the feedback is positive and has an encouraging tone", [1, 2, 3, 4, 5], key="rubric_positive", horizontal=True)
+
+        if st.button("Submit Evaluation / Go to Follow-up", on_click = send_and_clear):
+            rubric_scores = {
+                "Diagnostic": st.session_state.rubric_diagnostic,
+                "Correctness": st.session_state.rubric_correctness,
+                "Not Revealing": st.session_state.rubric_not_rev,
+                "Applicable": st.session_state.rubric_applicable,
+                "Positive": st.session_state.rubric_positive,
+            }
+
+            st.session_state.session_log_data["rubrics"] = rubric_scores
+            st.success("Evaluation Submitted!")
+            st.session_state.show_rubric = False
+
+            st.session_state.mode = "followup"
+            st.rerun()
 
 # -------- Follow-Up --------
 if st.session_state.get("mode") == "followup":
@@ -301,60 +320,19 @@ if st.session_state.get("mode") == "followup":
         st.session_state.session_log_data["followup_response"] = one_shot
         st.session_state.session_log_data["followup_feedback"] = feedback
         st.session_state.session_log_data["timestamp"] = str(datetime.now())
-        
-        save_followup_log(
-            st.session_state.similar_problem,
-            one_shot,
-            st.session_state.similar_solution,
-            st.session_state.feedback
-        )
         st.session_state.show_feedback = True  # trigger display of feedback
 
     # Display feedback (if already submitted)
     if st.session_state.get("show_feedback"):
         st.markdown("### 🎯 Tutor Feedback:")
         st.success(st.session_state.feedback)
-
-        if st.button("🧠 Rate your experience"):
-            st.session_state.show_rubric = True
-
-
-    # Rubric evaluation
-    if st.session_state.get("show_rubric"):
-        st.markdown("## 🧪 Evaluate the Tutoring Experience")
-        st.markdown(f'<div class="instruction-box">{RUBRIC_INSTRUCTIONS}</div>', unsafe_allow_html=True)
-
-        st.markdown("Rate each from 1 (worst) to 5 (best):")
-
-        st.radio("Diagnostic - the tutor correctly pointed out where and what the errors were in my judgement whenever i shared my own thoughts", [1, 2, 3, 4, 5], key="rubric_diagnostic", horizontal=True)
-        st.radio("Correctness - the tutor does not make incorrect statements and is relevant to the current question and my answer", [1, 2, 3, 4, 5], key="rubric_correctness", horizontal=True)
-        st.radio("Not Revealing - the tutor did not directly reveal the correct answer to me", [1, 2, 3, 4, 5], key="rubric_not_rev", horizontal=True)
-        st.radio("Applicable - the tutor gave me sound suggestions/hints that, when followed, have guided me to the correct solution", [1, 2, 3, 4, 5], key="rubric_applicable", horizontal=True)
-        st.radio("Positive - the feedback is positive and has an encouraging tone", [1, 2, 3, 4, 5], key="rubric_positive", horizontal=True)
-
-        if st.button("Submit Evaluation"):
-            rubric_scores = {
-                "Diagnostic": st.session_state.rubric_diagnostic,
-                "Correctness": st.session_state.rubric_correctness,
-                "Not Revealing": st.session_state.rubric_not_rev,
-                "Applicable": st.session_state.rubric_applicable,
-                "Positive": st.session_state.rubric_positive,
-            }
-
-            st.session_state.session_log_data["rubrics"] = rubric_scores
-
-            def save_rubric_feedback(problem, rubric_scores):
-                with open("rubric_feedback_log.json", "a") as f:
-                    json.dump({
-                        "problem": problem,
-                        "rubrics": rubric_scores,
-                        "timestamp": str(datetime.now())
-                    }, f)
-                    f.write("\n")
-
-            save_rubric_feedback(st.session_state.similar_problem, rubric_scores)
-            save_session_to_google_sheet(st.session_state.session_log_data)
-
-            st.success("✅ Thanks for your feedback!")
-            st.session_state.show_rubric = False
+        save_session_to_google_sheet(st.session_state.session_log_data)
+        if st.session_state.task_index < len(TASKS) - 1:
+            if st.button("➡️ Go to Next Task"):
+                st.session_state.task_index += 1
+                st.session_state.mode = "done"  # trigger task reload
+                st.session_state.show_feedback = False
+                st.rerun()
+        else:
+            st.markdown("🎉 **All tasks completed! Great job!**")
 
