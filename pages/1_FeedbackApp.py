@@ -77,9 +77,9 @@ with st.sidebar:
 
         # Store all relevant data in session state
         st.session_state.problem = row["problem_statement"]
-        st.session_state.correct_solution = row.get("solution", "")
+        st.session_state.correct_solution = row.get("problem_solution", "")
         st.session_state.similar_problem = row.get("new_problem", "")
-        st.session_state.similar_solution = row.get("new_sol", "")
+        st.session_state.similar_solution = row.get("new_solution", "")
 
         # Reset mode and messages
         st.session_state.mode = "awaiting_first_attempt"
