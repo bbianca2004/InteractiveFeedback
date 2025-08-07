@@ -37,7 +37,7 @@ st.markdown("""
 
 if not st.session_state.get("consent_given"):
     st.warning("Consent required. Redirecting...")
-    st.switch_page("pages/0_Consent")
+    st.switch_page("pages/0_Consent.py")
 
 # Path to your dataset
 CSV_PATH = r'data/student_math_work_posts_augmented_successful_only.csv'
@@ -60,20 +60,35 @@ st.title("💡 AI Tutoring System")
 
 # -------- Sidebar --------
 with st.sidebar:
-    st.header("🔢 Select Problem Row")
-    row_index = st.number_input("Row index (starting from 0)", min_value=0, max_value=len(df)-1, step=1) - 2
+    st.header("🎯 Choose a Task")
 
-    if st.button("🔁 Load Row"):
-        row = df.iloc[row_index]
+    # Define fixed row indices for tasks
+    TASKS = {
+        "Problem 1: Easy": 3,
+        "Problem 2: Medium": 5,
+        "Problem 3: Hard": 27
+    }
+
+    task_choice = st.radio("Select a task", list(TASKS.keys()))
+
+    if st.button("🔁 Load Selected Task"):
+        selected_index = TASKS[task_choice]
+        row = df.iloc[selected_index - 2] 
+
+        # Store all relevant data in session state
         st.session_state.problem = row["problem_statement"]
-        #st.session_state.student_attempt = row["question"]
         st.session_state.correct_solution = row.get("solution", "")
         st.session_state.similar_problem = row.get("new_problem", "")
         st.session_state.similar_solution = row.get("new_sol", "")
 
+        # Reset mode and messages
         st.session_state.mode = "awaiting_first_attempt"
         st.session_state.messages = []
         st.session_state.student_reply = ""
+        st.session_state.attempt_submitted = False
+        st.session_state.show_feedback = False
+        st.session_state.show_rubric = False
+
         st.rerun()
 
 
