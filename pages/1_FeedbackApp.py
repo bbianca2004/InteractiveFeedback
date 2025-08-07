@@ -9,8 +9,7 @@ from feedback_app.interactiveAgent import (
     evaluate_followup,
     save_session_log,
     save_followup_log,
-    save_session_to_google_sheet,
-    flatten_session_log
+    save_session_to_google_sheet
 )
 from feedback_app.prompts import (
     TUTOR_SYSTEM_PROMPT,
