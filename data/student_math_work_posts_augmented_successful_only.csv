@@ -29,8 +29,7 @@ bijection. Since R is uncountable, Q is also uncountable.",,
 I must calculare nb of connections in a groupe of 10 computers + nb of the 5 remaining computer. Then i have 10! + 5! but its wrong. Im quite lost about how should i do that. I tried to draw injectives fonctions but im not sure that it ll work.",Exercises,Week 10 : Counting,,2022-12-04T20:13:33.590388+11:00,TRUE,"You know that if theres a printer connected to only 5 computers for example, then there exists a group of 10 computers that aren't connected to it at all and therefore have to work with the remaining 9 which is not possible. You therefore know there's at least 6 per printer, so 60.
 
 You also know that if you take connect 10 computers with 10 printers, and connect the remaining 5 with every printer, then you can find a solution for any group of computers. The reasoning is that if you have any of the 10 single connection computers, you can just have them use their assigned printer, while if you have any of the other 5, they can fill in anywhere anyways.",92875,2022-12-04T23:34:38.989074+11:00,1,6,English: my + work; English: I + action,10,8,"Find the least number of cables required to connect 15 computers to 10 printers to guarantee
-that any group of 10 computers can always directly access 10 different printers simultaneously
-","Suppose that we label the computers C1, C2, ..., C15 and the printers P1, P2, ..., P10. Suppose further
+that any group of 10 computers can always directly access 10 different printers simultaneously","Suppose that we label the computers C1, C2, ..., C15 and the printers P1, P2, ..., P10. Suppose further
 that we connect Ck to Pk for k = 1, 2, . . . , 10 and each of the remaining 5 computers to all 10 printers.
 This requires a total of 60 cables. Clearly any set of 10 or less computers can simultaneously access
 different printers. This is because if computer Cj such that 1 ≤j ≤10 is included then it can access
@@ -128,38 +127,27 @@ The problem is that you actually make a permutation instead of a combination. Wh
 
 The order of the cards in a hand does not matters
 
-You must be really carefull beacause C(n,1)=P(n,1)=n ∀n∈ℕ. Even if you are working with the combination notation, you may in fact be doing a permutation!",198643,2022-11-26T08:41:57.214296+11:00,2,3,English: my + work,10,7,"How many distinct five-card poker hands contain:
-We show two ways to answer each of the questions
-1. One pair (poker hand containing two cards of the same kind and three cards of three other kinds)
-","(a) We can choose the kind of the pair in our hand in 13 =
-13
-1
-
+You must be really carefull beacause C(n,1)=P(n,1)=n ∀n∈ℕ. Even if you are working with the combination notation, you may in fact be doing a permutation!",198643,2022-11-26T08:41:57.214296+11:00,2,3,English: my + work,10,7,"How many distinct five-card poker hands contain one pair (poker hand of 5 cards containing two cards of the same kind and three cards of three other kinds)?
+","(a) We can choose the kind of the pair in our hand in 13 = C(13, 1)
 ways. Once we have the kind,
-we can choose the suits of the two cards in our pair in
-4
-2
-
+we can choose the suits of the two cards in our pair in C(4, 2)
 ways. Now we have to choose the
 kinds of the remaining 3 cards (three different kinds, each different than the pair kind). This
-can be done in
-12
-3
-
+can be done in C(12, 3)
 ways. For each of the 3 chosen kinds there are 4 suits, so we can choose
-the suits in 43 =
-4
-1
-3 ways. Finally, the total number of one-pair hands is:
-13
-1
-4
-2
-12
-3
-4
-1
-3",,
+the suits in 4 ^ 3 = C(4, 1) ^ 3. Finally, the total number of one-pair hands is 13 * 6 * 220 * 64 ",How many sets of 10 poker cards contain 3 different pairs(3 pairs of cards of the same kind and 4 cards of 4 other kinds)?,"The number of 10-card poker hands with 3 different pairs and 4 other cards of distinct ranks is:
+
+C(13,3) * [C(4,2)]^3 * C(10,4) * 4^4
+
+Explanation:
+
+C(13,3): choose 3 ranks for the pairs
+
+C(4,2)^3: choose 2 suits for each of the 3 pairs
+
+C(10,4): choose 4 distinct ranks from the remaining 10
+
+4^4: choose 1 suit for each of the 4 singletons"
 43,2022,9377,440,Ex 8 week 9,"Hi,
 
 How do you solve the first question without using using the explicit formulas? (I assume that's how it's supposed to be done)
@@ -1949,75 +1937,18 @@ $$\left(\begin{matrix}5\\1\end{matrix}\right)\cdot\left(\begin{matrix}10\\3\end{
 
 $$=5\cdot5\cdot3\cdot8\cdot2\cdot3\cdot2\ =7200$$
 
-Thanks in advance",Labs,Week 11: Advanced Counting,,2023-12-04T01:46:14.164755+11:00,TRUE,"you are counting some combinations multiple times. Groups with 2 masters m1 and m2 would be counted both when m1 is the selected master, and when m2 is the initial selected master, therefore counted twice.",92875,2023-12-04T01:50:34.500062+11:00,0,3,English: my + work,11,3,"You need to form a team of 4 volunteers from a group of 6 bachelor students and 5 master students. The team must have at least one master student. The team will be given 4 hats: 2 red, one blue, and one green. How many different team compositions and hats assignments are possible? For each team we have 4 hats, two of which are identical so we need to use permutations with indistinguishable objects: 4! / 2! . We need to have at least one master student in each team, therefore we have C(5,1)* C(6,3) possible teams with exactly one master student and 3 bachelor students. Following the same reasoning, we have C(5,2) * C(6,2) possible teams with exactly 2 master students and 2 bachelor","=
-1
-1−5x
-↔
-G(x)(1 −5x)
-=
-1
-↔
-G(x)
-=
-1 + 5xG(x).
-Hence, if we write G(x) = P∞
-i=0 aixi we get
-∞
-X
-i=0
-aixi = 1 + 5x
-∞
-X
-i=0
-aixi
-↔
-∞
-X
-i=0
-aixi = 1 +
-∞
-X
-i=0
-5aixi+1
-↔
-∞
-X
-i=0
-aixi = 1 +
-∞
-X
-j=1
-5aj−1xj.
-Thus we can see that a0 = 1 and an = 5an−1 for all n ≥1. Hence, a closed formula for the sequence
-is an = 5n.
-c. x2/(1 −x)2
-We know that
-1
-(1 −x)2 =
-∞
-X
-i=0
-(i + 1)xi
-(as seen several times and as follows e.g. from the derivative of P∞
-i=0 xi), hence we get
-x2
-(1 −x)2 = x2
-∞
-X
-i=0
-(i + 1)xi =
-∞
-X
-i=0
-(i + 1)xi+2 =
-∞
-X
-j=2
-(j −1)xj.
-Thus the sequence is given by a0 = a1 = 0 and an = n −1 for n ≥2.
-2
-2
-Session Exercises",,
+Thanks in advance",Labs,Week 11: Advanced Counting,,2023-12-04T01:46:14.164755+11:00,TRUE,"you are counting some combinations multiple times. Groups with 2 masters m1 and m2 would be counted both when m1 is the selected master, and when m2 is the initial selected master, therefore counted twice.",92875,2023-12-04T01:50:34.500062+11:00,0,3,English: my + work,11,3,"You need to form a team of 4 volunteers from a group of 6 bachelor students and 5 master students. The team must have at least one master student. The team will be given 4 hats: 2 red, one blue, and one green. How many different team compositions and hats assignments are possible?","We want the number of 4-person teams from 6 bachelor and 5 master students, with at least 1 master, and then assign 4 distinct hats (2 red, 1 blue, 1 green).
+Total team compositions with at least 1 master
+Total students = 6 + 5 = 11
+Total 4-person teams = C(11,4)
+Teams with no master (only bachelors) = C(6,4)
+So, valid teams = C(11,4) - C(6,4). Hat assignments
+There are 4 hats: 2 red (identical), 1 blue, 1 green
+Number of distinct assignments of these hats to 4 people = 4! / 2! = 12
+Final Answer:
+(C(11,4) - C(6,4)) * (4! / 2!)
+This gives the total number of valid team compositions and hat assignments.","You need to form a team of 5 volunteers from a group of 7 undergraduate students and 4 graduate students. The team must include at least two graduate students. The team will receive 5 badges: 2 gold, 2 silver, and 1 bronze. How many different team compositions and badge assignments are possible?
+","We form a team of 5 from 7 undergraduates and 4 graduates, requiring at least 2 graduates. The valid team compositions are:"
 702,2023,58577,268,Week 6 ex1.2,"Hello, could you explain how p and q being in the same equivalence class implies them as equal values to each other and so C = D ? How am I supposed to understand this since we only know the relation between them is an equivalence one. And a second question, how do we know R is uncountable? Is this R the ""r"" of ""r""eel numbers or of the ""r""elation ? Thanks",Labs,"Week 6: Countability, Algorithms",,2023-10-24T19:58:32.398868+11:00,TRUE,"Hello,
 
 first, yes here R represents the ""r"" of the ""r""eal numbers.
@@ -2149,7 +2080,7 @@ Moreover, if we take the special case P(X = 0, Y = −1) = 1/4, P(X = 0) = 1/2 a
 1/4, we can conclude that X and Y are not independent.
 An example of correlated and dependent variables is if instead:
 P(X = 1, Y = 1) = P(X = −1, Y = −1) = 1/2.
-You can use the same reasoning as above to compute the expected values and probabilities.",,
+You can use the same reasoning as above to compute the expected values and probabilities.",,"C(4,2)*C(7,3) for 2 grads and 3 undergrads"
 702,2023,70474,641,Exercise 3 week 11,"Hello,
 
 In the first question of the third exercise:
@@ -2271,7 +2202,7 @@ hence it is not a tautology and the rule of inference is not valid.","2. Which e
 ✓∃x∀y ¬P(x, y);
 ⃝∃x∃y ¬P(x, y).
 We find the result step by step by expressing the negation on each element:
-¬(∀x∃y P(x, y)) ↔∃x¬(∃y P(x, y)) ↔∃x∀y¬P(x, y).",,
+¬(∀x∃y P(x, y)) ↔∃x¬(∃y P(x, y)) ↔∃x∀y¬P(x, y).",,"C(4,3)*C(7,2) for 3 grads and 2 undergrads"
 702,2023,88003,1176,"Big O proof week 8, ex7","Hello, please can you tell me if my proof is correct or not, thank you :)",Labs,Week 8: Induction & Recursion,,2024-01-24T22:48:58.068736+11:00,FALSE,,,,,3,English: my + work,8,7,"* Use strong or mathematical induction to show the following statement:
 Any postage of at least 8 cents can be formed using just 3 cents and 5 cents stamps.
 We use strong induction to show the statement.
@@ -2351,7 +2282,7 @@ Resolution, using 3. and 5.
 7. ∃x¬P(x)
 Premise
 8. ∃x¬R(x)
-Disjunctive syllogism, using 6. and 7.",,
+Disjunctive syllogism, using 6. and 7.",,"C(4,4)*C(7,1) for 4 grads and 1 undergrad"
 702,2023,54915,173,WEEK 3 EX 6.2),"Hi ! 
 
 I looked at the solutions but i have a question.
@@ -2432,3 +2363,10 @@ Resolution, using 3. and 5.
 Premise
 8. ∃x¬R(x)
 Disjunctive syllogism, using 6. and 7.",,
+,,,,,,,,,,,,,,,,,,,,,,"Each team receives 5 badges: 2 gold, 2 silver, and 1 bronze. Since some badges are identical, the number of distinct badge assignments is:"
+,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,5! / (2! * 2! * 1!) = 30
+,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,Final answer:
+,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,"**(C(4,2)*C(7,3) + C(4,3)C(7,2) + C(4,4)C(7,1)) * 30"

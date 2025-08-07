@@ -64,9 +64,9 @@ with st.sidebar:
 
     # Define fixed row indices for tasks
     TASKS = {
-        "Problem 1: Easy": 3,
-        "Problem 2: Medium": 5,
-        "Problem 3: Hard": 27
+        "Problem 1: Easy": 5,
+        "Problem 2: Medium": 35,
+        "Problem 3: Hard": 3
     }
 
     task_choice = st.radio("Select a task", list(TASKS.keys()))
@@ -172,10 +172,10 @@ if st.session_state.get("mode") == "awaiting_first_attempt":
     st.markdown(f"**Problem:** {st.session_state.problem}")
 
     first_attempt = st.text_area("Your one-shot solution:", key="first_attempt")
-    st.session_state["attempt_submitted"] = True 
     
     if st.button("🚀 Submit Initial Attempt") and first_attempt.strip():
         st.session_state.student_attempt = first_attempt.strip()
+        st.session_state["attempt_submitted"] = True 
 
         st.session_state.session_log_data = {
             "problem": st.session_state.problem,

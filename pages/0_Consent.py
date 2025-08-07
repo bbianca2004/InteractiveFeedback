@@ -25,7 +25,7 @@ st.markdown("""
     This study is conducted by researchers at the **ML4ED Lab at EPFL**. Our goal is to evaluate how students interact with AI tutors and how helpful these systems are in supporting learning.
 
     You will:
-    - Attempt to solve a math problem.
+    - Attempt to solve three discrete mathematics problem.
     - Receive feedback from an AI tutor.
     - Engage in a conversation to improve your solution.
     - Try a follow-up problem.
@@ -47,7 +47,7 @@ st.markdown("""
     - Data will be securely stored and may be used in academic publications in aggregate form.
     - You can request access to your data at any time by contacting the research team.
 
-    If you have any questions, feel free to contact the study organizer: **fares.fawzi@epfl.ch**
+    If you have any questions, feel free to contact the study organizer: **bianca.pitu@epfl.ch**
 
     ---
 
