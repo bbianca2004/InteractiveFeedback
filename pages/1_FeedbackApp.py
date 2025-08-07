@@ -9,7 +9,8 @@ from feedback_app.interactiveAgent import (
     evaluate_followup,
     save_session_log,
     save_followup_log,
-    save_session_to_google_sheet
+    save_session_to_google_sheet,
+    flatten_session_log
 )
 from feedback_app.prompts import (
     TUTOR_SYSTEM_PROMPT,
@@ -26,6 +27,15 @@ from feedback_app.instructions import (
 
 st.set_page_config(page_title="Tutoring", layout="wide")
 
+# --------- Initialisation of session-wide log data ----------
+if "student_id" not in st.session_state:
+    st.session_state.student_id = f"user_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+
+if "session_log_data" not in st.session_state:
+    st.session_state.session_log_data = {
+        "student_id": st.session_state.student_id,
+        "tasks": []
+    }
 # Hide sidebar nav
 st.markdown("""
     <style>
@@ -81,7 +91,7 @@ if st.session_state.task_index < len(TASKS):
         st.session_state.correct_solution = row.get("problem_solution", "")
         st.session_state.similar_problem = row.get("new_problem", "")
         st.session_state.similar_solution = row.get("new_solution", "")
-        st.session_state.session_log_data = {}
+        st.session_state.task_log = {}
         st.session_state.mode = "awaiting_first_attempt"
         st.session_state.messages = []
         st.session_state.student_reply = ""
@@ -175,7 +185,7 @@ if st.session_state.get("mode") == "awaiting_first_attempt":
         st.session_state.student_attempt = first_attempt.strip()
         st.session_state["attempt_submitted"] = True 
 
-        st.session_state.session_log_data = {
+        st.session_state.task_log = {
             "problem": st.session_state.problem,
             "student_attempt": st.session_state.student_attempt,
             "correct_solution": st.session_state.correct_solution,
@@ -197,7 +207,7 @@ if st.session_state.get("mode") == "awaiting_first_attempt":
             INITIAL_FEEDBACK_TEMPLATE
         )
 
-        st.session_state.session_log_data["messages"] = st.session_state.messages
+        st.session_state.task_log["messages"] = st.session_state.messages
 
         st.session_state.mode = "initial_feedback"
         st.rerun()
@@ -224,7 +234,7 @@ def send_and_clear():
             "content": user_msg
         })
 
-        st.session_state.session_log_data["messages"] = st.session_state.messages
+        st.session_state.task_log["messages"] = st.session_state.messages
 
         if st.session_state.mode == "initial_feedback":
             # GPT replies as tutor clarifying initial feedback
@@ -243,7 +253,7 @@ def send_and_clear():
                     st.session_state.correct_solution,
                     TUTOR_SYSTEM_PROMPT
                 )
-                st.session_state.session_log_data["messages"] = st.session_state.messages
+                st.session_state.task_log["messages"] = st.session_state.messages
                 st.session_state.mode = "main"
                 
 
@@ -253,7 +263,7 @@ def send_and_clear():
                 "role": "assistant",
                 "content": gpt_reply
             })
-            st.session_state.session_log_data["messages"] = st.session_state.messages
+            st.session_state.task_log["messages"] = st.session_state.messages
 
 
         st.session_state.student_reply = ""
@@ -294,7 +304,7 @@ if st.session_state.get("attempt_submitted"):
                 "Positive": st.session_state.rubric_positive,
             }
 
-            st.session_state.session_log_data["rubrics"] = rubric_scores
+            st.session_state.task_log["rubrics"] = rubric_scores
             st.success("Evaluation Submitted!")
             st.session_state.show_rubric = False
 
@@ -317,22 +327,27 @@ if st.session_state.get("mode") == "followup":
             EVALUATION_PROMPT_TEMPLATE
         )
         st.session_state.feedback = feedback
-        st.session_state.session_log_data["followup_response"] = one_shot
-        st.session_state.session_log_data["followup_feedback"] = feedback
-        st.session_state.session_log_data["timestamp"] = str(datetime.now())
+        st.session_state.task_log["followup_response"] = one_shot
+        st.session_state.task_log["followup_feedback"] = feedback
+        st.session_state.task_log["timestamp"] = str(datetime.now())
         st.session_state.show_feedback = True  # trigger display of feedback
 
     # Display feedback (if already submitted)
     if st.session_state.get("show_feedback"):
         st.markdown("### 🎯 Tutor Feedback:")
         st.success(st.session_state.feedback)
-        save_session_to_google_sheet(st.session_state.session_log_data)
+        st.session_state.session_log_data["tasks"].append(st.session_state.task_log)
+
         if st.session_state.task_index < len(TASKS) - 1:
             if st.button("➡️ Go to Next Task"):
                 st.session_state.task_index += 1
                 st.session_state.mode = "done"  # trigger task reload
+                st.session_state.task_log = {}
                 st.session_state.show_feedback = False
                 st.rerun()
         else:
             st.markdown("🎉 **All tasks completed! Great job!**")
+            final_data = flatten_session_log(st.session_state.session_log_data)
+            save_session_to_google_sheet(final_data)
+
 

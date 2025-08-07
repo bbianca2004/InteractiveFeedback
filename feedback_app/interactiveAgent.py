@@ -133,7 +133,7 @@ def save_followup_log(problem, student_response, correct_solution, feedback):
 
     print(f"Follow-up log saved to {filename}")
 
-def save_session_to_google_sheet(log_data):
+def save_session_to_google_sheet(data):
     # Connect to your Google Sheet
     scopes = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
     creds_dict = st.secrets["gcp_service_account"]
@@ -142,18 +142,22 @@ def save_session_to_google_sheet(log_data):
 
     sheet = client.open_by_key(SPREADSHEET_ID).sheet1  # or specific worksheet
 
-    # Prepare row as list
-    row = [
-        log_data["timestamp"],
-        log_data["problem"],
-        log_data["student_attempt"],
-        log_data["correct_solution"],
-        json.dumps(log_data["messages"], indent=2),
-        log_data["similar_problem"],
-        log_data["similar_solution"],
-        log_data["followup_response"],
-        log_data["followup_feedback"],
-        json.dumps(log_data.get("rubrics", {}))
-    ]
+    if sheet.row_count == 0 or sheet.cell(1, 1).value == "":
+        sheet.append_row(list(data.keys()))
 
-    sheet.append_row(row)
+    sheet.append_row(list(data.values()))
+
+def flatten_session_log(log):
+    flat = {
+        "student_id": log["student_id"],
+    }
+    for i, task in enumerate(log["tasks"]):
+        prefix = f"task_{i+1}_"
+        flat[prefix + "problem"] = task["problem"]
+        flat[prefix + "attempt"] = task["student_attempt"]
+        flat[prefix + "rubrics"] = json.dumps(task.get("rubrics", {}))
+        flat[prefix + "followup_problem"] = task["similar_problem"]
+        flat[prefix + "followup_response"] = task["followup_response"]
+        flat[prefix + "followup_feedback"] = task["followup_feedback"]
+    return flat
+
