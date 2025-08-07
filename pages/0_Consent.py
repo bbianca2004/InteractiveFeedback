@@ -1,9 +1,19 @@
 import streamlit as st
 
-def run_consent():
-    st.title("📘 Study Consent Form")
+st.set_page_config(page_title="Consent", layout="wide")
 
-    st.markdown("""
+# Hide sidebar nav
+st.markdown("""
+    <style>
+        [data-testid="stSidebarNav"] {
+            display: none;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+st.title("📘 Study Consent Form")
+
+st.markdown("""
     ### Welcome to the Tutoring Study
 
     Thank you for participating in our research on AI-based tutoring in mathematics. Please read the following information carefully before proceeding.
@@ -49,22 +59,13 @@ def run_consent():
     - You are at least 18 years old and a university-level student.
 
     """)
-    
-    consent = st.radio(
-        "Do you consent to participate in this study?",
-        ["Yes", "No"],
-        index=None,
-        key="consent"
-    )
 
-    if consent == "No":
-        st.warning("You must consent to participate in order to continue. Thank you for your time.")
-        st.stop()
+consent = st.radio("Do you consent to participate?", ["Yes", "No"], index=None)
 
-    if consent == "Yes":
-        st.session_state["consent_given"] = True
-        st.success("✅ Consent recorded. You may now proceed to the study.")
-        st.markdown("---")
-
-if __name__ == "__main__":
-    run_consent()
+if consent == "Yes":
+    st.session_state["consent_given"] = True
+    st.success("✅ Consent recorded. Redirecting...")
+    st.switch_page("pages/1_FeedbackApp.py")
+elif consent == "No":
+    st.warning("You must consent to proceed.")
+    st.stop()
