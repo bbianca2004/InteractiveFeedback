@@ -292,7 +292,8 @@ def send_and_clear():
                 "role": "assistant",
                 "content": gpt_reply
             })
-            st.session_state.task_log["messages"] = st.session_state.messages
+            
+        st.session_state.task_log["messages"] = st.session_state.messages
 
 
         st.session_state.student_reply = ""
