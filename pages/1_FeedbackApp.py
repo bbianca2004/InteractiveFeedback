@@ -311,6 +311,7 @@ if st.session_state.get("mode") in ["initial_feedback", "main"]:
 # -------- Finish Phase --------
 if st.session_state.get("attempt_submitted"):
     if st.button("✅ Finish Tutoring / Go to Evaluation"):
+        st.session_state.task_log["messages"] = st.session_state.messages
         st.session_state.show_rubric = True
 
     if st.session_state.get("show_rubric"):
