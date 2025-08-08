@@ -37,6 +37,10 @@ if "session_log_data" not in st.session_state:
     }
     st.session_state.task_completed = False
 
+if "task_index" not in st.session_state:
+    st.session_state.task_index = 0
+
+
 # ---------- SIDEBAR PROGRESS INDICATOR ----------
 def render_sidebar_stepper(current_step, steps):
     sidebar_html = '<div style="padding: 20px 10px;">'
