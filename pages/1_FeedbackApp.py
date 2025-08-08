@@ -407,6 +407,7 @@ if st.session_state.get("mode") == "followup":
                             prefix = f"task_{i+1}_"
                             flat[prefix + "problem"] = task["problem"]
                             flat[prefix + "attempt"] = task["student_attempt"]
+                            flat[prefix + "messages"] = json.dumps(task.get("messages", []))
                             flat[prefix + "rubrics"] = json.dumps(task.get("rubrics", {}))
                             flat[prefix + "followup_problem"] = task["similar_problem"]
                             flat[prefix + "followup_response"] = task["followup_response"]
