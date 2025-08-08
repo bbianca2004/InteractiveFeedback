@@ -54,29 +54,25 @@ def render_sidebar_stepper(current_step, steps):
         else:
             color = "#ccc"     # gray - upcoming
             emoji = "⚪"
-        
-        sidebar_html += f"""
-            <div style="margin-bottom: 15px;">
-                <div style="font-weight: bold; color: {color};">{emoji} Task {i+1}: {label}</div>
-            </div>
-        """
+
+        sidebar_html += (
+            f'<div style="margin-bottom: 15px;">'
+            f'<div style="font-weight: bold; color: {color};">'
+            f'{emoji} Task {i+1}: {label}'
+            f'</div></div>'
+        )
     sidebar_html += "</div>"
     st.sidebar.markdown(sidebar_html, unsafe_allow_html=True)
 
+# Call the stepper
 render_sidebar_stepper(
     st.session_state.task_index,
     ["Easy", "Medium", "Hard"]
 )
 
-
-# Hide sidebar nav
-st.markdown("""
-    <style>
-        [data-testid="stSidebarNav"] {
-            display: none;
-        }
-    </style>
-""", unsafe_allow_html=True)
+# Visual progress bar
+progress = (st.session_state.task_index + 1) / 3
+st.sidebar.progress(progress, text=f"{st.session_state.task_index + 1} of 3 tasks completed")
 
 if not st.session_state.get("consent_given"):
     st.warning("Consent required. Redirecting...")
