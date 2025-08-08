@@ -346,20 +346,29 @@ if st.session_state.get("mode") == "followup":
                 st.rerun()
         else:
             st.markdown("🎉 **All tasks completed! Great job!**")
+            st.markdown("### 💬 Additional Comments (optional)")
+            st.session_state.additional_comments = st.text_area("Anything else you'd like to share?", key="extra_comments")
+
             def flatten_session_log(log):
-                flat = {
-                    "student_id": log["student_id"],
-                }
-                for i, task in enumerate(log["tasks"]):
-                    prefix = f"task_{i+1}_"
-                    flat[prefix + "problem"] = task["problem"]
-                    flat[prefix + "attempt"] = task["student_attempt"]
-                    flat[prefix + "rubrics"] = json.dumps(task.get("rubrics", {}))
-                    flat[prefix + "followup_problem"] = task["similar_problem"]
-                    flat[prefix + "followup_response"] = task["followup_response"]
-                    flat[prefix + "followup_feedback"] = task["followup_feedback"]
-                return flat
-            final_data = flatten_session_log(st.session_state.session_log_data)
-            save_session_to_google_sheet(final_data)
+                        flat = {
+                            "student_id": log["student_id"],
+                        }
+                        for i, task in enumerate(log["tasks"]):
+                            prefix = f"task_{i+1}_"
+                            flat[prefix + "problem"] = task["problem"]
+                            flat[prefix + "attempt"] = task["student_attempt"]
+                            flat[prefix + "rubrics"] = json.dumps(task.get("rubrics", {}))
+                            flat[prefix + "followup_problem"] = task["similar_problem"]
+                            flat[prefix + "followup_response"] = task["followup_response"]
+                            flat[prefix + "followup_feedback"] = task["followup_feedback"]
+
+                        flat["additional_comments"] = log.get("additional_comments", "")
+                        return flat
+
+            if st.button("✅ Submit All & Save"):
+                st.session_state.session_log_data["additional_comments"] = st.session_state.get("additional_comments", "")
+                final_data = flatten_session_log(st.session_state.session_log_data)
+                save_session_to_google_sheet(final_data)
+                st.success("All your data has been saved!")
 
 
