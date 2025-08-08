@@ -276,13 +276,13 @@ def send_and_clear():
 
             # If user types "start" or "continue", switch mode to main tutoring session
             if user_msg.lower() in ["start", "continue"]:
-                st.session_state.messages = start_session(
+                new_session = start_session(
                     st.session_state.problem,
                     st.session_state.student_attempt,
                     st.session_state.correct_solution,
                     TUTOR_SYSTEM_PROMPT
                 )
-                st.session_state.task_log["messages"] = st.session_state.messages
+                st.session_state.messages.extend(new_session[1:])
                 st.session_state.mode = "main"
                 
 
@@ -292,7 +292,7 @@ def send_and_clear():
                 "role": "assistant",
                 "content": gpt_reply
             })
-            
+
         st.session_state.task_log["messages"] = st.session_state.messages
 
 
