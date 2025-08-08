@@ -24,7 +24,7 @@ from feedback_app.instructions import (
 )
 
 
-st.set_page_config(page_title="Tutoring", layout="wide")
+#st.set_page_config(page_title="Tutoring", layout="wide")
 
 # --------- Initialisation of session-wide log data ----------
 if "student_id" not in st.session_state:
@@ -373,24 +373,24 @@ if st.session_state.get("mode") == "followup":
             if st.button("➡️ Go to Next Task"):
                 st.session_state.task_index += 1
                 st.session_state.mode = "done"  # trigger task reload
-            for key in [
-                "problem",
-                "correct_solution",
-                "similar_problem",
-                "similar_solution",
-                "task_log",
-                "messages",
-                "student_reply",
-                "attempt_submitted",
-                "show_feedback",
-                "show_rubric",
-                "student_attempt"
-            ]:
-                if key in st.session_state:
-                    del st.session_state[key]
+                for key in [
+                    "problem",
+                    "correct_solution",
+                    "similar_problem",
+                    "similar_solution",
+                    "task_log",
+                    "messages",
+                    "student_reply",
+                    "attempt_submitted",
+                    "show_feedback",
+                    "show_rubric",
+                    "student_attempt"
+                ]:
+                    if key in st.session_state:
+                        del st.session_state[key]
 
-            st.session_state.task_completed = False
-            st.rerun()
+                st.session_state.task_completed = False
+                st.rerun()
         else:
             st.markdown("🎉 **All tasks completed! Great job!**")
             st.markdown("### 💬 Additional Comments (optional)")
