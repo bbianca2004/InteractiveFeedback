@@ -367,6 +367,7 @@ if st.session_state.get("mode") == "followup":
         st.markdown("### 🎯 Tutor Feedback:")
         st.success(st.session_state.feedback)
         if not st.session_state.task_completed:
+            st.session_state.task_log["messages"] = st.session_state.messages
             st.session_state.session_log_data["tasks"].append(st.session_state.task_log)
             st.session_state.task_completed = True
 
