@@ -37,6 +37,34 @@ if "session_log_data" not in st.session_state:
     }
     st.session_state.task_completed = False
 
+# ---------- SIDEBAR PROGRESS INDICATOR ----------
+def render_sidebar_stepper(current_step, steps):
+    sidebar_html = '<div style="padding: 20px 10px;">'
+    for i, label in enumerate(steps):
+        if i < current_step:
+            color = "#4CAF50"  # green - completed
+            emoji = "✅"
+        elif i == current_step:
+            color = "#2196F3"  # blue - current
+            emoji = "🔵"
+        else:
+            color = "#ccc"     # gray - upcoming
+            emoji = "⚪"
+        
+        sidebar_html += f"""
+            <div style="margin-bottom: 15px;">
+                <div style="font-weight: bold; color: {color};">{emoji} Task {i+1}: {label}</div>
+            </div>
+        """
+    sidebar_html += "</div>"
+    st.sidebar.markdown(sidebar_html, unsafe_allow_html=True)
+
+render_sidebar_stepper(
+    st.session_state.task_index,
+    ["Easy", "Medium", "Hard"]
+)
+
+
 # Hide sidebar nav
 st.markdown("""
     <style>
@@ -70,10 +98,10 @@ if "task_index" not in st.session_state:
 st.markdown("""
     <style>
         html, body, [class*="css"]  {
-            font-size: 18px !important;
+            font-size: 16px !important;
         }
         textarea, input {
-            font-size: 18px !important;
+            font-size: 16px !important;
         }
     </style>
 """, unsafe_allow_html=True)
