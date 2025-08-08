@@ -35,6 +35,8 @@ if "session_log_data" not in st.session_state:
         "student_id": st.session_state.student_id,
         "tasks": []
     }
+    st.session_state.task_completed = False
+
 # Hide sidebar nav
 st.markdown("""
     <style>
@@ -335,7 +337,9 @@ if st.session_state.get("mode") == "followup":
     if st.session_state.get("show_feedback"):
         st.markdown("### 🎯 Tutor Feedback:")
         st.success(st.session_state.feedback)
-        st.session_state.session_log_data["tasks"].append(st.session_state.task_log)
+        if not st.session_state.task_completed:
+            st.session_state.session_log_data["tasks"].append(st.session_state.task_log)
+            st.session_state.task_completed = True
 
         if st.session_state.task_index < len(TASKS) - 1:
             if st.button("➡️ Go to Next Task"):
@@ -357,11 +361,12 @@ if st.session_state.get("mode") == "followup":
                 if key in st.session_state:
                     del st.session_state[key]
 
+            st.session_state.task_completed = False
             st.rerun()
         else:
             st.markdown("🎉 **All tasks completed! Great job!**")
             st.markdown("### 💬 Additional Comments (optional)")
-            st.session_state.additional_comments = st.text_area("Anything else you'd like to share?", key="extra_comments")
+            st.session_state.additional_comments = st.text_area("Please share here anything you might like to add regarding this study. Did you find it usefull? Did the whole process go smoothly for you?", key="extra_comments")
 
             def flatten_session_log(log):
                         flat = {
