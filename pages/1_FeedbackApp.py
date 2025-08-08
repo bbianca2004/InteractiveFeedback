@@ -70,10 +70,10 @@ if "task_index" not in st.session_state:
 st.markdown("""
     <style>
         html, body, [class*="css"]  {
-            font-size: 25px !important;
+            font-size: 20px !important;
         }
         textarea, input {
-            font-size: 25px !important;
+            font-size: 20px !important;
         }
     </style>
 """, unsafe_allow_html=True)
