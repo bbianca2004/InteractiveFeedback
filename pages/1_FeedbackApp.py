@@ -410,7 +410,10 @@ if st.session_state.get("mode") == "followup":
             def flatten_session_log(log):
                         flat = {
                             "student_id": log["student_id"],
-                            "demographics": log["demographics"]
+                            "age": log["demographics"].get("age", ""),
+                            "gender": log["demographics"].get("gender", ""),
+                            "academic_background": log["demographics"].get("academic_background", ""),
+                            "academic_level": log["demographics"].get("academic_level", ""),
                         }
                         for i, task in enumerate(log["tasks"]):
                             prefix = f"task_{i+1}_"
