@@ -33,6 +33,7 @@ if "student_id" not in st.session_state:
 if "session_log_data" not in st.session_state:
     st.session_state.session_log_data = {
         "student_id": st.session_state.student_id,
+        "demographics": st.session_state.demographics,
         "tasks": []
     }
     st.session_state.task_completed = False
@@ -127,7 +128,6 @@ if st.session_state.task_index < len(TASKS):
         st.session_state.attempt_submitted = False
         st.session_state.show_feedback = False
         st.session_state.show_rubric = False
-
 
 # -------- Guard Clause --------
 if "messages" not in st.session_state:
@@ -323,7 +323,7 @@ if st.session_state.get("attempt_submitted"):
         st.radio("Diagnostic - the tutor correctly pointed out where and what the errors were in my judgement whenever i shared my own thoughts", [1, 2, 3, 4, 5], key="rubric_diagnostic", horizontal=True)
         st.radio("Correctness - the tutor does not make incorrect statements and is relevant to the current question and my answer", [1, 2, 3, 4, 5], key="rubric_correctness", horizontal=True)
         st.radio("Not Revealing - the tutor did not directly reveal the correct answer to me", [1, 2, 3, 4, 5], key="rubric_not_rev", horizontal=True)
-        st.radio("Applicable - the tutor gave me sound suggestions/hints that, when followed, have guided me to the correct solution", [1, 2, 3, 4, 5], key="rubric_applicable", horizontal=True)
+        st.radio("Actionability - the tutor gave me sound suggestions/hints that, when followed, have guided me to the correct solution", [1, 2, 3, 4, 5], key="rubric_applicable", horizontal=True)
         st.radio("Positive - the feedback is positive and has an encouraging tone", [1, 2, 3, 4, 5], key="rubric_positive", horizontal=True)
 
         if st.button("Submit Evaluation / Go to Follow-up", on_click = send_and_clear):
@@ -402,6 +402,7 @@ if st.session_state.get("mode") == "followup":
             def flatten_session_log(log):
                         flat = {
                             "student_id": log["student_id"],
+                            "demographics": log["demographics"]
                         }
                         for i, task in enumerate(log["tasks"]):
                             prefix = f"task_{i+1}_"
