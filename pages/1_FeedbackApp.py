@@ -30,6 +30,14 @@ from feedback_app.instructions import (
 if "student_id" not in st.session_state:
     st.session_state.student_id = f"user_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
 
+if "demographics" not in st.session_state:
+    st.session_state.demographics = {
+        "age": "",
+        "gender": "",
+        "academic_background": "",
+        "academic_level": ""
+    }
+
 if "session_log_data" not in st.session_state:
     st.session_state.session_log_data = {
         "student_id": st.session_state.student_id,
