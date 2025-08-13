@@ -25,6 +25,7 @@ from feedback_app.instructions import (
 
 
 #st.set_page_config(page_title="Tutoring", layout="wide")
+st.set_page_config(page_title="Tutoring Agent", layout="wide")
 
 # --------- Initialisation of session-wide log data ----------
 if "student_id" not in st.session_state:
@@ -46,8 +47,17 @@ if "session_log_data" not in st.session_state:
     }
     st.session_state.task_completed = False
 
+if "show_initial_rubric" not in st.session_state:
+    st.session_state.show_initial_rubric = False
+
+if "initial_rubric_submitted" not in st.session_state:
+    st.session_state.initial_rubric_submitted = False
+
 if "task_index" not in st.session_state:
     st.session_state.task_index = 0
+
+if "task_log" not in st.session_state:
+    st.session_state.task_log = {}
 
 
 # ---------- SIDEBAR PROGRESS INDICATOR ----------
@@ -92,7 +102,7 @@ CSV_PATH = r'data/student_math_work_posts_augmented_successful_only.csv'
 df = pd.read_csv(CSV_PATH)
 
 # -------- Streamlit Config --------
-st.set_page_config(page_title="Tutoring Agent", layout="wide")
+
 # Set up task progression (Easy → Medium → Hard)
 TASKS = [
     {"label": "Problem 1: Easy", "index": 5},
@@ -137,10 +147,6 @@ if st.session_state.task_index < len(TASKS):
         st.session_state.show_feedback = False
         st.session_state.show_rubric = False
 
-# -------- Guard Clause --------
-if "messages" not in st.session_state:
-    st.info("👈 Choose a row from the sidebar to begin.")
-    st.stop()
 
 # -------- Context --------
 # st.subheader("📘 Tutoring Context")
@@ -206,11 +212,54 @@ chat_styles = """
     border-radius: 6px;
 }
 
+.problem {
+    border-color: #9b59b6;
+    color: #9b59b6;
+    align-self: center;
+    text-align: left;
+    font-size: 20px;
+}
+
 </style>
 """
 
 st.markdown(chat_styles, unsafe_allow_html=True)
 st.markdown('<div class="chat-container">', unsafe_allow_html=True)
+
+if st.session_state.get("mode") in ["initial_feedback", "main"] and "initial_feedback" in st.session_state:
+    # problem bubble
+    st.markdown(f'<div class="bubble problem">🧩 <b>Problem:</b><br>{st.session_state.problem.replace("\n","<br>")}</div>', unsafe_allow_html=True)
+    # student attempt
+    st.markdown(f'<div class="bubble student">🧑‍🎓 <b>Initial attempt:</b><br>{st.session_state.student_attempt.replace("\n","<br>")}</div>', unsafe_allow_html=True)
+    # tutor initial feedback
+    st.markdown(f'<div class="bubble tutor">🤖 <b>Feedback:</b><br>{st.session_state.initial_feedback.replace("\n","<br>")}</div>', unsafe_allow_html=True)
+
+
+if st.session_state.show_initial_rubric and not st.session_state.initial_rubric_submitted:
+    st.markdown("### 🧭 Quick Check on the Initial Feedback")
+    st.caption("Please rate the *initial feedback* you just received. This is separate from the end-of-session evaluation.")
+
+    st.radio("Relevance – I clearly understand what the tutor is pointing out and it is relevant to the question.",
+             [1, 2, 3, 4, 5], key="init_clarity", horizontal=True)
+    st.radio("Usefulness – I had a clear idea of what i had missed in my initial solution",
+             [1, 2, 3, 4, 5], key="init_actionable", horizontal=True)
+    st.radio("Actionability – The feedback gave me easy to follow next steps, targeted to what I missed in my initial solution",
+             [1, 2, 3, 4, 5], key="init_focus", horizontal=True)
+    st.radio("Coverage – The tutor adressed the full solution",
+             [1, 2, 3, 4, 5], key="init_not_revealing", horizontal=True)
+
+    if st.button("✅ Submit Initial Feedback Evaluation"):
+        st.session_state.task_log.setdefault("initial_rubrics", {})
+        st.session_state.task_log["initial_rubrics"] = {
+            "Clarity": st.session_state.init_clarity,
+            "Actionable": st.session_state.init_actionable,
+            "Focus": st.session_state.init_focus,
+            "Not_Revealing": st.session_state.init_not_revealing,
+        }
+        st.session_state.initial_rubric_submitted = True
+        st.session_state.show_initial_rubric = False
+        st.session_state.mode = "main"          # switch to main
+        st.rerun()
 
 if st.session_state.get("mode") == "awaiting_first_attempt":
     st.subheader("✍️ Submit Your First Attempt")
@@ -236,84 +285,55 @@ if st.session_state.get("mode") == "awaiting_first_attempt":
         }
 
         # Now start the session using the user's typed answer
-        st.session_state.messages = start_session(
+        initial_feedback, seed_messages = start_session(
             st.session_state.problem,
             st.session_state.student_attempt,
             st.session_state.correct_solution,
             TUTOR_SYSTEM_PROMPT,
             INITIAL_FEEDBACK_TEMPLATE
         )
-
-        st.session_state.task_log["messages"] = st.session_state.messages
-
+        st.session_state.initial_feedback = initial_feedback
+        st.session_state.messages = seed_messages
         st.session_state.mode = "initial_feedback"
+        st.session_state.task_log["messages"] = st.session_state.messages
+        st.session_state.show_initial_rubric = True
+        st.session_state.initial_rubric_submitted = False
         st.rerun()
 
-for msg in st.session_state.messages[1:]:
-    role = msg["role"]
-    content = msg["content"].replace("\n", "<br>")
-
-    if role == "user":
-        bubble = f'<div class="bubble student">🧑‍🎓 <b>Student:</b><br>{content}</div>'
-    elif role == "assistant":
-        bubble = f'<div class="bubble tutor">🤖 <b>Tutor:</b><br>{content}</div>'
-    
-    st.markdown(bubble, unsafe_allow_html=True)
-
-st.markdown('</div>', unsafe_allow_html=True)
+if st.session_state.get("mode") == "main":
+    for msg in st.session_state.messages[2:]:  # skip system
+        role = msg["role"]
+        content = msg["content"].replace("\n", "<br>")
+        if role == "user":
+            bubble = f'<div class="bubble student">🧑‍🎓 <b>Student:</b><br>{content}</div>'
+        elif role == "assistant":
+            bubble = f'<div class="bubble tutor">🤖 <b>Tutor:</b><br>{content}</div>'
+        st.markdown(bubble, unsafe_allow_html=True)
 
 # -------- Input Interaction --------
 def send_and_clear():
-    if st.session_state.student_reply.strip() != "":
-        user_msg = st.session_state.student_reply.strip()
-        st.session_state.messages.append({
-            "role": "user",
-            "content": user_msg
-        })
+    text = st.session_state.student_reply.strip()
+    if not text:
+        return
+    # append and continue
+    st.session_state.messages.append({"role": "user", "content": text})
+    reply = continue_session(st.session_state.messages)
+    st.session_state.messages.append({"role": "assistant", "content": reply})
+    st.session_state.task_log["messages"] = st.session_state.messages
+    st.session_state.student_reply = ""
+    st.rerun()
 
-        st.session_state.task_log["messages"] = st.session_state.messages
-
-        if st.session_state.mode == "initial_feedback":
-            # GPT replies as tutor clarifying initial feedback
-            response = openai.chat.completions.create(
-                model="gpt-4o",
-                messages=st.session_state.messages
-            )
-            gpt_reply = response.choices[0].message.content
-            st.session_state.messages.append({"role": "assistant", "content": gpt_reply})
-
-            # If user types "start" or "continue", switch mode to main tutoring session
-            if user_msg.lower() in ["start", "continue"]:
-                new_session = start_session(
-                    st.session_state.problem,
-                    st.session_state.student_attempt,
-                    st.session_state.correct_solution,
-                    TUTOR_SYSTEM_PROMPT
-                )
-                st.session_state.messages.extend(new_session[1:])
-                st.session_state.mode = "main"
-                
-
-        else:  # normal tutoring session mode
-            gpt_reply = continue_session(st.session_state.messages)
-            st.session_state.messages.append({
-                "role": "assistant",
-                "content": gpt_reply
-            })
-
-        st.session_state.task_log["messages"] = st.session_state.messages
-
-
-        st.session_state.student_reply = ""
-        st.rerun()
 
 # -------- Show input during initial and main mode --------
 if st.session_state.get("mode") in ["initial_feedback", "main"]:
-    st.text_input(
-        "✍️ Enter your reply or question to the tutor:",
-        key="student_reply"
-    )
-    st.button("📨 Send Reply", on_click=send_and_clear)
+    if st.session_state.get("mode") == "initial_feedback" and not st.session_state.initial_rubric_submitted:
+        st.info("Please complete the quick evaluation above before replying.")
+    else:
+        st.text_input(
+            "✍️ Enter your reply or question to the tutor:",
+            key="student_reply"
+        )
+        st.button("📨 Send Reply", on_click=send_and_clear)
 
 
 # -------- Finish Phase --------
@@ -334,7 +354,7 @@ if st.session_state.get("attempt_submitted"):
         st.radio("Actionability - the tutor gave me sound suggestions/hints that, when followed, have guided me to the correct solution", [1, 2, 3, 4, 5], key="rubric_applicable", horizontal=True)
         st.radio("Positive - the feedback is positive and has an encouraging tone", [1, 2, 3, 4, 5], key="rubric_positive", horizontal=True)
 
-        if st.button("Submit Evaluation / Go to Follow-up", on_click = send_and_clear):
+        if st.button("Submit Evaluation / Go to Follow-up"):
             rubric_scores = {
                 "Diagnostic": st.session_state.rubric_diagnostic,
                 "Correctness": st.session_state.rubric_correctness,
@@ -395,7 +415,8 @@ if st.session_state.get("mode") == "followup":
                     "attempt_submitted",
                     "show_feedback",
                     "show_rubric",
-                    "student_attempt"
+                    "student_attempt",
+                    "show_initial_rubric","initial_rubric_submitted","initial_feedback"
                 ]:
                     if key in st.session_state:
                         del st.session_state[key]
@@ -419,6 +440,7 @@ if st.session_state.get("mode") == "followup":
                             prefix = f"task_{i+1}_"
                             flat[prefix + "problem"] = task["problem"]
                             flat[prefix + "attempt"] = task["student_attempt"]
+                            flat[prefix + "initial_rubrics"] = json.dumps(task.get("initial_rubrics", {}))
                             flat[prefix + "messages"] = json.dumps(task.get("messages", []))
                             flat[prefix + "rubrics"] = json.dumps(task.get("rubrics", {}))
                             flat[prefix + "followup_problem"] = task["similar_problem"]

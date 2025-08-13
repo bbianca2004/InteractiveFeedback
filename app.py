@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Hide the sidebar navigation
-st.set_page_config(page_title="AI Tutoring", layout="wide")
+st.set_page_config(page_title="Learn with Piccolo", layout="wide")
 hide_sidebar = """
     <style>
         [data-testid="stSidebarNav"] {

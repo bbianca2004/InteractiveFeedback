@@ -6,26 +6,56 @@ from google.oauth2.service_account import Credentials
 import streamlit as st
 import json
 
+from feedback_app.prompts import INITIAL_FEEDBACK_SYSTEM_PROMPT
+
 # Load API key from environment
 SPREADSHEET_ID = "1LudHYryIASXAWYaqpsNhjt1HXJQ_2S52D9b_XjtJ2W0"
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # ----------- MAIN SESSION FUNCTIONS -----------
 def provide_initial_feedback(problem, student_sol, correct_solution, initial_feedback_prompt):
-    filled_prompt = initial_feedback_prompt.format(
+    student_clean = (student_sol or "").strip().lower()
+    low_info = (len(student_clean) < 20) or student_clean in {"", "hmm", "idk", "?", "i don't know", "na"}
+
+    system_msg = INITIAL_FEEDBACK_SYSTEM_PROMPT
+
+    if low_info:
+                # Even stricter instructions for empty attempts
+                user_template = """Problem:
+        {problem}
+
+        Student wrote EXACTLY:
+        <<<
+        {student_sol}
+        >>>
+
+        Official Solution (use only to guide hints; NEVER reveal it):
+        {correct_solution}
+
+        The student provided no substantive attempt. Do NOT critique non-existent steps.
+        - Say you can't evaluate yet because there are no steps.
+        - Give 1–2 concrete starter hints or guiding questions (tiny, not revealing).
+        - Invite them to try an attempt."""
+    else:
+        user_template = initial_feedback_prompt
+
+    filled = user_template.format(
         problem=problem,
         student_sol=student_sol,
         correct_solution=correct_solution
     )
-    response = openai.chat.completions.create(
-        model="gpt-4o",
-        messages=[
-            { "role": "system", "content": "You are a helpful and supportive discrete math tutor." },
-            { "role": "user", "content": filled_prompt }
-        ]
-    )
 
-    return response.choices[0].message.content
+    resp = openai.chat.completions.create(
+        model="gpt-4o",
+        temperature=0.2,      # reduce “creative guessing”
+        top_p=0.2,
+        presence_penalty=0.0,
+        messages=[
+            {"role": "system", "content": system_msg},
+            {"role": "user", "content": filled},
+        ],
+    )
+    return resp.choices[0].message.content
 
 def start_session(problem, student_sol, correct_solution, system_prompt, initial_feedback_prompt):
     # Generate initial feedback
@@ -52,17 +82,10 @@ def start_session(problem, student_sol, correct_solution, system_prompt, initial
 
     messages = [
         {"role": "system", "content": system_prompt + "\n" + tutoring_context},
-        {"role": "user", "content": f"""
-                    [PROBLEM]
-                    {problem}
-
-                    [STUDENT_ATTEMPT]
-                    {student_sol} """
-        },
         {"role": "assistant", "content": initial_feedback}
     ]
 
-    return messages
+    return initial_feedback, messages
 
 
 def continue_session(messages):
