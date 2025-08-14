@@ -45,11 +45,19 @@ def provide_initial_feedback(problem, student_sol, correct_solution, initial_fee
         correct_solution=correct_solution
     )
 
+    # resp = openai.chat.completions.create(
+    #     model="gpt-5",
+    #     temperature=0.2,      # reduce “creative guessing”
+    #     top_p=0.2,
+    #     presence_penalty=0.0,
+    #     messages=[
+    #         {"role": "system", "content": system_msg},
+    #         {"role": "user", "content": filled},
+    #     ],
+    # )
+
     resp = openai.chat.completions.create(
-        model="gpt-4o",
-        temperature=0.2,      # reduce “creative guessing”
-        top_p=0.2,
-        presence_penalty=0.0,
+        model="gpt-5",
         messages=[
             {"role": "system", "content": system_msg},
             {"role": "user", "content": filled},
@@ -90,7 +98,7 @@ def start_session(problem, student_sol, correct_solution, system_prompt, initial
 
 def continue_session(messages):
     response = openai.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-5",
         messages=messages
     )
     return response.choices[0].message.content
@@ -105,7 +113,7 @@ def evaluate_followup(problem, student_response, correct_solution, evaluation_pr
     )
 
     response = openai.chat.completions.create(
-        model="gpt-4-turbo",
+        model="gpt-5",
         messages=[
             {"role": "system", "content": "You are an objective math tutor evaluating student answers."},
             {"role": "user", "content": filled_prompt}

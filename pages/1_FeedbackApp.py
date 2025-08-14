@@ -3,6 +3,8 @@ import openai
 import pandas as pd
 from datetime import datetime
 import json
+import math
+import re
 from feedback_app.interactiveAgent import (
     start_session,
     continue_session,
@@ -27,6 +29,8 @@ from feedback_app.instructions import (
 #st.set_page_config(page_title="Tutoring", layout="wide")
 st.set_page_config(page_title="Tutoring Agent", layout="wide")
 
+
+
 # --------- Initialisation of session-wide log data ----------
 if "student_id" not in st.session_state:
     st.session_state.student_id = f"user_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
@@ -49,6 +53,9 @@ if "session_log_data" not in st.session_state:
 
 if "show_initial_rubric" not in st.session_state:
     st.session_state.show_initial_rubric = False
+
+if "finish_button_clicked" not in st.session_state:
+    st.session_state.finish_button_clicked = False
 
 if "initial_rubric_submitted" not in st.session_state:
     st.session_state.initial_rubric_submitted = False
@@ -124,6 +131,76 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
+
+# --- Toggle in sidebar ---
+st.sidebar.subheader("🧮 Calculator")
+
+# --- init session state ---
+if "calc_expr" not in st.session_state:
+    st.session_state.calc_expr = ""
+
+# --- helper to update expression BEFORE the input is rendered ---
+def _append(txt):
+    if st.session_state.calc_expr == "Error":
+        st.session_state.calc_expr = ""
+    st.session_state.calc_expr += txt
+
+def _evaluate():
+    try:
+        expr_eval = re.sub(r"\s+", "", st.session_state.calc_expr)
+
+        # 5nCr3 or nCr(5,3)
+        expr_eval = re.sub(r"(\d+)nCr(\d+)", r"math.comb(\1,\2)", expr_eval)
+        expr_eval = expr_eval.replace("nCr(", "math.comb(")
+
+        # 5nPr2 or nPr(5,2)
+        expr_eval = re.sub(r"(\d+)nPr(\d+)", r"math.perm(\1,\2)", expr_eval)
+        expr_eval = expr_eval.replace("nPr(", "math.perm(")
+
+        # factorial like 5!
+        while re.search(r"(\d+)!", expr_eval):
+            expr_eval = re.sub(r"(\d+)!", r"math.factorial(\1)", expr_eval)
+
+        result = eval(expr_eval, {"math": math, "__builtins__": None}, {})
+        st.session_state.calc_expr = str(result)
+    except Exception:
+        st.session_state.calc_expr = "Error"
+
+def _clear():
+    st.session_state.calc_expr = ""
+
+# --- buttons (we update state before rendering the input) ---
+ops_map = {"÷": "/", "×": "*", "−": "-", "＋": "+"}
+
+rows = [
+    ["0","1","2","÷"],
+    ["3","4","5","×"],
+    ["6","7","8","−"],
+    ["9",".","＋","="],
+    ["nCr","nPr","n!","Clear"],
+]
+
+for r_idx, row in enumerate(rows):
+    cols = st.sidebar.columns(4, gap="small")
+    for c_idx, b in enumerate(row):
+        # safe, alphanumeric key
+        if cols[c_idx].button(b, key=f"btn_{r_idx}_{c_idx}"):
+            if b == "=":
+                _evaluate()
+            elif b == "Clear":
+                _clear()
+            elif b == "n!":
+                _append("!")
+            elif b in ops_map:
+                _append(ops_map[b])    # append real operator
+            else:
+                _append(b)
+
+# --- NOW RENDER THE INPUT (binds to the updated state) ---
+st.sidebar.text_input("Expression", key="calc_expr", placeholder="e.g. 5nCr3 + 2*4 or 5!")
+
+st.sidebar.caption("Supports: `nCr`, `nPr`, factorial `!`, and basic arithmetic.")
+
 
 st.title("💡 AI Tutoring System")
 
@@ -237,7 +314,7 @@ if st.session_state.get("mode") in ["initial_feedback", "main"] and "initial_fee
 
 if st.session_state.show_initial_rubric and not st.session_state.initial_rubric_submitted:
     st.markdown("### 🧭 Quick Check on the Initial Feedback")
-    st.caption("Please rate the *initial feedback* you just received. This is separate from the end-of-session evaluation.")
+    st.caption("Please rate the initial feedback you have just received. You will be able to leave some final feedback at the end of the interaction session.")
 
     st.radio("Relevance – I clearly understand what the tutor is pointing out and it is relevant to the question.",
              [1, 2, 3, 4, 5], key="init_clarity", horizontal=True)
@@ -337,10 +414,12 @@ if st.session_state.get("mode") in ["initial_feedback", "main"]:
 
 
 # -------- Finish Phase --------
-if st.session_state.get("attempt_submitted"):
+if st.session_state.initial_rubric_submitted:
     if st.button("✅ Finish Tutoring / Go to Evaluation"):
         st.session_state.task_log["messages"] = st.session_state.messages
         st.session_state.show_rubric = True
+        st.session_state.finish_button_clicked = True
+        st.rerun()
 
     if st.session_state.get("show_rubric"):
         st.markdown("## 🧪 Evaluate the Tutoring Experience")
