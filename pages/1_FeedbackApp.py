@@ -66,6 +66,12 @@ if "task_index" not in st.session_state:
 if "task_log" not in st.session_state:
     st.session_state.task_log = {}
 
+if "api_messages" not in st.session_state:
+    st.session_state.api_messages = []     # includes system, what you send to OpenAI
+
+if "transcript" not in st.session_state:
+    st.session_state.transcript = [] 
+
 
 # ---------- SIDEBAR PROGRESS INDICATOR ----------
 def render_sidebar_stepper(current_step, steps):
@@ -218,6 +224,11 @@ if st.session_state.task_index < len(TASKS):
         st.session_state.similar_solution = row.get("new_solution", "")
         st.session_state.task_log = {}
         st.session_state.mode = "awaiting_first_attempt"
+
+        st.session_state.api_messages = []               # what you send to the API
+        st.session_state.transcript = []                 # what you render/save (no system)
+        st.session_state.initial_feedback = ""        
+
         st.session_state.messages = []
         st.session_state.student_reply = ""
         st.session_state.attempt_submitted = False
@@ -311,7 +322,6 @@ if st.session_state.get("mode") in ["initial_feedback", "main"] and "initial_fee
     # tutor initial feedback
     st.markdown(f'<div class="bubble tutor">🤖 <b>Feedback:</b><br>{st.session_state.initial_feedback.replace("\n","<br>")}</div>', unsafe_allow_html=True)
 
-
 if st.session_state.show_initial_rubric and not st.session_state.initial_rubric_submitted:
     st.markdown("### 🧭 Quick Check on the Initial Feedback")
     st.caption("Please rate the initial feedback you have just received. You will be able to leave some final feedback at the end of the interaction session.")
@@ -348,10 +358,25 @@ if st.session_state.get("mode") == "awaiting_first_attempt":
         st.session_state.student_attempt = first_attempt.strip()
         st.session_state["attempt_submitted"] = True 
 
+        # Now start the session using the user's typed answer
+        initial_feedback, seed_messages = start_session(
+            st.session_state.problem,
+            st.session_state.student_attempt,
+            st.session_state.correct_solution,
+            TUTOR_SYSTEM_PROMPT,
+            INITIAL_FEEDBACK_TEMPLATE
+        )
+
+        st.session_state.api_messages = seed_messages[:]   # copy
+        st.session_state.transcript = []
+        st.session_state.initial_feedback = initial_feedback
+        st.session_state.messages = seed_messages
+
         st.session_state.task_log = {
             "problem": st.session_state.problem,
             "student_attempt": st.session_state.student_attempt,
             "correct_solution": st.session_state.correct_solution,
+            "initial_feedback": st.session_state.initial_feedback,
             "messages": [],
             "similar_problem": st.session_state.similar_problem,
             "similar_solution": st.session_state.similar_solution,
@@ -361,29 +386,18 @@ if st.session_state.get("mode") == "awaiting_first_attempt":
             "timestamp": str(datetime.now())
         }
 
-        # Now start the session using the user's typed answer
-        initial_feedback, seed_messages = start_session(
-            st.session_state.problem,
-            st.session_state.student_attempt,
-            st.session_state.correct_solution,
-            TUTOR_SYSTEM_PROMPT,
-            INITIAL_FEEDBACK_TEMPLATE
-        )
-        st.session_state.initial_feedback = initial_feedback
-        st.session_state.messages = seed_messages
         st.session_state.mode = "initial_feedback"
-        st.session_state.task_log["messages"] = st.session_state.messages
+        st.session_state.task_log["messages"] = [m.copy() for m in st.session_state.transcript]
         st.session_state.show_initial_rubric = True
         st.session_state.initial_rubric_submitted = False
         st.rerun()
 
 if st.session_state.get("mode") == "main":
-    for msg in st.session_state.messages[2:]:  # skip system
-        role = msg["role"]
+    for msg in st.session_state.transcript:
         content = msg["content"].replace("\n", "<br>")
-        if role == "user":
+        if msg["role"] == "user":
             bubble = f'<div class="bubble student">🧑‍🎓 <b>Student:</b><br>{content}</div>'
-        elif role == "assistant":
+        elif msg["role"] == "assistant":
             bubble = f'<div class="bubble tutor">🤖 <b>Tutor:</b><br>{content}</div>'
         st.markdown(bubble, unsafe_allow_html=True)
 
@@ -392,13 +406,25 @@ def send_and_clear():
     text = st.session_state.student_reply.strip()
     if not text:
         return
-    # append and continue
-    st.session_state.messages.append({"role": "user", "content": text})
-    reply = continue_session(st.session_state.messages)
-    st.session_state.messages.append({"role": "assistant", "content": reply})
-    st.session_state.task_log["messages"] = st.session_state.messages
+
+    # 1) Append user turn to BOTH
+    st.session_state.api_messages.append({"role": "user", "content": text})
+    st.session_state.transcript.append({"role": "user", "content": text})
+
+    # 2) Get assistant reply using API messages
+    reply = continue_session(st.session_state.api_messages)
+
+    # 3) Append assistant turn to BOTH
+    st.session_state.api_messages.append({"role": "assistant", "content": reply})
+    st.session_state.transcript.append({"role": "assistant", "content": reply})
+
+    # 4) Save a deep copy to the task_log (so later mutations don’t affect saved data)
+    st.session_state.task_log["messages"] = [m.copy() for m in st.session_state.transcript]
+
+    # 5) Clear the input + rerun
     st.session_state.student_reply = ""
     st.rerun()
+
 
 
 # -------- Show input during initial and main mode --------
@@ -414,14 +440,15 @@ if st.session_state.get("mode") in ["initial_feedback", "main"]:
 
 
 # -------- Finish Phase --------
-if st.session_state.initial_rubric_submitted:
+if st.session_state.get("mode") == "main" and st.session_state.initial_rubric_submitted:
     if st.button("✅ Finish Tutoring / Go to Evaluation"):
-        st.session_state.task_log["messages"] = st.session_state.messages
+        st.session_state.task_log["messages"] = [m.copy() for m in st.session_state.transcript]
         st.session_state.show_rubric = True
         st.session_state.finish_button_clicked = True
+        st.session_state.mode = "evaluation"
         st.rerun()
 
-    if st.session_state.get("show_rubric"):
+if st.session_state.get("mode") == "evaluation" and st.session_state.get("show_rubric"):
         st.markdown("## 🧪 Evaluate the Tutoring Experience")
         st.markdown(f'<div class="instruction-box">{RUBRIC_INSTRUCTIONS}</div>', unsafe_allow_html=True)
 
@@ -445,7 +472,6 @@ if st.session_state.initial_rubric_submitted:
             st.session_state.task_log["rubrics"] = rubric_scores
             st.success("Evaluation Submitted!")
             st.session_state.show_rubric = False
-
             st.session_state.mode = "followup"
             st.rerun()
 
@@ -475,7 +501,7 @@ if st.session_state.get("mode") == "followup":
         st.markdown("### 🎯 Tutor Feedback:")
         st.success(st.session_state.feedback)
         if not st.session_state.task_completed:
-            st.session_state.task_log["messages"] = st.session_state.messages
+            st.session_state.task_log["messages"] = [m.copy() for m in st.session_state.transcript]
             st.session_state.session_log_data["tasks"].append(st.session_state.task_log)
             st.session_state.task_completed = True
 
@@ -507,6 +533,11 @@ if st.session_state.get("mode") == "followup":
             st.markdown("### 💬 Additional Comments (optional)")
             st.session_state.additional_comments = st.text_area("Please share here anything you might like to add regarding this study. Did you find it usefull? Did the whole process go smoothly for you?", key="extra_comments")
 
+            def compact(messages):
+                # Optional: rename roles for readability
+                role_map = {"assistant":"Tutor","user":"Student"}
+                return [{"who": role_map.get(m["role"], m["role"]), "text": m["content"]} for m in messages]
+            
             def flatten_session_log(log):
                         flat = {
                             "student_id": log["student_id"],
@@ -519,8 +550,10 @@ if st.session_state.get("mode") == "followup":
                             prefix = f"task_{i+1}_"
                             flat[prefix + "problem"] = task["problem"]
                             flat[prefix + "attempt"] = task["student_attempt"]
+                            flat[prefix + "initial_feedback"] = task.get("initial_feedback", "")    
                             flat[prefix + "initial_rubrics"] = json.dumps(task.get("initial_rubrics", {}))
-                            flat[prefix + "messages"] = json.dumps(task.get("messages", []))
+                            clean = compact(task.get("messages", []))
+                            flat[prefix + "messages"] = json.dumps(clean, ensure_ascii=False)
                             flat[prefix + "rubrics"] = json.dumps(task.get("rubrics", {}))
                             flat[prefix + "followup_problem"] = task["similar_problem"]
                             flat[prefix + "followup_response"] = task["followup_response"]
