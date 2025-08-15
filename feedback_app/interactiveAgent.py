@@ -46,7 +46,7 @@ def provide_initial_feedback(problem, student_sol, correct_solution, initial_fee
     )
 
     resp = openai.chat.completions.create(
-        model="gpt-5",
+        model="gpt-4o",
         temperature=0.2,      # reduce “creative guessing”
         top_p=0.2,
         presence_penalty=0.0,
