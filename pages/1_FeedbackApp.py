@@ -333,7 +333,7 @@ if st.session_state.show_initial_rubric and not st.session_state.initial_rubric_
     st.radio("Actionability – The feedback gave me easy to follow next steps, targeted to what I missed in my initial solution",
              [1, 2, 3, 4, 5], key="init_focus", horizontal=True)
     st.radio("Coverage – The tutor adressed the full solution",
-             [1, 2, 3, 4, 5], key="init_not_revealing", horizontal=True)
+             [1, 2, 3, 4, 5], key="init_coverage", horizontal=True)
 
     if st.button("✅ Submit Initial Feedback Evaluation"):
         st.session_state.task_log.setdefault("initial_rubrics", {})
@@ -341,7 +341,7 @@ if st.session_state.show_initial_rubric and not st.session_state.initial_rubric_
             "Clarity": st.session_state.init_clarity,
             "Actionable": st.session_state.init_actionable,
             "Focus": st.session_state.init_focus,
-            "Not_Revealing": st.session_state.init_not_revealing,
+            "Coverage": st.session_state.init_coverage,
         }
         st.session_state.initial_rubric_submitted = True
         st.session_state.show_initial_rubric = False
@@ -456,7 +456,7 @@ if st.session_state.get("mode") == "evaluation" and st.session_state.get("show_r
 
         st.radio("Diagnostic - the tutor correctly pointed out where and what the errors were in my judgement whenever i shared my own thoughts", [1, 2, 3, 4, 5], key="rubric_diagnostic", horizontal=True)
         st.radio("Correctness - the tutor does not make incorrect statements and is relevant to the current question and my answer", [1, 2, 3, 4, 5], key="rubric_correctness", horizontal=True)
-        st.radio("Not Revealing - the tutor did not directly reveal the correct answer to me", [1, 2, 3, 4, 5], key="rubric_not_rev", horizontal=True)
+        st.radio("Kept answer hidden - the tutor did not directly reveal the correct answer to me", [1, 2, 3, 4, 5], key="rubric_not_rev", horizontal=True)
         st.radio("Actionability - the tutor gave me sound suggestions/hints that, when followed, have guided me to the correct solution", [1, 2, 3, 4, 5], key="rubric_applicable", horizontal=True)
         st.radio("Positive - the feedback is positive and has an encouraging tone", [1, 2, 3, 4, 5], key="rubric_positive", horizontal=True)
 
@@ -464,7 +464,7 @@ if st.session_state.get("mode") == "evaluation" and st.session_state.get("show_r
             rubric_scores = {
                 "Diagnostic": st.session_state.rubric_diagnostic,
                 "Correctness": st.session_state.rubric_correctness,
-                "Not Revealing": st.session_state.rubric_not_rev,
+                "Kept answer hidden": st.session_state.rubric_not_rev,
                 "Applicable": st.session_state.rubric_applicable,
                 "Positive": st.session_state.rubric_positive,
             }
