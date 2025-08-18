@@ -324,7 +324,7 @@ if st.session_state.get("mode") in ["initial_feedback", "main"] and "initial_fee
 
 if st.session_state.show_initial_rubric and not st.session_state.initial_rubric_submitted:
     st.markdown("### 🧭 Quick Check on the Initial Feedback")
-    st.caption("Please rate the initial feedback you have just received. You will be able to leave some final feedback at the end of the interaction session.")
+    st.caption("Please rate the initial feedback you have just received from 1(worst) to 5(best). You will be able to leave some final feedback at the end of the interaction session.")
 
     st.radio("Relevance – I clearly understand what the tutor is pointing out and it is relevant to the question.",
              [1, 2, 3, 4, 5], key="init_clarity", horizontal=True)
@@ -340,9 +340,9 @@ if st.session_state.show_initial_rubric and not st.session_state.initial_rubric_
     if st.button("✅ Submit Initial Feedback Evaluation"):
         st.session_state.task_log.setdefault("initial_rubrics", {})
         st.session_state.task_log["initial_rubrics"] = {
-            "Clarity": st.session_state.init_clarity,
-            "Actionable": st.session_state.init_actionable,
-            "Focus": st.session_state.init_focus,
+            "Relevance": st.session_state.init_clarity,
+            "Usefulness": st.session_state.init_actionable,
+            "Actionability": st.session_state.init_focus,
             "Coverage": st.session_state.init_coverage,
             "Conciseness": st.session_state.init_conciseness
         }
