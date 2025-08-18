@@ -332,8 +332,10 @@ if st.session_state.show_initial_rubric and not st.session_state.initial_rubric_
              [1, 2, 3, 4, 5], key="init_actionable", horizontal=True)
     st.radio("Actionability – The feedback gave me easy to follow next steps, targeted to what I missed in my initial solution",
              [1, 2, 3, 4, 5], key="init_focus", horizontal=True)
-    st.radio("Coverage – The tutor adressed the full solution",
+    st.radio("Coverage – The tutor's feedback adressed all the components of my solution",
              [1, 2, 3, 4, 5], key="init_coverage", horizontal=True)
+    st.radio("Conciseness – The tutor's response to my initial solution was clear and readable, with minimal redundancy",
+             [1, 2, 3, 4, 5], key="init_conciseness", horizontal=True)
 
     if st.button("✅ Submit Initial Feedback Evaluation"):
         st.session_state.task_log.setdefault("initial_rubrics", {})
@@ -342,6 +344,7 @@ if st.session_state.show_initial_rubric and not st.session_state.initial_rubric_
             "Actionable": st.session_state.init_actionable,
             "Focus": st.session_state.init_focus,
             "Coverage": st.session_state.init_coverage,
+            "Conciseness": st.session_state.init_conciseness
         }
         st.session_state.initial_rubric_submitted = True
         st.session_state.show_initial_rubric = False
