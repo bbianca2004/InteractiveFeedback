@@ -135,7 +135,7 @@ ways. Now we have to choose the
 kinds of the remaining 3 cards (three different kinds, each different than the pair kind). This
 can be done in C(12, 3)
 ways. For each of the 3 chosen kinds there are 4 suits, so we can choose
-the suits in 4 ^ 3 = C(4, 1) ^ 3. Finally, the total number of one-pair hands is 13 * 6 * 220 * 64 ",How many sets of 10 poker cards contain 3 different pairs(3 pairs of cards of the same kind and 4 cards of 4 other kinds)?,"The number of 10-card poker hands with 3 different pairs and 4 other cards of distinct ranks is:
+the suits in 4 ^ 3 = C(4, 1) ^ 3. Finally, the total number of one-pair hands is 13 * 6 * 220 * 64  = 1098240",How many sets of 10 poker cards contain 3 different pairs(3 pairs of cards of the same kind and 4 cards of 4 other kinds)?,"The number of 10-card poker hands with 3 different pairs and 4 other cards of distinct ranks is:
 
 C(13,3) * [C(4,2)]^3 * C(10,4) * 4^4
 

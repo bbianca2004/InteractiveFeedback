@@ -39,4 +39,4 @@ if submit_button:
     st.session_state["demographics_submitted"] = True
 
     # After demographic info is saved, you can move to the tutoring page
-    st.switch_page("pages/1_FeedbackApp.py")
+    st.switch_page("pages/3_Instructions.py")
